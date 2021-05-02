@@ -168,7 +168,23 @@
 						</tr>
 					</table>
 				</form>
-			</div>
+			</div> <!--/card-body-->
+			<div class="card-footer">
+				<div class="form-group">
+					قیمت کل : <span class="total_price"> 0 </span>
+				</div>
+				<div class="form-group">
+					<select class="form-control" name="table_order" id="table_order" class="table_order">
+						<option value=""> انتخاب میز </option>
+						@foreach($tables as $table)
+							<option value="{{ $table->location_id }}"> {{ $table->name ." " . $table->floor->floor_name }} </option>	
+						@endforeach
+					</select>
+				</div>
+				<div class="form-group">
+					<button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
+				</div>
+			</div> <!--/card-footer-->
 		</div>
 	</div> <!--/col-->
 </div> <!--/row-->
@@ -249,7 +265,7 @@
 	#discount{
 		width:70px;
 	}
-	#order_cancel span{
+	.order_cancel span{
 		color:red;
 		cursor: pointer;
 	}
@@ -260,6 +276,7 @@
 <script type="text/javascript">
    jQuery(document).ready(function(){
 	   
+	   var total = 0;
 	   jQuery('.process').click(function(){
 		   
 			var order_name = jQuery(this).siblings('#name').text();
@@ -278,14 +295,29 @@
 					+'<td id="order_price">'
 						+'<span>'+ order_price +'</span>'
 					+'</td>'
-					+'<td id="order_cancel" onclick="this.parentElement.remove()">'
+					+'<td class="order_cancel" onclick="this.parentElement.remove()">'
 						+'<span class="fa fa-trash"><span>'
 					+'</td>'
 				+'</tr>'
 			); // append to the form
-		   
+			
+			total = (parseInt(total) + (order_amount * order_price));
+		    $(".total_price").html(total);
+			
 	   }); // end or process order function
-	   
+	   	   
+	   jQuery(document).on('click', '.order_cancel', function(){
+		
+		   var order_price = jQuery(this).siblings('#order_price').children('span').text();
+		   var order_amount = jQuery(this).siblings('#order_amount').children('span').text();
+		   
+		   total = (parseInt(total) - (order_amount * order_price));
+		   $(".total_price").html(total);
+		
+	  });
+	  jQuery("#table_order").select2({
+		  dir: "rtl"
+		});
    });
 
 </script>

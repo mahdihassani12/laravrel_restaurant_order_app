@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap-rtl.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/css/custom-style.css') }}">
+  <link rel="stylesheet" href="{{ asset('/assets/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/custom/custom.css') }}">
   @yield('style')
 </head>
@@ -43,6 +44,7 @@
 <script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('/assets/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('/assets/js/select2.min.js') }}"></script>
   @yield('script')
 </body>
 </html>

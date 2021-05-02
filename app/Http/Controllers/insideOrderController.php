@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\InsideOrder;
+use App\Table;
 
 class insideOrderController extends Controller
 {
@@ -43,7 +44,8 @@ class insideOrderController extends Controller
             ->select('menu.*')
             ->get();
 
-        return view('order.insideOrder.create',compact(['food','drink','icecream']));
+        $tables = Table::all();
+        return view('order.insideOrder.create',compact(['food','drink','icecream','tables']));
     }
 
     /**
