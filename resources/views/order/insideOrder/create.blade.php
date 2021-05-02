@@ -185,6 +185,7 @@
 					<button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
 				</div>
 			</div> <!--/card-footer-->
+			</div>
 		</div>
 	</div> <!--/col-->
 </div> <!--/row-->

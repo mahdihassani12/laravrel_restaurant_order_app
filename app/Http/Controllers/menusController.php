@@ -20,19 +20,19 @@ class menusController extends Controller
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
             ->where('categories.name','LIKE', '%فست فوت%')
             ->select('menu.*')
-            ->get(); 
+            ->paginate(10,['*'],'food');
          
         $drink = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
             ->where('categories.name','LIKE', '%نوشیدنی%')
             ->select('menu.*')
-            ->get();
+            ->paginate(10,['*'],'drink');
         
         $icecream = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
             ->where('categories.name','LIKE', '%بستنی%')
             ->select('menu.*')
-            ->get();
+            ->paginate(10,['*'],'iceCream');
 
         return view('dashboard.menus.index',compact(['food','drink','icecream']));
     }

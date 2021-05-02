@@ -22,7 +22,7 @@
 						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#icecream" role="tab" aria-controls="nav-contact" aria-selected="false">بستنی</a>
 					</div>
 				</nav>
-				<div class="tab-content" id="nav-tabContent">
+				<div class="tab-content" id="nav-tabContent" >
 					<div class="tab-pane fade show active" id="food" role="tabpanel" aria-labelledby="nav-home-tab">
 						<table class="table" cellspacing="0">
 							<thead>
@@ -64,6 +64,9 @@
 								</tr>
 							</tfoot>
 						</table>
+						<div id="pagination">
+							{{$food->links()}}
+						</div>
 					</div>
 					<div class="tab-pane fade" id="drink" role="tabpanel" aria-labelledby="nav-profile-tab">
 						<table class="table" cellspacing="0">
@@ -106,6 +109,10 @@
 								</tr>
 							</tfoot>
 						</table>
+						<div id="pagination">
+
+							{{ $drink->fragment('drink')->links() }}
+						</div>
 					</div>
 					<div class="tab-pane fade" id="icecream" role="tabpanel" aria-labelledby="nav-contact-tab">
 						<table class="table" cellspacing="0">
@@ -148,6 +155,10 @@
 								</tr>
 							</tfoot>
 						</table>
+						<div id="pagination">
+
+							{{ $icecream->fragment('icecream')->links() }}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -225,6 +236,18 @@
 
 @section('script')
 <script type="text/javascript">
-   
+    $(document).ready(function(){
+
+        var url = document.location.toString();
+        if (url.match('#')) {
+            $('.nav-tabs a[href="#' + url.split('#')[1] + '"]')[0].click();
+        }
+
+        //To make sure that the page always goes to the top
+        setTimeout(function () {
+            window.scrollTo(0, 0);
+        },200);
+
+    });
 </script>
 @endsection

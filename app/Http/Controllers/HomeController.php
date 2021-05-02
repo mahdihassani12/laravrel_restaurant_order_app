@@ -23,7 +23,7 @@ class HomeController extends Controller
     */ 
     public function kitchenDashboard()
     {
-        echo "kitchenDashboard";
+        return view('Kitchen.welcome');
     }
 
     /*
