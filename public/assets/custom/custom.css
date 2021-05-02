@@ -1,0 +1,35 @@
+.signin-form , .signup-form{
+	direction: rtl;
+}
+.signup-form select{
+	width: 100%;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding: 6px 30px;
+    font-family: Poppins;
+    box-sizing: border-box;
+}
+.auth_mail{
+	padding: 22px 0;
+}
+.signup{
+	margin-bottom: unset;
+}
+.validation span{
+    color: #28a745!important;
+    font-size: 15px;
+    display: inline-block;
+    padding-top: 5px;
+}
+#form_delete{
+    display: inline;
+}
+#form_delete button{
+    border:unset;
+    background: unset;
+    cursor: pointer;
+}
+#form_delete button:focus{
+    outline: unset;
+}
