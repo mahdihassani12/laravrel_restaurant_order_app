@@ -163,19 +163,9 @@
 						<tr>
 							<th> اسم سفارش </th>
 							<th> تعداد </th>
-							<th> قیمت </th>
+							<th> قیمت فی </th>
+							<th> لغو </th>
 						</tr>
-						<tr class="order_row">
-							<td id="order_name">
-								<span> چیپس </span>
-							</td>
-							<td id="order_amount">
-								<span>۲</span>
-							</td>
-							<td id="order_price">
-								<span> ۲۰۰ </span>
-							</td>
-						</tr>	
 					</table>
 				</form>
 			</div>
@@ -259,6 +249,10 @@
 	#discount{
 		width:70px;
 	}
+	#order_cancel span{
+		color:red;
+		cursor: pointer;
+	}
   </style>
 @endsection
 
@@ -266,6 +260,33 @@
 <script type="text/javascript">
    jQuery(document).ready(function(){
 	   
+	   jQuery('.process').click(function(){
+		   
+			var order_name = jQuery(this).siblings('#name').text();
+			var order_id = jQuery(this).siblings('#name').attr('menu_id');
+			var order_price = jQuery(this).siblings('#price').text();
+			var order_amount = jQuery(this).siblings('#amount').children('input#amount').val();
+
+			jQuery('#order table').append(
+				'<tr class="order_row">'
+					+'<td id="order_name">'
+						+'<span>'+ order_name +'</span>'
+					+'</td>'
+					+'<td id="order_amount">'
+						+'<span>'+ order_amount +'</span>'
+					+'</td>'
+					+'<td id="order_price">'
+						+'<span>'+ order_price +'</span>'
+					+'</td>'
+					+'<td id="order_cancel" onclick="this.parentElement.remove()">'
+						+'<span class="fa fa-trash"><span>'
+					+'</td>'
+				+'</tr>'
+			); // append to the form
+		   
+	   }); // end or process order function
+	   
    });
+
 </script>
 @endsection
