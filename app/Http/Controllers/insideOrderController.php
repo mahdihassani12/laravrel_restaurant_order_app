@@ -18,7 +18,8 @@ class insideOrderController extends Controller
      */
     public function index()
     {
-        //
+		$orders = InsideOrderTotal::orderby('order_id','desc')->paginate(10);
+        return view('order.insideOrder.index',compact('orders'));
     }
 
     /**
@@ -84,9 +85,8 @@ class insideOrderController extends Controller
 
             $total -> location_id = $data['table_order'];
             $total -> total = $data['total'];
+            $total -> identity ='order-'.Str::random(5);
             $total -> save();
-
-            $pass = 'order-'.Str::random(5);
 
             foreach ($request->input('menu_id') as $item => $value) {
 
@@ -95,7 +95,6 @@ class insideOrderController extends Controller
                 $order -> menu_id = $data['menu_id'][$item];
                 $order -> order_amount = $data['order_amount'][$item];
                 $order -> price = $data['order_price'][$item];
-                $order -> identity = $pass;
                 $order -> save();
 
             }
