@@ -44,6 +44,8 @@ Route::group(['middleware' => ['auth', 'order']], function () {
 //Group middleware for Kitchen
 Route::group(['middleware' => ['auth', 'kitchen']], function () {
     Route::get('kitchen','HomeController@kitchenDashboard')->name('kitchenDashboard');
+    Route::get('getOrders','KitchenController@getOrders')->name('getOrders');
+    Route::get('sendOrders','KitchenController@sendOrders')->name('sendOrders');
 });
 
 //Group middleware for Accountant
