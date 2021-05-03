@@ -14,7 +14,7 @@ class KitchenController extends Controller
             ->join('menu','menu.menu_id','=','io.menu_id')
             ->join('inside_order_total as iot','iot.order_id','=','io.total_id')
             ->join('location','location.location_id','=','iot.location_id')
-            ->select('location.name','menu.name as menu_name','io.identity','io.order_amount','io.order_id','io.total_id','iot.status')
+            ->select('location.name','menu.name as menu_name','iot.identity','io.order_amount','io.order_id','io.total_id','iot.status')
             ->orderByDesc('io.order_id')
             ->get();
         if($request->ajax()){
