@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\InsideOrder;
+use App\InsideOrderTotal;
 use App\Table;
+use Illuminate\Support\Str;
 
 class insideOrderController extends Controller
 {
@@ -56,7 +58,55 @@ class insideOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        
+
+        try{
+
+            DB::beginTransaction();
+            $request->validate([
+                'menu_id' => 'required',
+                'order_amount' => 'required',
+                'order_price'  => 'required',
+                'total'     => 'required',
+                'table_order'  => 'required'
+            ],[
+                'menu_id.required'  => 'افزودن مینوی غذایی الزامی است.',
+                'order_amount.required' => 'تعداد سفارشات الزامی است.',
+                'total.required' => 'مقدار کلی پول باید بیشتر از صفر باشد.',
+                'table_order.required' => 'انتخاب میز الزامی است',
+                'order_price.required' => 'هیچ مقدار پولی وارد نشده است.',
+            ]);
+
+
+            $total = new InsideOrderTotal();
+            $data = $request -> all();
+
+            $total -> location_id = $data['table_order'];
+            $total -> total = $data['total'];
+            $total -> save();
+
+            $pass = 'order-'.Str::random(5);
+
+            foreach ($request->input('menu_id') as $item => $value) {
+
+                $order = new InsideOrder();
+                $order -> total_id = $total->order_id;
+                $order -> menu_id = $data['menu_id'][$item];
+                $order -> order_amount = $data['order_amount'][$item];
+                $order -> price = $data['order_price'][$item];
+                $order -> identity = $pass;
+                $order -> save();
+
+            }
+            DB::commit();
+        }
+        
+        catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('errors','error');
+        }
+        return redirect()->back()->with('success','عملیات موفقانه انجام شد.');
     }
 
     /**

@@ -157,8 +157,9 @@
 		<div class="card">
 			<div class="card-header">سفارش در حال اجرا</div>
 			<div class="card-body">
-				<form id="order">
-					@csrf
+				<form id="order" method="post" action="{{ route('orders.store') }}">
+				
+					<input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
 					<table class="table table-bordered">
 						<tr>
 							<th> اسم سفارش </th>
@@ -167,24 +168,37 @@
 							<th> لغو </th>
 						</tr>
 					</table>
+					
+					<div class="form-group">
+						قیمت کل : <span class="total_price"> 0 </span>
+					</div>
+					
+					<div class="form-group">
+						<select class="form-control" name="table_order" id="table_order" class="table_order">
+							<option value=""> انتخاب میز </option>
+							@foreach($tables as $table)
+								<option value="{{ $table->location_id }}"> {{ $table->name}} </option>	
+							@endforeach
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
+					</div>
+					
+					<div class="form-group" id="er_mssages">
+						@if ($errors->any())
+							<div class="alert alert-danger">
+								<ul>
+									@foreach ($errors->all() as $error)
+										<li>{{ $error }}</li>
+									@endforeach
+								</ul>
+							</div>
+						@endif
+					</div>
 				</form>
 			</div> <!--/card-body-->
-			<div class="card-footer">
-				<div class="form-group">
-					قیمت کل : <span class="total_price"> 0 </span>
-				</div>
-				<div class="form-group">
-					<select class="form-control" name="table_order" id="table_order" class="table_order">
-						<option value=""> انتخاب میز </option>
-						@foreach($tables as $table)
-							<option value="{{ $table->location_id }}"> {{ $table->name ." " . $table->floor->floor_name }} </option>	
-						@endforeach
-					</select>
-				</div>
-				<div class="form-group">
-					<button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
-				</div>
-			</div> <!--/card-footer-->
 			</div>
 		</div>
 	</div> <!--/col-->
@@ -194,6 +208,9 @@
 
 @section('style')
   <style>
+	#er_mssages{
+		clear:both;
+	}
 	.tab-content input#amount{
 		width:100%;
 	}
@@ -270,6 +287,15 @@
 		color:red;
 		cursor: pointer;
 	}
+	.alert{
+		position: fixed;
+		bottom: 0;
+		z-index: 10;
+		left: 20px;
+	}
+	.alert button{
+		margin-left: 5px;
+	}
   </style>
 @endsection
 
@@ -288,13 +314,16 @@
 			jQuery('#order table').append(
 				'<tr class="order_row">'
 					+'<td id="order_name">'
+						+'<input type="hidden" name="menu_id[]" id="menu_id_field" class="menu_id_field" value='+order_id+'>'
 						+'<span>'+ order_name +'</span>'
 					+'</td>'
 					+'<td id="order_amount">'
 						+'<span>'+ order_amount +'</span>'
+						+'<input type="hidden" name="order_amount[]" id="order_amount_field" class="order_amount_field" value='+order_amount+'>'
 					+'</td>'
 					+'<td id="order_price">'
 						+'<span>'+ order_price +'</span>'
+						+'<input type="hidden" name="order_price[]" id="order_price_field" class="order_price_field" value='+order_price+'>'
 					+'</td>'
 					+'<td class="order_cancel" onclick="this.parentElement.remove()">'
 						+'<span class="fa fa-trash"><span>'
@@ -319,6 +348,13 @@
 	  jQuery("#table_order").select2({
 		  dir: "rtl"
 		});
+		
+
+	  	$('form#order').submit(function(eventObj) {
+		    $(this).append('<input type="hidden" name="total" value="'+ total +'" /> ');
+		    return true;
+		});
+
    });
 
 </script>

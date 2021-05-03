@@ -16,7 +16,7 @@ class InsideOrderTotal extends Model
      * @var array
      */
     protected $fillable = [
-        'location_id','total','discount','status'
+        'location_id','total','status'
     ];
 
     public function table()
