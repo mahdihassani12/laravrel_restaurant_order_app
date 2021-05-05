@@ -24,15 +24,20 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 		  
 			<li>
-				<a href="{{ route('adminDashboard') }}" class="nav-link active">
+				<a href="{{ route('kitchenDashboard') }}" class="nav-link active">
 					<i class="nav-icon fa fa-home"></i>
 					<p>
 						صفحه اصلی
 					</p>
 				 </a>
 			</li>
-			
-			  <!-- /.dropdown-menu -->
+          <li class="nav-item">
+              <a href="{{ route('getOrders') }}" class="nav-link">
+                  <i class="fa fa-circle-o nav-icon"></i>
+                  <p> لیست سفارشات </p>
+              </a>
+          </li>
+
 			<li class="nav-item">
               <a href="{{ route('logout') }}" class="nav-link">
                 <i class="nav-icon fa fa-dashboard"></i>
