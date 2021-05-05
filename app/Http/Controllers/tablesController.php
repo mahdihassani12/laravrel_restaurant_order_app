@@ -52,7 +52,7 @@ class tablesController extends Controller
 		$tables -> floor_id = $data['floor'];
 		$tables -> name 	= $data['name'];
 		$tables	-> save();
-		return redirect()->route('tables.index')->with('success','عملیات موفقانه انجام شد.');
+		return redirect()->back()->with('success','عملیات موفقانه انجام شد.');
     }
 
     /**

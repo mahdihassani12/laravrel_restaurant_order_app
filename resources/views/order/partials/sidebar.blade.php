@@ -48,7 +48,7 @@
                   </a>
                 </li>
 				<li class="nav-item">
-                  <a href="" class="nav-link">
+                  <a href="{{ route('continueOrder') }}" class="nav-link">
                     <i class="fa fa-circle-o nav-icon"></i>
                     <p> ادامه ثبت سفارش </p>
                   </a>

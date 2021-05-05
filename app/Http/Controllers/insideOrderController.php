@@ -85,7 +85,7 @@ class insideOrderController extends Controller
 
             $total -> location_id = $data['table_order'];
             $total -> total = $data['total'];
-            $total -> identity ='order-'.Str::random(5);
+            $total -> identity =\random_int(100000, 999999);
             $total -> save();
 
             foreach ($request->input('menu_id') as $item => $value) {
@@ -151,5 +151,28 @@ class insideOrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function continueOrder()
+    {
+       $orders = InsideOrderTotal::orderby('order_id','desc')->paginate(10);
+        return view('order.insideOrder.continue',compact('orders'));
+    }
+
+    public function orderSearch(Request $request)
+    {
+        $data = $request->all();
+        $order = InsideOrderTotal::where('identity','like', '%'.$request->search.'%')->first();
+		$insideOrders = InsideOrder::where('total_id','=',$order->order_id)->get();
+		
+		return view('order.insideOrder.search',compact(['order','insideOrders']));
+		
+        //return response()->json(
+          //   [
+            //   'order'       => $order,
+              // 'insideOrder' => $insideOrder
+             //]
+        //);
+
     }
 }

@@ -114,8 +114,7 @@
 @section('style')
   <style>
 	.project-tab {
-		padding: 10%;
-		margin-top: -8%;
+		
 	}
 	.project-tab #tabs{
 		background: #007b5e;

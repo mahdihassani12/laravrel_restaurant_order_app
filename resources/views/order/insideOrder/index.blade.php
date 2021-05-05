@@ -23,7 +23,7 @@
 					<div class="card-header" id="head{{ $order->order_id }}">
 					  <h5 class="mb-0">
 						<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="true" aria-controls="collapseOne">
-						  سفارش : {{ $order->table->name }}
+							سفارش : {{ $order->table->name }} - شماره سفارش : {{ $order->identity }}
 						</button>
 					  </h5>
 					</div>
@@ -71,7 +71,7 @@
 						<div class="card-header" id="head{{ $order->order_id }}">
 						  <h5 class="mb-0">
 							<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="false" aria-controls="collapseOne">
-							  سفارش : {{ $order->table->name }}
+							  سفارش : {{ $order->table->name }} - شماره سفارش : {{ $order->identity }}
 							</button>
 						  </h5>
 						</div>
@@ -118,6 +118,10 @@
 		@endforeach	
 		 
 	</div> <!-- /accordion -->
+	
+	<div class="pagination">
+		{{ $orders->links() }}
+	</div>
 
 </div> <!-- /container -->
 @endsection

@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth', 'order']], function () {
     Route::get('order','HomeController@orderDashboard')->name('orderDashboard');
     Route::resource('orders','insideOrderController');
+    Route::get('continueOrder','insideOrderController@continueOrder')->name('continueOrder');
+    Route::post('orderSearch','insideOrderController@orderSearch')->name('orderSearch');
 });
 
 //Group middleware for Kitchen
