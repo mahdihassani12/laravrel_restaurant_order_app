@@ -18,19 +18,21 @@
 		<span class="text text-info" id="searchMessage"> مقدار نمونه : شماره xxxxxx </span>
 	</div>
 	
-  <div id="accordion">
+  <div id="ContinueAccordion">
 		
 		@foreach($orders as $index => $order)
 			<div class="card">
 				<div class="card-header" id="head{{ $order->order_id }}">
 				  <h5 class="mb-0">
-					<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="false" aria-controls="collapseOne">
-					  سفارش : {{ $order->table->name }} - شماره سفارش : {{ $order->identity }}
+					<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="true" aria-controls="collapseOne">
+					  	<a href="{{ route('getSearchDetails',$order->order_id) }}">
+						  سفارش : {{ $order->table->name }} - شماره سفارش : {{ $order->identity }}
+						</a>
 					</button>
 				  </h5>
 				</div>
 
-				<div id="collapse{{ $order->order_id }}" class="collapse" aria-labelledby="head{{ $order->order_id }}" data-parent="#accordion">
+				<div id="collapse{{ $order->order_id }}" class="collapse" aria-labelledby="head{{ $order->order_id }}" data-parent="#ContinueAccordion">
 				  <div class="card-body">
 						<table class="table table-bordered">
 							<thead>
@@ -113,7 +115,7 @@
 						jQuery('#searchMessage').empty().append('<span class="success text-success"> در حال بررسی درخواست, لطفا صبر کنید.</span>');
 					},
 				   success:function(response){
-					 jQuery('#accordion').html(response);
+					 jQuery('#ContinueAccordion').html(response);
 				   },
 				   complete:function(){
 					   jQuery('#searchMessage').empty().append('<span class="success text-success"> نتیجه جستجو قرار زیر است. </span>');
@@ -125,7 +127,7 @@
 			}
 			
 		});
-		 
+
 	});
 </script>
 @endsection

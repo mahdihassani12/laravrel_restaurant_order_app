@@ -18,7 +18,7 @@ class insideOrderController extends Controller
      */
     public function index()
     {
-		$orders = InsideOrderTotal::orderby('order_id','desc')->paginate(10);
+		$orders = InsideOrderTotal::orderby('order_id','desc')->where('status',1)->orwhere('status',4)->orwhere('status',2)->paginate(10);
         return view('order.insideOrder.index',compact('orders'));
     }
 
@@ -60,8 +60,6 @@ class insideOrderController extends Controller
     public function store(Request $request)
     {
         
-        
-
         try{
 
             DB::beginTransaction();
@@ -155,10 +153,11 @@ class insideOrderController extends Controller
 
     public function continueOrder()
     {
-       $orders = InsideOrderTotal::orderby('order_id','desc')->paginate(10);
+       $orders = InsideOrderTotal::orderby('order_id','desc')->where('status',1)->orwhere('status',2)->orwhere('status',4)->paginate(10);
         return view('order.insideOrder.continue',compact('orders'));
     }
 
+    // Searching for an order
     public function orderSearch(Request $request)
     {
         $data = $request->all();
@@ -166,13 +165,82 @@ class insideOrderController extends Controller
 		$insideOrders = InsideOrder::where('total_id','=',$order->order_id)->get();
 		
 		return view('order.insideOrder.search',compact(['order','insideOrders']));
-		
-        //return response()->json(
-          //   [
-            //   'order'       => $order,
-              // 'insideOrder' => $insideOrder
-             //]
-        //);
 
     }
+
+    // Get related order from search item
+    public function getSearchDetails($id){
+        $order = InsideOrderTotal::where('order_id','=',$id)->first();
+        $insideOrders = InsideOrder::where('total_id','=',$order->order_id)->get();
+        $tables = Table::all();
+
+        $food = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->where('categories.name','LIKE', '%فست فوت%')
+            ->select('menu.*')
+            ->get(); 
+         
+        $drink = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->where('categories.name','LIKE', '%نوشیدنی%')
+            ->select('menu.*')
+            ->get();
+        
+        $icecream = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->where('categories.name','LIKE', '%بستنی%')
+            ->select('menu.*')
+            ->get();
+
+        return view('order.insideOrder.continueOrder',compact(['order','insideOrders','food','drink','icecream','tables']));
+    }
+
+    // store the orders to continue of old order
+    public function storeContinueOrder(Request $request){
+        try{
+
+            DB::beginTransaction();
+            $request->validate([
+                'menu_id' => 'required',
+                'order_amount' => 'required',
+                'order_price'  => 'required',
+                'total'     => 'required',
+                'table_order'  => 'required'
+            ],[
+                'menu_id.required'  => 'افزودن مینوی غذایی الزامی است.',
+                'order_amount.required' => 'تعداد سفارشات الزامی است.',
+                'total.required' => 'مقدار کلی پول باید بیشتر از صفر باشد.',
+                'table_order.required' => 'انتخاب میز الزامی است',
+                'order_price.required' => 'هیچ مقدار پولی وارد نشده است.',
+            ]);
+
+
+            
+            $data = $request -> all();
+            $total = InsideOrderTotal::find($data['total_id']);
+            DB::table('inside_order')->where('total_id', $data['total_id'])->delete();
+            $total -> location_id = $data['table_order'];
+            $total -> total = $data['total'];
+            $total -> status = 4;
+            $total -> save();
+
+            foreach ($request->input('menu_id') as $item => $value) {
+                $order = new InsideOrder();
+                $order -> total_id = $total->order_id;
+                $order -> menu_id = $data['menu_id'][$item];
+                $order -> order_amount = $data['order_amount'][$item];
+                $order -> price = $data['order_price'][$item];
+                $order -> save();
+            }
+
+            DB::commit();
+        }
+        
+        catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('errors','error');
+        }
+        return redirect()->route('orders.create')->with('success','عملیات موفقانه انجام شد.');
+    }
+
 }

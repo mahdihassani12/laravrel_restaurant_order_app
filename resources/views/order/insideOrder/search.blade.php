@@ -1,8 +1,10 @@
 <div class="card">
 	<div class="card-header" id="head{{ $order->order_id }}">
 	  <h5 class="mb-0">
-		<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="true" aria-controls="collapseOne">
-			سفارش : {{ $order->table->name }} - شماره سفارش : {{ $order->identity }}
+	  	<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="true" aria-controls="collapseOne">
+			<a href="{{ route('getSearchDetails',$order->order_id) }}">
+				سفارش : {{ $order->table->name }} - شماره سفارش : {{ $order->identity }}
+			</a>
 		</button>
 	  </h5>
 	</div>
