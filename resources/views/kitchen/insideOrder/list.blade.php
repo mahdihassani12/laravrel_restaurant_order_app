@@ -151,7 +151,7 @@
         </div> <!-- /accordion -->
 
         {{--<div class="pagination">--}}
-            {{--{{ $orders->links() }}--}}
+        {{--{{ $orders->links() }}--}}
         {{--</div>--}}
 
     </div> <!-- /container -->
@@ -176,20 +176,20 @@
     <script type="text/javascript">
 
         //refresh table after 30 seconds to see the new order
-        setInterval(function(){
-        $.ajax({
-            url: '{{route('kitchenSearch')}}',
-            type: 'GET',
+        setInterval(function () {
+            $.ajax({
+                url: '{{route('kitchenSearch')}}',
+                type: 'GET',
 
-            success: function (response) {
+                success: function (response) {
 
                     $('#accordion').html(response);
 
-            }, error: function (err) {
+                }, error: function (err) {
 
-            }
-        })
-        }, 30000);
+                }
+            })
+        }, 10000);
 
 
         //send order from kitchen

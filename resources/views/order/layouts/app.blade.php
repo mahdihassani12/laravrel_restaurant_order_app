@@ -44,10 +44,9 @@
 <script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('/assets/js/adminlte.min.js') }}"></script>
-<<<<<<< HEAD
+
 <script src="{{ asset('/assets/js/select2.min.js') }}"></script>
-=======
->>>>>>> ac32523ef1726d010bdf1647d4dd2eda88e63f58
+
   @yield('script')
 </body>
 </html>

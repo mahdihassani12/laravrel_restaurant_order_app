@@ -33,6 +33,15 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('userEdit/{id}','UsersController@edit')->name('users.edit');
     Route::put('userUpdate/{id}','UsersController@update')->name('users.update');
     Route::delete('userDestroy/{id}','UsersController@destroy')->name('users.destroy');
+    Route::resource('outsideOrder','OutsideController');
+    Route::get('outsideContinueOrder','OutsideController@outsideContinueOrder')->name('outsideContinueOrder');
+
+    Route::post('paymentInsideCreate','PaymentController@paymentInsideCreate')->name('paymentInsideCreate');
+    Route::get('paymentInsideList','PaymentController@paymentInsideList')->name('paymentInsideList');
+
+
+    Route::post('paymentOutsideCreate','PaymentController@paymentOutsideCreate')->name('paymentOutsideCreate');
+    Route::get('paymentOutsideList','PaymentController@paymentOutsideList')->name('paymentOutsideList');
 });
 
 //Group middleware for Order
@@ -41,6 +50,10 @@ Route::group(['middleware' => ['auth', 'order']], function () {
     Route::resource('orders','insideOrderController');
     Route::get('continueOrder','insideOrderController@continueOrder')->name('continueOrder');
     Route::post('orderSearch','insideOrderController@orderSearch')->name('orderSearch');
+    Route::resource('outsideOrder','OutsideController');
+    Route::get('outsideContinueOrder','OutsideController@outsideContinueOrder')->name('outsideContinueOrder');
+    Route::get('loadData/{id}','OutsideController@loadData')->name('loadData');
+    Route::match(['post','put'],'updateOutsideOrder{id}','OutsideController@updateOutsideOrder')->name('updateOutsideOrder');
 });
 
 //Group middleware for Kitchen
@@ -49,7 +62,27 @@ Route::group(['middleware' => ['auth', 'kitchen']], function () {
     Route::get('kitchenSearch','KitchenController@kitchenSearch')->name('kitchenSearch');
     Route::get('getOrders','KitchenController@getOrders')->name('getOrders');
     Route::get('sendOrders','KitchenController@sendOrders')->name('sendOrders');
+
+    Route::get('kitchenOutsideSearch','KitchenController@kitchenOutsideSearch')->name('kitchenOutsideSearch');
+    Route::get('getOutsideOrders','KitchenController@getOutsideOrders')->name('getOutsideOrders');
+    Route::get('sendOutsideOrders','KitchenController@sendOutsideOrders')->name('sendOutsideOrders');
 });
+
+//Group middleware for Payment
+Route::group(['middleware' => ['auth', 'accountant']], function () {
+    Route::get('Payment','HomeController@accountantDashboard')->name('accountantDashboard');
+    Route::post('paymentInsideCreate','PaymentController@paymentInsideCreate')->name('paymentInsideCreate');
+    Route::get('paymentInsideList','PaymentController@paymentInsideList')->name('paymentInsideList');
+    Route::post('paymentInsideUpdate','PaymentController@paymentInsideUpdate')->name('paymentInsideUpdate');
+
+    Route::post('paymentOutsideCreate','PaymentController@paymentOutsideCreate')->name('paymentOutsideCreate');
+    Route::get('paymentOutsideList','PaymentController@paymentOutsideList')->name('paymentOutsideList');
+    Route::post('paymentOutsideUpdate','PaymentController@paymentOutsideUpdate')->name('paymentOutsideUpdate');
+
+});
+
+
+
 
 //Group middleware for Accountant
 Route::group(['middleware' => ['auth', 'accountant']], function () {

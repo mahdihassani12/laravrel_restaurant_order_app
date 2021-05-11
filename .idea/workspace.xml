@@ -2,21 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0807fe5-52d9-42e8-a16c-15fdbbe71152" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/kitchen/list.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/kitchen/search.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/insidePayment/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/insidePayment/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/insidePayment/print.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/insidePayment/update.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/layouts/app.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/messages/messages.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/outsidePayment/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/outsidePayment/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/outsidePayment/print.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/outsidePayment/update.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/partials/footer.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/partials/header.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/partials/sidebar.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/Payment/welcome.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/kitchen/outsideOrder/index.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/kitchen/outsideOrder/list.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/kitchen/outsideOrder/search.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/order/outsideOrder/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/order/outsideOrder/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/KitchenController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/KitchenController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/insideOrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/insideOrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/tablesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/tablesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/InsideOrderTotal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/InsideOrderTotal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/tables/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/tables/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/order/insideOrder/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/insideOrder/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/order/insideOrder/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/insideOrder/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/dashboard/partials/footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/dashboard/partials/footer.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/kitchen/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kitchen/insideOrder/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/kitchen/list.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kitchen/insideOrder/list.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/kitchen/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kitchen/partials/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/kitchen/search.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/kitchen/insideOrder/search.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/order/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/layouts/app.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/order/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/order/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/welcome.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,15 +46,86 @@
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="201">
+              <caret line="78" column="34" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PaymentController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PaymentController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+              <folding>
+                <element signature="e#40#65#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="print.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/Payment/insidePayment/print.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="50" column="62" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/Payment/insidePayment/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="307" selection-start-line="307" selection-end-line="307" />
+              <folding>
+                <element signature="e#12964#15427#0#HTML" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="print.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/resources/views/Payment/outsidePayment/print.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="50" column="63" selection-start-line="50" selection-start-column="63" selection-end-line="50" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/Payment/outsidePayment/index.blade.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="647">
+              <caret line="349" column="26" selection-start-line="349" selection-start-column="26" selection-end-line="349" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>dashboard</find>
       <find>accountantDashboard</find>
+      <find>order_cancel</find>
+      <find>total_price</find>
+      <find>sendOrders</find>
+      <find>total_payment</find>
+      <find>ویرایش</find>
+      <find>print</find>
+      <find>discount</find>
+      <find>pay_print</find>
+      <find>print_in</find>
     </findStrings>
     <replaceStrings>
       <replace>Kitchen</replace>
+      <replace>پرداخت</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -53,15 +140,44 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/menusController.php" />
         <option value="$PROJECT_DIR$/resources/views/kitchen/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/kitchen/welcome.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
-        <option value="$PROJECT_DIR$/resources/views/kitchen/partials/sidebar.blade.php" />
         <option value="E:/xampp/htdocs/course_final/app/Http/Controllers/StudentsController.php" />
         <option value="$PROJECT_DIR$/resources/views/kitchen/index.blade.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/kitchen/search.blade.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/KitchenController.php" />
-        <option value="$PROJECT_DIR$/resources/views/kitchen/list.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/partials/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/app/OutsideModel.php" />
+        <option value="$PROJECT_DIR$/resources/views/order/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/kitchen/list.blade.php" />
+        <option value="$PROJECT_DIR$/app/OutsideOrderTotal.php" />
+        <option value="$PROJECT_DIR$/resources/views/kitchen/partials/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/kitchen/insideOrder/list.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/kitchen/outsideOrder/list.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/KitchenController.php" />
+        <option value="$PROJECT_DIR$/resources/views/kitchen/outsideOrder/search.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/kitchen/insideOrder/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/kitchen/outsideOrder/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/order/outsideOrder/index.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/OutsideController.php" />
+        <option value="$PROJECT_DIR$/resources/views/order/outsideOrder/edit.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/order/partials/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/welcome.blade.php" />
+        <option value="$PROJECT_DIR$/app/Payment.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/insidePayment/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/insidePayment/update.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/outsidePayment/create.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/outsidePayment/update.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/partials/sidebar.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/partials/footer.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/dashboard/layouts/app.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/printThis.js" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/outsidePayment/index.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/insidePayment/index.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/insidePayment/print.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/Payment/outsidePayment/print.blade.php" />
       </list>
     </option>
   </component>
@@ -191,7 +307,9 @@
     <option name="width" value="1750" />
     <option name="height" value="980" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -225,6 +343,24 @@
             <path>
               <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
               <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -246,12 +382,30 @@
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="dashboard" type="462c0819:PsiDirectoryNode" />
-              <item name="partials" type="462c0819:PsiDirectoryNode" />
+              <item name="layouts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
               <item name="restaurant" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="Payment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="Payment" type="462c0819:PsiDirectoryNode" />
+              <item name="insidePayment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="Payment" type="462c0819:PsiDirectoryNode" />
+              <item name="outsidePayment" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -262,14 +416,18 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="D:/projects/htdocs/laravel8" />
+    <property name="last_opened_file_path" value="E:/xampp/htdocs/rschool" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\sarrafi_management\htdocs\restaurant\resources\views\kitchen" />
+      <recent name="D:\sarrafi_management\htdocs\restaurant\resources\views\Payment\outsidePayment" />
+      <recent name="D:\sarrafi_management\htdocs\restaurant\resources\views\Payment" />
+      <recent name="D:\sarrafi_management\htdocs\restaurant\resources\views\kitchen\outsideOrder" />
+      <recent name="D:\sarrafi_management\htdocs\restaurant\resources\views\kitchen\insideOrder" />
+      <recent name="D:\sarrafi_management\htdocs\restaurant\resources\views\order\outsideOrder" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -299,24 +457,32 @@
       <workItem from="1619939354342" duration="5562000" />
       <workItem from="1620013446236" duration="7182000" />
       <workItem from="1620022015429" duration="3672000" />
-      <workItem from="1620272689031" duration="936000" />
+      <workItem from="1620272689031" duration="15464000" />
+      <workItem from="1620322926205" duration="1091000" />
+      <workItem from="1620445220000" duration="17363000" />
+      <workItem from="1620531927340" duration="13332000" />
+      <workItem from="1620618303137" duration="21535000" />
+      <workItem from="1620641678514" duration="1391000" />
+      <workItem from="1620704476887" duration="3742000" />
+      <workItem from="1620708423606" duration="3134000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22310000" />
+    <option name="totallyTimeSpent" value="98426000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Run" order="2" />
+      <window_info id="npm" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32896653" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2590604" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.2657718" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -328,7 +494,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32896653" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,306 +503,332 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KitchenController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/order/layouts/app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
-          <folding>
-            <element signature="e#40#60#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="424">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/list.blade.php" />
+    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/insideOrder/list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="48" column="63" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3920">
-          <caret line="196" column="17" selection-start-line="196" selection-start-column="17" selection-end-line="196" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/search.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1340">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/partials/sidebar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3320">
-          <caret line="166" column="50" selection-start-line="166" selection-start-column="50" selection-end-line="166" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="920">
-          <caret line="46" column="74" selection-start-line="46" selection-start-column="65" selection-end-line="46" selection-end-column="74" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KitchenController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="17" column="26" selection-start-line="17" selection-start-column="26" selection-end-line="17" selection-end-column="26" />
-          <folding>
-            <element signature="e#40#60#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../sarrafi_management/resources/views/marketManagement/shops/reservedShopList.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2900">
-          <caret line="145" column="64" lean-forward="true" selection-start-line="145" selection-start-column="11" selection-end-line="145" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2200">
-          <caret line="110" column="29" selection-start-line="110" selection-start-column="29" selection-end-line="110" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/menus/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="36" column="28" lean-forward="true" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/partials/header.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/Telegram Desktop/doc_2021-05-02_11-41-04.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-540">
-          <caret selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="46" lean-forward="true" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/xampp/htdocs/course_final/resources/views/student/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="82" column="39" lean-forward="true" selection-start-line="82" selection-start-column="39" selection-end-line="82" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/menusController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="22" column="25" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/welcome.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="13" column="17" lean-forward="true" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/partials/header.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/menus/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-293">
-          <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/partials/header.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/floors/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="64" column="19" lean-forward="true" selection-end-line="82" selection-end-column="11" />
+        <state relative-caret-position="581">
+          <caret line="127" column="54" lean-forward="true" selection-start-line="120" selection-start-column="46" selection-end-line="127" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/kitchen/partials/sidebar.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="34" column="42" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="42" />
+        <state relative-caret-position="581">
+          <caret line="40" column="47" selection-start-line="40" selection-start-column="47" selection-end-line="40" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://E:/xampp/htdocs/course_final/app/Http/Controllers/StudentsController.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/insideOrder/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="861">
-          <caret line="235" column="44" lean-forward="true" selection-start-line="235" selection-start-column="44" selection-end-line="235" selection-end-column="44" />
+        <state>
+          <caret selection-end-line="150" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../sarrafi_management/resources/views/marketManagement/shops/reservedShopList.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="145" column="64" selection-start-line="145" selection-start-column="11" selection-end-line="145" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1827">
-          <caret line="106" column="41" selection-start-line="106" selection-start-column="41" selection-end-line="106" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-199" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Category.php">
+    <entry file="file://$PROJECT_DIR$/../test/EmployeeManagmentSystem/index.php">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Floor.php">
+    <entry file="file://$PROJECT_DIR$/../test/EmployeeManagmentSystem/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-759" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../test/EmployeeManagmentSystem/schema/employeeManageSystem.sql">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Menu.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/InsideOrder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="20" column="36" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/tablesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1859" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/InsideOrderTotal.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/order/insideOrder/search.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="41" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/order/insideOrder/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-893" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/insideOrderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="401">
-          <caret line="167" column="52" selection-start-line="167" selection-start-column="52" selection-end-line="167" selection-end-column="52" />
+        <state relative-caret-position="740">
+          <caret line="37" column="24" lean-forward="true" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/order/insideOrder/continue.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
+        <state relative-caret-position="1280">
           <caret line="115" column="46" selection-start-line="115" selection-start-column="42" selection-end-line="115" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/search.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1340">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/tables/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-999" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/layouts/app.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/partials/sidebar.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="166" column="50" selection-start-line="166" selection-start-column="50" selection-end-line="166" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="196" column="17" selection-start-line="196" selection-start-column="17" selection-end-line="196" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="48" column="63" selection-start-line="48" selection-start-column="50" selection-end-line="48" selection-end-column="63" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KitchenController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        <state relative-caret-position="384">
+          <caret line="79" column="133" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="133" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="360" column="27" selection-start-line="360" selection-start-column="27" selection-end-line="360" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/outsideOrder/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/xampp/htdocs/course_final/app/Http/Controllers/AttendanceManagementController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="116" column="65" lean-forward="true" selection-start-line="116" selection-start-column="65" selection-end-line="116" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/messages/messages.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="36" column="28" lean-forward="true" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Payment.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="39" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/OutsideModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="9" column="39" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="9" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/partials/sidebar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="88" column="45" lean-forward="true" selection-start-line="34" selection-start-column="12" selection-end-line="88" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/accessLevel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/accountantAuthenticated.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-180" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Middleware/Authenticate.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Kernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="68" column="19" selection-start-line="68" selection-start-column="9" selection-end-line="68" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/outsideOrder/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="151" selection-start-line="151" selection-end-line="168" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/outsideOrder/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="60" selection-start-line="60" selection-end-line="83" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/insidePayment/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="640">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/kitchen/outsideOrder/search.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="74" column="109" selection-start-line="74" selection-start-column="64" selection-end-line="74" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/insidePayment/update.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="61">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/outsidePayment/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/outsidePayment/update.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="32" column="11" selection-start-line="32" selection-start-column="11" selection-end-line="32" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/insideOrder/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2500">
+          <caret line="125" column="26" lean-forward="true" selection-start-line="3" selection-end-line="125" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/outsideOrder/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="131" column="26" lean-forward="true" selection-start-line="2" selection-end-line="131" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/OutsideController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/insideOrder/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="161" column="94" lean-forward="true" selection-start-line="159" selection-start-column="16" selection-end-line="161" selection-end-column="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/InsideOrderTotal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" column="42" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/OutsideOrderTotal.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="8" column="43" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/insideOrderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="95" column="38" lean-forward="true" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/partials/header.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/partials/sidebar.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="604">
+          <caret line="42" column="38" selection-start-line="42" selection-start-column="38" selection-end-line="42" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/partials/footer.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/welcome.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="17" selection-start-column="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/partials/footer.blade.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/printThis.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="34" column="14" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dashboard/layouts/app.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/outsidePayment/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="647">
+          <caret line="349" column="26" selection-start-line="349" selection-start-column="26" selection-end-line="349" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PaymentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
-            <element signature="e#40#60#0#PHP" expanded="true" />
+            <element signature="e#40#65#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/insidePayment/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="307" selection-start-line="307" selection-end-line="307" />
+          <folding>
+            <element signature="e#12964#15427#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="78" column="34" selection-start-line="78" selection-start-column="16" selection-end-line="78" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/insidePayment/print.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="50" column="62" selection-start-line="50" selection-start-column="57" selection-end-line="50" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Payment/outsidePayment/print.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="50" column="63" selection-start-line="50" selection-start-column="63" selection-end-line="50" selection-end-column="63" />
         </state>
       </provider>
     </entry>

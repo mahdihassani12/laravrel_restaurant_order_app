@@ -16,9 +16,9 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-@include('dashboard.partials.header')
+@include('Payment.partials.header')
 
-@include('dashboard.partials.sidebar')  
+@include('Payment.partials.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -26,7 +26,7 @@
     <div class="content">
       <div class="container-fluid">
 
-        @include('dashboard.messages.messages')
+        @include('Payment.messages.messages')
 
         @yield('main_content')
 
@@ -36,15 +36,13 @@
   </div>
   <!-- /.content-wrapper -->
 
-@include('dashboard.partials.footer')
+@include('Payment.partials.footer')
 </div>
 <!-- ./wrapper -->
 
 <script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('/assets/js/adminlte.min.js') }}"></script>
-
-
   @yield('script')
 </body>
 </html>

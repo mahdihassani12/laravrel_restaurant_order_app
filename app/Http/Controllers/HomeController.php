@@ -31,7 +31,7 @@ class HomeController extends Controller
     */ 
     public function accountantDashboard()
     {
-        echo "accountantDashboard";
+        return view('Payment.welcome');
     }
 
     /*

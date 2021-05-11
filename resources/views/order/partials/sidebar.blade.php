@@ -34,9 +34,9 @@
 			
 			<li class="nav-item has-treeview">
               <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-dashboard"></i>
+                <i class="nav-icon fa fa-outdent"></i>
                 <p>
-                  ثبت سفارش
+                   ثبت سفارش داخلی
                   <i class="right fa fa-angle-left"></i>
                 </p>
               </a>
@@ -61,7 +61,32 @@
                 </li>
               </ul>
             </li>  <!-- /.dropdown-menu -->
-			
+
+
+              <li class="nav-item has-treeview">
+                  <a href="#" class="nav-link">
+                      <i class="nav-icon fa fa-indent"></i>
+                      <p>
+                          ثبت سفارش بیرونی
+                          <i class="right fa fa-angle-left"></i>
+                      </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a href="{{ route('outsideOrder.create') }}" class="nav-link">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p> ثبت سفارش جدید </p>
+                          </a>
+                      </li>
+
+                      <li class="nav-item">
+                          <a href="{{ route('outsideOrder.index') }}" class="nav-link">
+                              <i class="fa fa-circle-o nav-icon"></i>
+                              <p> لیست سفارشات اخیر </p>
+                          </a>
+                      </li>
+                  </ul>
+              </li>  <!-- /.dropdown-menu -->
 			<li class="nav-item">
               <a href="{{ route('logout') }}" class="nav-link">
                 <i class="nav-icon fa fa-dashboard"></i>

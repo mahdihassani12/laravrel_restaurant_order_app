@@ -32,15 +32,15 @@
 				 </a>
 			</li>
           <li class="nav-item">
-              <a href="{{ route('getOrders') }}" class="nav-link">
+              <a href="{{ route('paymentInsideList') }}" class="nav-link">
                   <i class="fa fa-outdent"></i>
                   <p> لیست سفارشات داخلی </p>
               </a>
           </li>
               <li class="nav-item">
-                  <a href="{{ route('getOutsideOrders') }}" class="nav-link">
+                  <a href="{{ route('paymentOutsideList') }}" class="nav-link">
                       <i class="fa fa-indent"></i>
-                      <p> لیست سفارشات بیرونی </p>
+                      <p> لیست سفارشات بیرونی</p>
                   </a>
               </li>
 
