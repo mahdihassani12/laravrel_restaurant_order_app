@@ -22,7 +22,7 @@ Route::post('authenticateLogin','UsersController@authenticateLogin')->name('auth
 
 //Group middleware for Admin
 Route::group(['middleware' => ['auth', 'admin']], function () {
-    Route::get('home','HomeController@index')->name('adminDashboard');
+    Route::get('/adminDashboard','HomeController@index')->name('adminDashboard');
     Route::resource('floors','floorsController');
     Route::resource('tables','tablesController');
     Route::resource('categories','categoriesController');
