@@ -15,7 +15,9 @@ class KitchenController extends Controller
         $orders = DB::table('inside_order_total as iot')
             ->join('inside_order','inside_order.total_id','=','iot.order_id')
             ->join('location', 'location.location_id', '=', 'iot.location_id')
+            ->select('location.name','iot.order_id','identity','iot.status')
             ->orderByDesc('iot.order_id')
+            ->groupBy('location.name','iot.order_id','identity')
             ->get();
         foreach ($orders as $order) {
 
@@ -23,7 +25,7 @@ class KitchenController extends Controller
                 ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                 ->join('categories', 'categories.category_id', '=', 'menu.category_id')
                 ->join('inside_order_total as iot','iot.order_id','=','io.total_id')
-                ->select( 'menu.name as menu_name',  'io.order_amount', 'io.order_id', 'io.total_id','categories.name','iot.status')
+                ->select( 'menu.name as menu_name',  'io.order_amount', 'io.order_id', 'io.total_id','categories.name','iot.status','iot.order_id','iot.identity')
                 ->where('total_id', $order->order_id)
                 ->get();
 
@@ -55,6 +57,7 @@ class KitchenController extends Controller
             ->join('inside_order', 'inside_order.total_id', '=', 'iot.order_id')
             ->join('location', 'location.location_id', '=', 'iot.location_id')
             ->orderByDesc('iot.order_id')
+            ->groupBy('iot.order_id','identity','location.name')
             ->get();
 
 

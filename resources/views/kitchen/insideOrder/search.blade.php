@@ -10,6 +10,14 @@
                             aria-controls="collapseOne">
                         سفارش : {{ $order->name .' - '.'نمبر سفارش'. ' '.$order->identity }}
                     </button>
+                    @if($order->status=='1')
+                        <button id="send_order" class="btn btn-primary btn-xs"
+                                order_id="{{$order->order_id}}" onclick="sendOrder(this)" style="float: left">ارسال<i id="send_icon"></i>
+                        </button>
+                    @else
+                        <button class="btn btn-success btn-xs" disabled style="float:left;">ارسال شده</button>
+
+                    @endif
                 </h5>
             </div>
 
@@ -23,7 +31,6 @@
                             <th>اسم سفارش</th>
                             <th>تعداد سفارش</th>
                             <th>نوعیت سفارش</th>
-                            <th>عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -36,16 +43,7 @@
                                 <td>{{ $inside->menu->name }}</td>
                                 <td>{{ $inside->menu->category->name }}</td>
                                 <td>{{ $inside->order_amount }}</td>
-                                <td>
-                                    @if($order->status=='1')
-                                        <button id="send_order" class="btn btn-primary btn-xs"
-                                                order_id="{{$order->order_id}}">ارسال<i id="send_icon"></i>
-                                        </button>
-                                    @else
-                                        <button class="btn btn-success btn-xs" disabled>ارسال شده</button>
 
-                                    @endif
-                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -55,7 +53,6 @@
                             <th>اسم سفارش</th>
                             <th>تعداد سفارش</th>
                             <th>نوعیت سفارش</th>
-                            <th>عملیات</th>
                         </tr>
                         </tfoot>
                     </table>
@@ -73,6 +70,15 @@
                             aria-controls="collapseOne">
                         سفارش : {{ $order->name .' - '.'نمبر سفارش'. ' '.$order->identity }}
                     </button>
+
+                    @if($order->status=='1')
+                        <button id="send_order" class="btn btn-primary btn-xs"
+                                order_id="{{$order->order_id}}" onclick="sendOrder(this)" style="float: left">ارسال<i id="send_icon"></i>
+                        </button>
+                    @else
+                        <button class="btn btn-success btn-xs" disabled style="float:left;">ارسال شده</button>
+
+                    @endif
                 </h5>
             </div>
 
@@ -87,7 +93,6 @@
 
                             <th>تعداد سفارش</th>
                             <th>نوعیت سفارش</th>
-                            <th>عملیات</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,16 +105,7 @@
                                 <td>{{ $inside->menu->name }}</td>
                                 <td>{{ $inside->menu->category->name }}</td>
                                 <td>{{ $inside->order_amount }}</td>
-                                <td>
-                                    @if($order->status=='1')
-                                        <button id="send_order" class="btn btn-primary btn-xs"
-                                                order_id="{{$order->order_id}}">ارسال<i id="send_icon"></i>
-                                        </button>
-                                    @else
-                                        <button class="btn btn-success btn-xs" disabled>ارسال شده</button>
 
-                                    @endif
-                                </td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -119,7 +115,6 @@
                             <th>اسم سفارش</th>
                             <th>تعداد سفارش</th>
                             <th>نوعیت سفارش</th>
-                            <th>عملیات</th>
                         </tr>
                         </tfoot>
                     </table>

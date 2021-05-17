@@ -162,7 +162,7 @@
             <div class="card">
                 <div class="card-header">سفارش</div>
                 <div class="card-body">
-                    <form id="order" method="post" action="{{ route('updateOutsideOrder',$t_orders->order_id) }}">
+                    <form id="order" method="post" action="{{ route('updateInsideOrder',$t_orders->order_id) }}">
                         {{isset($shop) ?method_field('put'):''}}
                         <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                         <table class="table table-bordered">
@@ -175,83 +175,54 @@
                             @foreach($orders as $key => $order)
                                 <tr class="order_row">
                                     <td id="order_name"><span>{{$order->menu_name}}</span></td>
-                                    <input type="hidden" name="menu_id_field[]" id="menu_id_field" value="{{$order->menu_id}}">
+                                    <input type="hidden" name="menu_id_field[]" id="menu_id_field"
+                                           value="{{$order->menu_id}}">
                                     <td id="order_amount"><span>{{$order->order_amount}}</span></td>
-                                    <input type="hidden" name="order_amount_field[]" id="order_amount_field" value="{{$order->order_amount}}">
+                                    <input type="hidden" name="order_amount_field[]" id="order_amount_field"
+                                           value="{{$order->order_amount}}">
                                     <td id="order_price"><span>{{$order->price}}</span></td>
-                                    <input type="hidden" name="order_price_field[]" id="order_price_field" value="{{$order->price}}">
+                                    <input type="hidden" name="order_price_field[]" id="order_price_field"
+                                           value="{{$order->price}}">
                                     <td class="order_cancel" onclick="this.parentElement.remove()">
                                         <span class="fa fa-trash"></span>
-					                </td>
+                                    </td>
                                 </tr>
                             @endforeach
                         </table>
 
                         <div class="form-group">
-                            قیمت کل : <span class="total_price">{{isset($t_orders)?$t_orders->total_payment:''}}  </span>
-                            <input type="hidden" name="total_payment" id="total_payment" value="{{isset($t_orders)?$t_orders->total_payment:''}}">
+                            قیمت کل : <span
+                                    class="total_price">{{isset($t_orders)?$t_orders->total:''}}  </span>
+                            <input type="hidden" name="total_payment" id="total_payment"
+                                   value="{{isset($t_orders)?$t_orders->total:''}}">
                         </div>
-
-                        <input type="hidden" id="id" name="id" value="{{isset($t_orders)?$t_orders->order_id:''}}">
                         <input type="hidden" id="identity" name="identity" value="{{isset($t_orders)?$t_orders->identity:''}}">
+                        <input type="hidden" id="id" name="id" value="{{isset($t_orders)?$t_orders->order_id:''}}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="text" name="name" id="name" class="form-control" autocomplete="off"
-                                           placeholder="نام" value="{{isset($t_orders)?$t_orders->name:''}}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="phone_num" id="phone_num" class="form-control"
-                                           autocomplete="off" placeholder="شماره تماس" value="{{isset($t_orders)?$t_orders->phone:''}}">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="payment_amount" id="payment_amount" class="form-control"
-                                           autocomplete="off" placeholder="مقدار پرداخت" value="{{isset($t_orders)?$t_orders->payment:''}}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="discount" id="discount_amount" class="form-control"
-                                           autocomplete="off" placeholder="تخفیف" value="{{isset($t_orders)?$t_orders->discount:''}}">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="transport_fees" id="transport_fees" class="form-control"
-                                           autocomplete="off" placeholder="فیس ترانسپورت" value="{{isset($t_orders)?$t_orders->transport_price:''}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="text" name="address" id="address" class="form-control" autocomplete="off"
-                                       placeholder="آدرس" value="{{isset($t_orders)?$t_orders->address:''}}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
-                        </div>
-                        <div class="form-group" id="er_mssages">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
+                                    <select name="table_name" id="table_name" class="form-control">
+                                        @foreach($tables  as $tb)
+                                            <option value="{{$tb->location_id}}"{{isset($t_orders)&&$t_orders->location_id==$tb->location_id ? 'selected'.'='. 'selected':'' }}>{{$tb->name}}</option>
                                         @endforeach
-                                    </ul>
+                                    </select>
                                 </div>
-                            @endif
-                        </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
+                            </div>
+                            <div class="form-group" id="er_mssages">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                            </div>
                     </form>
                 </div> <!--/card-body-->
             </div>
@@ -390,7 +361,7 @@
 
                 jQuery('#order table').append(
                     '<tr class="order_row">'
-                    +'<td id="order_name">'
+                    + '<td id="order_name">'
                     + '<input type="hidden" name="menu_id_field[]" id="menu_id_field" class="menu_id_field" value=' + order_id + '>'
                     + '<span>' + order_name + '</span>'
                     + '</td>'
@@ -408,7 +379,7 @@
                     + '</tr>'
                 ); // append to the form
 
-                total = ((order_amount * order_price)+parseInt(total_price));
+                total = ((order_amount * order_price) + parseInt(total_price));
                 $(".total_price").html(total);
                 $('#total_payment').val(total)
 

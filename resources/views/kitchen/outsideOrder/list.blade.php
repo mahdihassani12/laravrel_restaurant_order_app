@@ -188,7 +188,7 @@
 
         //send order from kitchen
 
-        $('#accordion table tbody').on('click', 'button', function () {
+        $('#accordion').on('click', 'button', function () {
             var order_id = $(this).attr("order_id");
 
             $.ajax({

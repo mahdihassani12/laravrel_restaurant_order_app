@@ -31,7 +31,7 @@ class insideOrderController extends Controller
     {
         $food = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%فست فوت%')
+            ->where('categories.name','LIKE', '%غذا%')
             ->select('menu.*')
             ->get(); 
          
@@ -174,5 +174,89 @@ class insideOrderController extends Controller
              //]
         //);
 
+    }
+
+
+    public function loadInsideData($id)
+    {
+        $food = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->where('categories.name','LIKE', '%غذا%')
+            ->select('menu.*')
+            ->get();
+
+        $drink = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->where('categories.name','LIKE', '%نوشیدنی%')
+            ->select('menu.*')
+            ->get();
+
+        $icecream = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->where('categories.name','LIKE', '%بستنی%')
+            ->select('menu.*')
+            ->get();
+
+        $tables = Table::all();
+
+        $orders = DB::table('inside_order_total as in')
+            ->join('inside_order as ot','ot.total_id','=','in.order_id')
+            ->join('menu', 'menu.menu_id', '=', 'ot.menu_id')
+            ->join('categories', 'categories.category_id', '=', 'menu.category_id')
+            ->select( 'menu.name as menu_name',  'ot.order_amount', 'in.order_id', 'ot.total_id','categories.name','in.status','ot.price','ot.menu_id')
+            ->where('in.order_id','=',$id)
+            ->get();
+        $t_orders = InsideOrderTotal::find($id);
+
+        return view('order.insideOrder.edit',compact(['food','drink','icecream','tables','t_orders','orders']));
+
+    }
+
+    public function updateInsideOrder(Request $request,$id){
+
+        try{
+
+            DB::beginTransaction();
+            $request->validate([
+                'menu_id_field' => 'required',
+                'order_amount_field' => 'required',
+                'order_price_field'  => 'required',
+                'total_payment'     => 'required',
+                'table_name'  => 'required'
+            ],[
+                'menu_id_field.required'  => 'افزودن مینوی غذایی الزامی است.',
+                'order_amount_field.required' => 'تعداد سفارشات الزامی است.',
+                'order_price_field.required' => 'مقدار کلی پول باید بیشتر از صفر باشد.',
+                'table_name.required' => 'انتخاب میز الزامی است',
+                'total_payment.required' => 'هیچ مقدار پولی وارد نشده است.',
+            ]);
+
+
+            $total =InsideOrderTotal::find($id);
+            $data = $request -> all();
+
+            $total -> location_id = $data['table_name'];
+            $total -> total = $data['total_payment'];
+            $total -> identity =$data['identity'];
+            $total -> save();
+            DB::table('inside_order')->where('total_id',$id)->delete();
+            foreach ($request->input('menu_id_field') as $item => $value) {
+
+                $order = new InsideOrder();
+                $order -> total_id = $total->order_id;
+                $order -> menu_id = $data['menu_id_field'][$item];
+                $order -> order_amount = $data['order_amount_field'][$item];
+                $order -> price = $data['order_price_field'][$item];
+                $order -> save();
+
+            }
+            DB::commit();
+        }
+
+        catch(Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('errors','error');
+        }
+        return redirect()->back()->with('success','عملیات موفقانه انجام شد.');
     }
 }

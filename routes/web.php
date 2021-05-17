@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//Auth::routes();
 //authentication process
 Route::get('/','UsersController@login')->name('login');
 Route::get('logout', 'UsersController@logout')->name('logout');
@@ -42,6 +42,14 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::post('paymentOutsideCreate','PaymentController@paymentOutsideCreate')->name('paymentOutsideCreate');
     Route::get('paymentOutsideList','PaymentController@paymentOutsideList')->name('paymentOutsideList');
+
+    Route::get('reportInside','ReportController@reportInside')->name('reportInside');
+    Route::get('reportOutside','ReportController@reportOutside')->name('reportOutside');
+
+    Route::get('getInsideReport','ReportController@getInsideReport')->name('getInsideReport');
+    Route::get('getOutsideReport','ReportController@getOutsideReport')->name('getOutsideReport');
+    Route::get('reportAll','ReportController@reportAll')->name('reportAll');
+    Route::get('getReportAll','ReportController@getReportAll')->name('getReportAll');
 });
 
 //Group middleware for Order
@@ -53,7 +61,10 @@ Route::group(['middleware' => ['auth', 'order']], function () {
     Route::resource('outsideOrder','OutsideController');
     Route::get('outsideContinueOrder','OutsideController@outsideContinueOrder')->name('outsideContinueOrder');
     Route::get('loadData/{id}','OutsideController@loadData')->name('loadData');
+    Route::get('loadInsideData/{id}','insideOrderController@loadInsideData')->name('loadInsideData');
+
     Route::match(['post','put'],'updateOutsideOrder{id}','OutsideController@updateOutsideOrder')->name('updateOutsideOrder');
+    Route::match(['post','put'],'updateInsideOrder{id}','insideOrderController@updateInsideOrder')->name('updateInsideOrder');
 });
 
 //Group middleware for Kitchen
@@ -91,3 +102,7 @@ Route::group(['middleware' => ['auth', 'accountant']], function () {
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

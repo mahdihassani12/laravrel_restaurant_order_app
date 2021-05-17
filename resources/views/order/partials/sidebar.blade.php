@@ -47,12 +47,7 @@
                     <p> ثبت سفارش جدید </p>
                   </a>
                 </li>
-				<li class="nav-item">
-                  <a href="{{ route('continueOrder') }}" class="nav-link">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p> ادامه ثبت سفارش </p>
-                  </a>
-                </li>
+
 				<li class="nav-item">
                   <a href="{{ route('orders.index') }}" class="nav-link">
                     <i class="fa fa-circle-o nav-icon"></i>

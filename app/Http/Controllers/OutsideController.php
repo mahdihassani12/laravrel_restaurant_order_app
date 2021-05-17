@@ -159,9 +159,9 @@ class OutsideController extends Controller
 
     public function updateOutsideOrder(Request $request,$id){
 //        dd($request->all());
-//        try{
-//
-//            DB::beginTransaction();
+        try{
+
+            DB::beginTransaction();
             $request->validate([
                 'menu_id_field' => 'required',
                 'order_amount_field' => 'required',
@@ -193,7 +193,7 @@ class OutsideController extends Controller
             $total -> payment = $data['payment_amount'];
             $total -> discount = $data['discount'];
             $total -> transport_price = $data['transport_fees'];
-            $total -> identity =\random_int(100000, 999999);
+            $total -> identity =$data['identity'];
             $total -> save();
             DB::table('outside_order')->where('total_id',$id)->delete();
             foreach ($request->input('menu_id_field') as $item => $value) {
@@ -206,13 +206,13 @@ class OutsideController extends Controller
                 $order -> save();
 
             }
-//            DB::commit();
-//        }
-//
-//        catch(\Exception $e){
-//            DB::rollback();
-//            return redirect()->back()->with('errors','error');
-//        }
+            DB::commit();
+        }
+
+        catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->with('errors','error');
+        }
         return redirect()->back()->with('success','عملیات موفقانه انجام شد.');
     }
     public function destroy($id)

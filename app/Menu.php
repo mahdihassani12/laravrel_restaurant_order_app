@@ -14,11 +14,7 @@ class Menu extends Model
     protected $table = 'menu';
     protected $primaryKey = 'menu_id';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+
     protected $fillable = [
         'category_id','name','price'
     ];
