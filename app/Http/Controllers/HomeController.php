@@ -187,7 +187,7 @@ class HomeController extends Controller
     {		         
 		$food = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-			->where('categories.name','LIKE', '%فست فوت%')
+			->where('categories.name','LIKE', '%غذا%')
 			->select('menu.*')
             ->get(); 
 		 

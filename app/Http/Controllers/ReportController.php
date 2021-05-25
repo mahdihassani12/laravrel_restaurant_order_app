@@ -45,25 +45,36 @@ class ReportController extends Controller
                     $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                 }
 
-                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                 $data = DB::table('inside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                    ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
+                    ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',
+                        DB::raw("SUM(io.price*io.order_amount) as total_price"),
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
                     ->groupBy('menu.menu_id')
                     ->orderByDesc('or_am')
                     ->get();
+
+
                    $sum = DB::table('inside_order as io')
-                       ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                       ->whereDate('io.created_at','>=',$start_month_date)
+                       ->whereDate('io.created_at','<=',$jdate)
                        ->sum(DB::raw('price*order_amount'));
+
+                $discount= DB::table('inside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
+                    ->sum('discount');
 
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
 
@@ -71,26 +82,36 @@ class ReportController extends Controller
                $start_date=$request->start_date;
                $end_date=$request->end_date;
 
-                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
                 $data = DB::table('inside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                    ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
+                    ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
+                        'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->groupBy('menu.menu_id')
                     ->orderByDesc('or_am')
                     ->get();
                 $sum = DB::table('inside_order as io')
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->sum(DB::raw('price*order_amount'));
 //                   dd($data);
+                $discount= DB::table('inside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
+                    ->sum('discount');
+
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
+
             }
         } else {
             if ($request->type == 'month') {
@@ -116,54 +137,70 @@ class ReportController extends Controller
                     $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                 }
 
-                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                 $data = DB::table('inside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                     ->select( 'menu.name as menu_name',  'order_amount as or_am',
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
                     ->where('menu.category_id',$request->menu)
                     ->orderByDesc('or_am')
                     ->get();
                 $sum = DB::table('inside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                    ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
                     ->where('menu.category_id',$request->menu)
                     ->sum(DB::raw('io.price*order_amount'));
+
+                $discount= DB::table('inside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
+                    ->sum('discount');
 
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
             } else {
                 $start_date=$request->start_date;
                 $end_date=$request->end_date;
 
-                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
 
                 $data = DB::table('inside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                     ->select( 'menu.name as menu_name',  'order_amount as or_am',
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->where('menu.category_id',$request->menu)
                     ->orderByDesc('or_am')
                     ->get();
                 $sum = DB::table('inside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                     ->where('menu.category_id',$request->menu)
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->sum(DB::raw('io.price*order_amount'));
+
+                $discount= DB::table('inside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
+                    ->sum('discount');
 
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
             }
@@ -203,50 +240,68 @@ class ReportController extends Controller
                     $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                 }
 
-                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                 $data = DB::table('outside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                    ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
+                    ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',
+                        DB::raw("SUM(io.price*io.order_amount) as total_price"),
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
                     ->groupBy('menu.menu_id')
                     ->orderByDesc('or_am')
                     ->get();
                 $sum = DB::table('outside_order as io')
-                    ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
                     ->sum(DB::raw('price*order_amount'));
+
+                $discount= DB::table('outside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
+                    ->sum('discount');
 
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
+
 
             } else {
                 $start_date=$request->start_date;
                 $end_date=$request->end_date;
 
-                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
                 $data = DB::table('outside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                     ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->groupBy('menu.menu_id')
                     ->orderByDesc('or_am')
                     ->get();
                 $sum = DB::table('outside_order as io')
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->sum(DB::raw('price*order_amount'));
 //                   dd($data);
+                $discount= DB::table('outside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
+                    ->sum('discount');
+
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
             }
@@ -275,54 +330,69 @@ class ReportController extends Controller
                     $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                 }
 
-                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                 $data = DB::table('outside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                     ->select( 'menu.name as menu_name',  'order_amount as or_am',
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
                     ->where('menu.category_id',$request->menu)
                     ->orderByDesc('or_am')
                     ->get();
                 $sum = DB::table('outside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                    ->whereBetween('io.created_at',[$start_month_date,$jdate])
-                    ->where('menu.category_id',$request->menu)
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
                     ->sum(DB::raw('io.price*order_amount'));
+
+                $discount= DB::table('outside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_month_date)
+                    ->whereDate('io.created_at','<=',$jdate)
+                    ->sum('discount');
 
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
             } else {
                 $start_date=$request->start_date;
                 $end_date=$request->end_date;
 
-                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
 
                 $data = DB::table('outside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                     ->select( 'menu.name as menu_name',  'order_amount as or_am',
                         'io.price','io.total_id','io.created_at')
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->where('menu.category_id',$request->menu)
                     ->orderByDesc('or_am')
                     ->get();
                 $sum = DB::table('outside_order as io')
                     ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                     ->where('menu.category_id',$request->menu)
-                    ->whereBetween('io.created_at',[$start_date,$end_date])
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
                     ->sum(DB::raw('io.price*order_amount'));
+
+                $discount= DB::table('outside_order_total as io')
+                    ->whereDate('io.created_at','>=',$start_date)
+                    ->whereDate('io.created_at','<=',$end_date)
+                    ->sum('discount');
 
                 return response([
                     'data'=>$data,
                     'sum'=>$sum,
+                    'discount'=>$discount,
                     'type'=>$request->reason
                 ]);
             }
@@ -366,25 +436,34 @@ class ReportController extends Controller
                         $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                     }
 
-                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                     $data = DB::table('inside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->groupBy('menu.menu_id')
                         ->orderByDesc('or_am')
                         ->get();
+
                     $sum = DB::table('inside_order as io')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->sum(DB::raw('price*order_amount'));
+
+                    $discount= DB::table('inside_order_total as io')
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
+                        ->sum('discount');
 
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
 
@@ -393,26 +472,35 @@ class ReportController extends Controller
                     $start_date=$request->start_date;
                     $end_date=$request->end_date;
 
-                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
                     $data = DB::table('inside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->groupBy('menu.menu_id')
                         ->orderByDesc('or_am')
                         ->get();
                     $sum = DB::table('inside_order as io')
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->sum(DB::raw('price*order_amount'));
 //                   dd($data);
+                    $discount= DB::table('inside_order_total as io')
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
+                        ->sum('discount');
+
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
+
                 }
             }
             else{
@@ -440,28 +528,39 @@ class ReportController extends Controller
                         $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                     }
 
-                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                     $data = DB::table('inside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->where('menu.category_id',$request->menu)
                         ->groupBy('menu.menu_id')
                         ->orderByDesc('or_am')
                         ->get();
                     $sum = DB::table('inside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->where('menu.category_id',$request->menu)
                         ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('inside_order_total as io')
+                        ->join('inside_order','inside_order.total','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->where('menu.category_id',$request->menu)
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
+                        ->sum('discount');
 
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
 
@@ -470,27 +569,38 @@ class ReportController extends Controller
                     $start_date=$request->start_date;
                     $end_date=$request->end_date;
 
-                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
                     $data = DB::table('inside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->where('menu.category_id',$request->menu)
                         ->groupBy('menu.menu_id')
                         ->orderByDesc('or_am')
                         ->get();
                     $sum = DB::table('inside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->where('menu.category_id',$request->menu)
                         ->sum(DB::raw('io.price*order_amount'));
 //                   dd($data);
+                    $discount= DB::table('inside_order_total as io')
+                        ->join('inside_order','inside_order.total','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->where('menu.category_id',$request->menu)
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
+                        ->sum('discount');
+
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
                 }
@@ -522,25 +632,33 @@ class ReportController extends Controller
                         $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                     }
 
-                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                     $data = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  'order_amount as or_am',
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->orderByDesc('or_am')
                         ->get();
                     $sum = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('outside_order_total as io')
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
+                        ->sum('discount');
 
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
                 }
@@ -548,25 +666,33 @@ class ReportController extends Controller
                     $start_date=$request->start_date;
                     $end_date=$request->end_date;
 
-                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
 
                     $data = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  'order_amount as or_am',
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->orderByDesc('or_am')
                         ->get();
                     $sum = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('outside_order_total as io')
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
+                        ->sum('discount');
 
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
                 }
@@ -595,27 +721,38 @@ class ReportController extends Controller
                         $jdate = $jyear . '-0' . $jmonth . '-0' . $jday;
                     }
 
-                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date);
-                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate);
+                    $start_month_date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $start_month_date)->format('Y-m-d');
+                    $jdate = CalendarUtils::createDatetimeFromFormat('Y-m-d', $jdate)->format('Y-m-d');
 
 
                     $data = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  'order_amount as or_am',
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->where('menu.category_id',$request->menu)
                         ->orderByDesc('or_am')
                         ->get();
                     $sum = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
-                        ->whereBetween('io.created_at',[$start_month_date,$jdate])
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
                         ->where('menu.category_id',$request->menu)
                         ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('outside_order_total as io')
+                        ->join('outside_order','outside_order.total','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->where('menu.category_id',$request->menu)
+                        ->whereDate('io.created_at','>=',$start_month_date)
+                        ->whereDate('io.created_at','<=',$jdate)
+                        ->sum('discount');
 
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
                 }
@@ -623,27 +760,38 @@ class ReportController extends Controller
                     $start_date=$request->start_date;
                     $end_date=$request->end_date;
 
-                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date);
-                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date);
+                    $start_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $start_date)->format('Y-m-d');
+                    $end_date = CalendarUtils::createDatetimeFromFormat('Y/m/d', $end_date)->format('Y-m-d');
 
 
                     $data = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->select( 'menu.name as menu_name',  'order_amount as or_am',
                             'io.price','io.total_id','io.created_at')
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->where('menu.category_id',$request->menu)
                         ->orderByDesc('or_am')
                         ->get();
                     $sum = DB::table('outside_order as io')
                         ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                         ->where('menu.category_id',$request->menu)
-                        ->whereBetween('io.created_at',[$start_date,$end_date])
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
                         ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('outside_order_total as io')
+                        ->join('outside_order','outside_order.total','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->where('menu.category_id',$request->menu)
+                        ->whereDate('io.created_at','>=',$start_date)
+                        ->whereDate('io.created_at','<=',$end_date)
+                        ->sum('discount');
 
                     return response([
                         'data'=>$data,
                         'sum'=>$sum,
+                        'discount'=>$discount,
                         'type'=>$request->reason
                     ]);
                 }

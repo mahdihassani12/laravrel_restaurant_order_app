@@ -5,7 +5,7 @@
   <div class="container-fluid">
 	<div class="row mb-2">
 	  <div class="col-sm-12">
-		<h1 class="m-0 text-dark text-center"> لیست مینویی غذایی </h1>
+		<h1 class="m-0 text-dark text-center"> لیست مِنوها </h1>
 	  </div><!-- /.col -->
 	</div><!-- /.row -->
   </div><!-- /.container-fluid -->
@@ -17,9 +17,9 @@
 			<div class="col-md-12">
 				<nav>
 					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#food" role="tab" aria-controls="nav-home" aria-selected="true">فست فوت</a>
-						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#drink" role="tab" aria-controls="nav-profile" aria-selected="false">نوشیدنی</a>
-						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#icecream" role="tab" aria-controls="nav-contact" aria-selected="false">بستنی</a>
+						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#food" role="tab" aria-controls="nav-home" aria-selected="true">غذا ها</a>
+						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#drink" role="tab" aria-controls="nav-profile" aria-selected="false">نوشیدنی ها</a>
+						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#icecream" role="tab" aria-controls="nav-contact" aria-selected="false">بستنی ها</a>
 					</div>
 				</nav>
 				<div class="tab-content" id="nav-tabContent" >

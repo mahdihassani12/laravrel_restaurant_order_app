@@ -25,7 +25,7 @@
 						<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="true" aria-controls="collapseOne">
 							  شماره سفارش : {{ $order->identity }}
 						</button>
-						  <a href="{{route('loadData',$order->order_id)}}" id="send_order" class="btn btn-primary btn-xs"
+						  <a href="{{route('loadData',$order->order_id)}}" id="send_order_out" class="btn btn-primary btn-xs"
 								   style="float: left">ویرایش<i id="send_icon"></i>
 						  </a>
 					  </h5>
@@ -76,7 +76,7 @@
 							<button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ $order->order_id }}" aria-expanded="false" aria-controls="collapseOne">
 							    شماره سفارش : {{ $order->identity }}
 							</button>
-							  <a href="{{route('loadData',$order->order_id)}}" id="send_order" class="btn btn-primary btn-xs"
+							  <a href="{{route('loadData',$order->order_id)}}" id="send_order_out" class="btn btn-primary btn-xs"
 									   onclick="sendOrder(this)" style="float: left">ویرایش<i id="send_icon"></i>
 							  </a>
 						  </h5>

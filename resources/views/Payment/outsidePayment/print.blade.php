@@ -3,14 +3,14 @@
 @section('main_content')
 
     @foreach($orders as $index => $order)
-        <div class="container" style="width: 400px !important;">
-            <div class="header" style="margin-top: 30px !important;">
-                <h5 class="modal-title" id="exampleModalLongTitle"> بل پرداختی
-                    آقا/خانم {{$order->name}}</h5>
+        <div class="container">
+            <div class="header" style="margin-top: 30px !important; width: 400px; text-align: center">
+                <h4 class="modal-title" id="exampleModalLongTitle"> بستنی و فست فود گیلاتو
+                </h4>
 
             </div>
 
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" style="width: 400px">
                 <thead>
                 <th>#</th>
                 <th>اسم سفارش</th>
@@ -31,7 +31,7 @@
                 @endforeach
                 </tbody>
             </table>
-            <table class="table table-bordered" style="margin-top: -16px !important">
+            <table class="table table-bordered" style="margin-top: -16px !important;width: 400px">
                 <thead>
                 <tr>
                     <th> مقدار کل</th>
@@ -47,8 +47,10 @@
                 </tr>
                 </tbody>
             </table>
+            <h6 class="footer" style="margin-right: 35px">شماره های تماس: <span >0792469946 - 0789190444</span></h6>
+            <h4 style="margin-right: 60px">با خدمات پیک موتوری رایگان</h4>
             <div class="backward">
-                <a href="{{route('paymentOutsideList')}}" class="btn btn-primary">برگشت به صفحه قبل</a>
+                <a href="{{route('paymentOutsideList')}}" class="btn btn-primary" style="margin-right: 82px">برگشت به صفحه قبل</a>
             </div>
         </div>
 
@@ -69,6 +71,9 @@
             }
             footer,.backward{
                 visibility: hidden !important;
+            }
+            .container{
+                margin-right: -20px !important;
             }
         }
     </style>

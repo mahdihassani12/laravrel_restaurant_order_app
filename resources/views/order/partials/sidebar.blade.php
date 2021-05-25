@@ -9,15 +9,25 @@
     <div class="sidebar">
       <div>
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <div class="info">
-            @auth
-				<a href="#">
-					<strong>کاربر : {{Auth()->user()->user_name}}</strong>
-				</a>
-			@endif
+          <div class="row" style="text-align: center !important;">
+
+              <div class="photo">
+                  <img src="{{asset('images/user.png')}}" id="user_img" style="width: 130px
+                         !important;height: 130px !important;
+                          margin-right: 40px;
+                           border-radius: 50%;
+                            padding: 15px">
+              </div>
           </div>
-        </div>
+          <div class="row" style="border-bottom: 1px solid #80808087;padding-bottom: 15px">
+              <div class="info">
+                  @auth
+                      <a href="#">
+                          <strong style="margin-right: 55px;">کاربر : {{Auth()->user()->user_name}}</strong>
+                      </a>
+                  @endif
+              </div>
+          </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">

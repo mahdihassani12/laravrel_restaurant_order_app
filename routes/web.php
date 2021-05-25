@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Auth::routes();
+Auth::routes();
 //authentication process
 Route::get('/','UsersController@login')->name('login');
 Route::get('logout', 'UsersController@logout')->name('logout');

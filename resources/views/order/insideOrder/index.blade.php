@@ -84,7 +84,7 @@
 						</div>
 
 						<div id="collapse{{ $order->order_id }}" class="collapse" aria-labelledby="head{{ $order->order_id }}" data-parent="#accordion">
-						  <div class="card-body">
+						  <div class="card-body" >
 								<table class="table table-bordered">
 									<thead>
 										<tr>

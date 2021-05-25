@@ -183,7 +183,7 @@
 
                 }
             })
-        }, 30000);
+        }, 10000);
 
 
         //send order from kitchen

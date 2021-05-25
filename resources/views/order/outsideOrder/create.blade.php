@@ -11,7 +11,7 @@
 </div>
 
 <div class="row">
-	<div class="col-md-8 col-sm-12">
+	<div class="col-md-7 col-sm-12">
 		<section id="tabs" class="project-tab">
 			<div class="container">
 				<div class="row">
@@ -28,20 +28,18 @@
 								<table class="table" cellspacing="0">
 									<thead>
 										<tr>
-											<th> # </th>
 											<th>نام </th>
-											<th>قیمت</th>
-											<th>تعداد</th>
-											<th>پروسس</th>
+											<th style="width: 18% !important;">قیمت</th>
+											<th style="width: 18% !important;">تعداد</th>
+											<th style="width: 18% !important;">پروسس</th>
 										</tr>
 									</thead>
 									<tbody>
 										@foreach($food as $index => $f)
 											<tr>
-												<td>{{ $index + 1 }}</td>
 												<td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-												<td id="price">{{ $f-> price }}</td>
-												<td id="amount">
+												<td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
+												<td style="width: 18% !important;" id="amount">
 													<input type="number" 
 														   name="amount"
 														   id="amount"
@@ -50,17 +48,16 @@
 														   placeholder="تعداد"
 														   />
 												</td>
-												<td class="process"><span class="text-info">افزودن</span></td>
+												<td style="width: 18% !important;" class="process "><button class="fa fa-plus"></button></td>
 											</tr>
 										@endforeach
 									</tbody>
 									<tfoot>
 										<tr>
-											<th> # </th>
 											<th>نام </th>
-											<th>قیمت</th>
-											<th>تعداد</th>
-											<th>پروسس</th>
+											<th style="width: 18% !important;">قیمت</th>
+											<th style="width: 18% !important;" >تعداد</th>
+											<th style="width: 18% !important;">پروسس</th>
 										</tr>
 									</tfoot>
 								</table>
@@ -69,20 +66,18 @@
 								<table class="table" cellspacing="0">
 									<thead>
 										<tr>
-											<th> # </th>
 											<th>نام </th>
-											<th>قیمت</th>
-											<th>تعداد</th>
-											<th>پروسس</th>
+											<th style="width: 18% !important;">قیمت</th>
+											<th style="width: 18% !important;">تعداد</th>
+											<th style="width: 18% !important;">پروسس</th>
 										</tr>
 									</thead>
 									<tbody>
 										@foreach($drink as $index => $f)
 											<tr>
-												<td>{{ $index + 1 }}</td>
 												<td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-												<td id="price">{{ $f-> price }}</td>
-												<td id="amount">
+												<td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
+												<td style="width: 18% !important;" id="amount">
 													<input type="number" 
 														   name="amount"
 														   id="amount"
@@ -91,17 +86,16 @@
 														   placeholder="تعداد"
 														   />
 												</td>
-												<td class="process"><span class="text-info">افزودن</span></td>
+												<td style="width: 18% !important;" class="process "><button class="fa fa-plus"></button></td>
 											</tr>
 										@endforeach
 									</tbody>
 									<tfoot>
 										<tr>
-											<th> # </th>
 											<th>نام </th>
-											<th>قیمت</th>
-											<th>تعداد</th>
-											<th>پروسس</th>
+											<th style="width: 18% !important;">قیمت</th>
+											<th style="width: 18% !important;">تعداد</th>
+											<th style="width: 18% !important;">پروسس</th>
 										</tr>
 									</tfoot>
 								</table>
@@ -110,20 +104,18 @@
 								<table class="table" cellspacing="0">
 									<thead>
 										<tr>
-											<th> # </th>
 											<th>نام </th>
-											<th>قیمت</th>
-											<th>تعداد</th>
-											<th>پروسس</th>
+											<th style="width: 18% !important;">قیمت</th>
+											<th style="width: 18% !important;">تعداد</th>
+											<th style="width: 18% !important;">پروسس</th>
 										</tr>
 									</thead>
 									<tbody>
 										@foreach($icecream as $index => $f)
 											<tr>
-												<td>{{ $index + 1 }}</td>
 												<td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-												<td id="price">{{ $f-> price }}</td>
-												<td id="amount">
+												<td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
+												<td style="width: 18% !important;" id="amount">
 													<input type="number" 
 														   name="amount"
 														   id="amount"
@@ -132,17 +124,16 @@
 														   placeholder="تعداد"
 														   autocomplete="off"/>
 												</td>
-												<td class="process"><span class="text-info">افزودن</span></td>
+												<td style="width: 18% !important;" class="process "><button class="fa fa-plus"></button></td>
 											</tr>
 										@endforeach
 									</tbody>
 									<tfoot>
 										<tr>
-											<th> # </th>
 											<th>نام </th>
-											<th>قیمت</th>
-											<th>تعداد</th>
-											<th>پروسس</th>
+											<th style="width: 18% !important;">قیمت</th>
+											<th style="width: 18% !important;">تعداد</th>
+											<th style="width: 18% !important;">پروسس</th>
 										</tr>
 									</tfoot>
 								</table>
@@ -153,7 +144,7 @@
 			</div>
 		</section>
 	</div> <!--/col-->
-	<div class="col-md-4 col-sm-12">
+	<div class="col-md-5 col-sm-12">
 		<div class="card">
 			<div class="card-header">سفارش در حال اجرا</div>
 			<div class="card-body">

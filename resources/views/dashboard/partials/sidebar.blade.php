@@ -2,18 +2,28 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-        <span class="brand-text font-weight-light">پنل مدیریت</span>
+        <span class="brand-text font-weight-light" style="margin-right: 25px">پنل مدیریت</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <div>
             <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="row" style="text-align: center !important;">
+
+                <div class="photo">
+                    <img src="{{asset('images/user.png')}}" id="user_img" style="width: 130px
+                         !important;height: 130px !important;
+                          margin-right: 40px;
+                           border-radius: 50%;
+                            padding: 15px">
+                </div>
+            </div>
+            <div class="row" style="border-bottom: 1px solid #80808087;padding-bottom: 15px">
                 <div class="info">
                     @auth
                         <a href="#">
-                            <strong>کاربر : {{Auth()->user()->user_name}}</strong>
+                            <strong style="margin-right: 55px;">کاربر : {{Auth()->user()->user_name}}</strong>
                         </a>
                     @endif
                 </div>
@@ -73,7 +83,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fa fa-file-archive-o"></i>
                             <p>
-                                مدیریت مینوی غذایی
+                                مدیریت مِنویی غذایی
                                 <i class="right fa fa-angle-left"></i>
                             </p>
                         </a>
@@ -93,13 +103,13 @@
                             <li class="nav-item">
                                 <a href="{{ route('menus.create') }}" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
-                                    <p> افزودن مینویی غذایی </p>
+                                    <p> افزودن مِنویی غذایی </p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('menus.index') }}" class="nav-link">
                                     <i class="fa fa-circle-o nav-icon"></i>
-                                    <p> لیست مینویی غذایی </p>
+                                    <p> لیست مِنویی غذایی </p>
                                 </a>
                             </li>
                         </ul>
@@ -174,5 +184,15 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+@section('style')
+    <style>
+        .nav-item ul{
+            display: none;
+        }
 
+        .nav-item.menu-open ul{
+            display: block;
+        }
+    </style>
+@endsection
 

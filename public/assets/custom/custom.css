@@ -33,3 +33,38 @@
 #form_delete button:focus{
     outline: unset;
 }
+.card{
+    overflow-x:  auto !important;
+}
+@media screen and (min-width: 320px) {
+    #send_order{
+        margin-left: 31% !important;
+    }
+}
+@media screen and (min-width: 375px) {
+    #send_order{
+        margin-left: 35% !important;
+    }
+}
+@media screen and (min-width:425px) {
+    #send_order{
+        margin-left: 40% !important;
+    }
+}
+@media screen and (min-width:768px) {
+    #send_order{
+        margin-left: 0 !important;
+    }
+}
+
+@media screen and (min-width:320px) {
+    #send_order_out{
+        margin-left: 33% !important;
+    }
+}
+
+@media screen and (min-width:375px) {
+    #send_order_out{
+        margin-left: 0 !important;
+    }
+}

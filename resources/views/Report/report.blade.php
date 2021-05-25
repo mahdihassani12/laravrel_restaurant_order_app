@@ -94,13 +94,16 @@
                     </tr>
                 </table>
             </div>
-            <div class="col-md-12" style="margin-top: 20px;">
+            <div class="col-md-12" style="margin-top: 20px; overflow-x: auto">
 
                 <table id="example" class="table table-striped table-bordered display" style="width:100%">
                     <thead class="sum">
                     <tr>
                         <th>مجموعه</th>
-                        <th class="total" colspan="5">0</th>
+                        <th class="total" >0</th>
+
+                        <th>تخفیف</th>
+                        <th class="discount" colspan="3">0</th>
                     </tr>
                     <tr>
                         <th>شماره</th>
@@ -112,13 +115,20 @@
                     </tr>
                     </thead>
                     <tfoot style="text-align: right">
+                    <tr>
+                        <th>مجموعه</th>
+                        <th class="total" >0</th>
 
+                        <th>تخفیف</th>
+                        <th class="discount" colspan="3">0</th>
+                    </tr>
                     </tfoot>
 
                     <tbody id="content-display">
 
 
                     </tbody>
+
                 </table>
                 <div class="pagination" style="float: left" id="pagination">
 
@@ -304,6 +314,7 @@
                         $('#pagination').html(response['pagination']);
 
                         $(".total").text(response.sum)
+                        $(".discount").text(response.discount)
 
                         $(".dt-button").addClass("btn");
 

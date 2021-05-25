@@ -4,7 +4,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1 class="m-0 text-dark"> افزودن مینویی غذایی </h1>
+            <h1 class="m-0 text-dark"> افزودن مِنویی غذایی </h1>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -14,17 +14,17 @@
 		<div class="row">
 			<div class="col-md-8 col-sm-12">
 				<div class="card">
-					<div class="card-header"> افزودن مینویی جدید </div>
+					<div class="card-header"> افزودن مِنویی جدید </div>
 					<div class="card-body">
 						<form method="post" action="{{ route('menus.store') }}">
 							@csrf
 							
 							<div class="form-group">
-								<label for="name"> نام مینو </label>
+								<label for="name"> نام مِنو </label>
 								<input type="text" 
 									   name="name" 
 									   id="name" 
-									   placeholder="نام مینو"
+									   placeholder="نام مِنو"
 									   class="form-control" 
 									   autocomplete="off"
 									   />
