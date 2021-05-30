@@ -72,11 +72,18 @@ Route::group(['middleware' => ['auth', 'kitchen']], function () {
     Route::get('kitchen','HomeController@kitchenDashboard')->name('kitchenDashboard');
     Route::get('kitchenSearch','KitchenController@kitchenSearch')->name('kitchenSearch');
     Route::get('getOrders','KitchenController@getOrders')->name('getOrders');
-    Route::get('sendOrders','KitchenController@sendOrders')->name('sendOrders');
+    Route::get('getSendOrders','KitchenController@getSendOrders')->name('getSendOrders');
+
+    Route::post('sendOrders','KitchenController@sendOrders')->name('sendOrders');
 
     Route::get('kitchenOutsideSearch','KitchenController@kitchenOutsideSearch')->name('kitchenOutsideSearch');
     Route::get('getOutsideOrders','KitchenController@getOutsideOrders')->name('getOutsideOrders');
-    Route::get('sendOutsideOrders','KitchenController@sendOutsideOrders')->name('sendOutsideOrders');
+    Route::get('getOutsideSendOrders','KitchenController@getOutsideSendOrders')->name('getOutsideSendOrders');
+
+    Route::post('sendOutsideOrders','KitchenController@sendOutsideOrders')->name('sendOutsideOrders');
+
+    Route::get('getNotification','KitchenController@getNotification')->name('getNotification');
+
 });
 
 //Group middleware for Payment

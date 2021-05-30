@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\newOrderNotification;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\InsideOrder;
 use App\InsideOrderTotal;
 use App\Table;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class insideOrderController extends Controller
@@ -82,10 +85,11 @@ class insideOrderController extends Controller
 
             $total = new InsideOrderTotal();
             $data = $request -> all();
-
+            $user = User::all();
             $total -> location_id = $data['table_order'];
             $total -> total = $data['total'];
             $total -> identity =\random_int(100000, 999999);
+            Notification::send($user, new newOrderNotification('سفارش جدید دارید!'));
             $total -> save();
 
             foreach ($request->input('menu_id') as $item => $value) {
@@ -95,6 +99,7 @@ class insideOrderController extends Controller
                 $order -> menu_id = $data['menu_id'][$item];
                 $order -> order_amount = $data['order_amount'][$item];
                 $order -> price = $data['order_price'][$item];
+
                 $order -> save();
 
             }

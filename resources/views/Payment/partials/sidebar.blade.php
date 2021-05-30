@@ -1,3 +1,12 @@
+<style>
+    .nav-item ul{
+        display: none;
+    }
+
+    .nav-item.menu-open ul{
+        display: block;
+    }
+</style>
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -69,3 +78,16 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+
+<script>
+    $(document).ready(function(){
+        $('.has-treeview > a').click(function () {
+            if($(this).parent().hasClass("menu-open")){
+                $('.nav-item').removeClass("menu-open");
+            }else{
+                $('.nav-item').removeClass("menu-open");
+                $(this).parent().addClass("menu-open");
+            }
+        });
+    });
+</script>

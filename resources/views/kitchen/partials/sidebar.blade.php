@@ -41,12 +41,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('getSendOrders') }}" class="nav-link ">
+                            <i class="fa fa-outdent"></i>
+                            <span> لیست سفارشات داخلی </br>ارسال شده </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('getOutsideOrders') }}" class="nav-link ">
                             <i class="fa fa-indent"></i>
                             <p> لیست سفارشات بیرونی </p>
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a href="{{ route('getOutsideSendOrders') }}" class="nav-link ">
+                            <i class="fa fa-outdent"></i>
+                            <span> لیست سفارشات بیرونی</br> ارسال شده </span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>

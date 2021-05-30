@@ -46,6 +46,8 @@
 <script src="{{ asset('/assets/js/adminlte.min.js') }}"></script>
 <script src="{{asset('/assets/js/jalali-moment.browser.js')}}"></script>
 <script src="{{asset('assets/jalali/kamadatepicker.js')}}"></script>
+<script src="{{asset('assets/js/custom.js')}}"></script>
+
 
   @yield('script')
 </body>

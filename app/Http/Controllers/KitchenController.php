@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\InsideOrder;
 use App\InsideOrderTotal;
+use App\OutsideOrderTotal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class KitchenController extends Controller
@@ -17,6 +19,7 @@ class KitchenController extends Controller
             ->join('location', 'location.location_id', '=', 'iot.location_id')
             ->select('location.name','iot.order_id','identity','iot.status')
             ->orderByDesc('iot.order_id')
+            ->where('iot.status','=','1')
             ->groupBy('location.name','iot.order_id','identity')
             ->get();
 
@@ -37,19 +40,35 @@ class KitchenController extends Controller
 
             return response()->json(array('orders' => $orders,'insideOrders'=>$insideOrders));
         }
-        return view('Kitchen.insideOrder.list', compact('orders'));
+        $user = DB::table('notifications')->where('notifiable_id',Auth::user()->user_id)->get();
+        return view('Kitchen.insideOrder.list', compact('orders','user'));
     }
 
 
     public function sendOrders(Request $request)
     {
         $id = $request->get('id');
-        $update = DB::table('inside_order_total')->where('order_id', $id)->update(['status' => 2]);
-        if ($update) {
-            return true;
-        } else {
-            return false;
-        }
+        $order_id = $request->get('order_id');
+
+       if ($order_id!=null){
+           $update = DB::table('inside_order_total')->where('order_id', $order_id)->update(['status' => 2]);
+           if ($update){
+               $orders = InsideOrderTotal::where('order_id',$request->order_id)->get();
+               return view('Kitchen.insideOrder.print',compact('orders'));
+           }
+          else{
+              return false;
+          }
+       }
+       else{
+           $update = DB::table('inside_order_total')->where('order_id', $id)->update(['status' => 2]);
+           if ($update) {
+               return true;
+           } else {
+               return false;
+           }
+       }
+
     }
 
     public function kitchenSearch(Request $request)
@@ -61,6 +80,7 @@ class KitchenController extends Controller
             ->select('location.name','iot.order_id','identity','iot.status')
             ->orderByDesc('iot.order_id')
             ->groupBy('location.name','iot.order_id','identity')
+            ->where('iot.status','=','1')
             ->get();
 
         return view('Kitchen.insideOrder.search', compact(['orders']));
@@ -74,6 +94,7 @@ class KitchenController extends Controller
             ->join('outside_order','outside_order.total_id','=','iot.order_id')
             ->select('name','identity','iot.order_id','status')
             ->orderByDesc('iot.order_id')
+            ->where('iot.status','=','1')
             ->groupBy('name','identity','iot.order_id','status')
             ->get();
         foreach ($orders as $order) {
@@ -92,19 +113,35 @@ class KitchenController extends Controller
 
             return response()->json(array('orders' => $orders,'insideOrders'=>$insideOrders));
         }
-        return view('Kitchen.outsideOrder.list', compact('orders'));
+            $user = DB::table('notifications')->where('notifiable_id',Auth::user()->user_id)->get();
+        return view('Kitchen.outsideOrder.list', compact('orders','user'));
     }
 
 
         public function sendOutsideOrders(Request $request)
     {
-        $id = $request->get('id');
 
-        $update = DB::table('outside_order_total')->where('order_id', $id)->update(['status' => 2]);
-        if ($update) {
-            return true;
-        } else {
-            return false;
+        $id = $request->get('id');
+        $order_id = $request->get('order_id');
+
+        if ($order_id!=null){
+            $update = DB::table('outside_order_total')->where('order_id', $order_id)->update(['status' => 2]);
+            if ($update){
+
+                $orders = OutsideOrderTotal::where('order_id',$request->order_id)->get();
+                return view('Kitchen.outsideOrder.print',compact('orders'));
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            $update = DB::table('outside_order_total')->where('order_id', $id)->update(['status' => 2]);
+            if ($update) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -116,6 +153,7 @@ class KitchenController extends Controller
             ->select('name','identity','iot.order_id','status')
             ->orderByDesc('iot.order_id')
             ->groupBy('name','identity','iot.order_id','status')
+            ->where('iot.status','=','1')
             ->get();
 
 
@@ -123,5 +161,42 @@ class KitchenController extends Controller
 
 
 
+    }
+
+
+    //get notification
+    public function getNotification()
+    {
+        return count($user = DB::table('notifications')->where('notifiable_id',Auth::user()->user_id)->get());
+    }
+
+
+    //get inside order send
+    public function getSendOrders()
+    {
+        $orders = DB::table('inside_order_total as iot')
+            ->join('inside_order','inside_order.total_id','=','iot.order_id')
+            ->join('location', 'location.location_id', '=', 'iot.location_id')
+            ->select('location.name','iot.order_id','identity','iot.status')
+            ->orderByDesc('iot.order_id')
+            ->where('iot.status','=','2')
+            ->groupBy('location.name','iot.order_id','identity')
+            ->get();
+        $user = DB::table('notifications')->where('notifiable_id',Auth::user()->user_id)->get();
+        return view('Kitchen.insideOrder.insideOrderSendList',compact(['orders','user']));
+    }
+    
+    //get outside order send
+    public function getOutsideSendOrders()
+    {
+        $orders = DB::table('outside_order_total as iot')
+            ->join('outside_order','outside_order.total_id','=','iot.order_id')
+            ->select('name','identity','iot.order_id','status')
+            ->orderByDesc('iot.order_id')
+            ->groupBy('name','identity','iot.order_id','status')
+            ->where('iot.status','=','2')
+            ->get();
+        $user = DB::table('notifications')->where('notifiable_id',Auth::user()->user_id)->get();
+        return view('Kitchen.outsideOrder.outsideOrderSendList',compact(['orders','user']));
     }
 }

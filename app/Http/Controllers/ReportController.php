@@ -550,8 +550,8 @@ class ReportController extends Controller
                         ->sum(DB::raw('io.price*order_amount'));
 
                     $discount= DB::table('inside_order_total as io')
-                        ->join('inside_order','inside_order.total','=','io.order_id')
-                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->join('inside_order','inside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'inside_order.menu_id')
                         ->where('menu.category_id',$request->menu)
                         ->whereDate('io.created_at','>=',$start_month_date)
                         ->whereDate('io.created_at','<=',$jdate)
@@ -590,8 +590,8 @@ class ReportController extends Controller
                         ->sum(DB::raw('io.price*order_amount'));
 //                   dd($data);
                     $discount= DB::table('inside_order_total as io')
-                        ->join('inside_order','inside_order.total','=','io.order_id')
-                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->join('inside_order','inside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'inside_order.menu_id')
                         ->where('menu.category_id',$request->menu)
                         ->whereDate('io.created_at','>=',$start_date)
                         ->whereDate('io.created_at','<=',$end_date)
@@ -742,8 +742,8 @@ class ReportController extends Controller
                         ->sum(DB::raw('io.price*order_amount'));
 
                     $discount= DB::table('outside_order_total as io')
-                        ->join('outside_order','outside_order.total','=','io.order_id')
-                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->join('outside_order','outside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'outside_order.menu_id')
                         ->where('menu.category_id',$request->menu)
                         ->whereDate('io.created_at','>=',$start_month_date)
                         ->whereDate('io.created_at','<=',$jdate)
@@ -781,8 +781,8 @@ class ReportController extends Controller
                         ->sum(DB::raw('io.price*order_amount'));
 
                     $discount= DB::table('outside_order_total as io')
-                        ->join('outside_order','outside_order.total','=','io.order_id')
-                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->join('outside_order','outside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'outside_order.menu_id')
                         ->where('menu.category_id',$request->menu)
                         ->whereDate('io.created_at','>=',$start_date)
                         ->whereDate('io.created_at','<=',$end_date)

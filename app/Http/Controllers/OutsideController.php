@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\InsideOrder;
 use App\InsideOrderTotal;
+use App\Notifications\newOrderNotification;
 use App\OutsideModel;
 use App\OutsideOrderTotal;
 use App\Table;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class OutsideController extends Controller
 {
@@ -90,7 +93,7 @@ class OutsideController extends Controller
 
             $total = new OutsideOrderTotal();
             $data = $request -> all();
-
+            $user = User::all();
             $total -> name = $data['name'];
             $total -> phone = $data['phone_num'];
             $total -> address = $data['address'];
@@ -99,6 +102,7 @@ class OutsideController extends Controller
             $total -> discount = $data['discount'];
             $total -> transport_price = $data['transport_fees'];
             $total -> identity =\random_int(100000, 999999);
+            Notification::send($user, new newOrderNotification('سفارش جدید دارید!'));
             $total -> save();
 
             foreach ($request->input('menu_id') as $item => $value) {

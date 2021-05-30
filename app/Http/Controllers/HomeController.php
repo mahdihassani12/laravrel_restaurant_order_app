@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\InsideOrder;
 use App\OutsideModel;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Menu;
 
@@ -168,8 +170,11 @@ class HomeController extends Controller
             ->select('location.name','iot.order_id','identity','iot.status')
             ->orderByDesc('iot.order_id')
             ->groupBy('location.name','iot.order_id','identity')
+            ->where('iot.status','=','1')
             ->get();
-        return view('Kitchen.insideOrder.list',compact('orders'));
+        $user = DB::table('notifications')->where('notifiable_id',Auth::user()->user_id)->get();
+
+        return view('Kitchen.insideOrder.list',compact('orders','user'));
     }
 
     /*
