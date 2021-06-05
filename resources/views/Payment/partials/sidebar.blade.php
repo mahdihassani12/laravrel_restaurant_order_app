@@ -57,12 +57,23 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('paymentPayedInsideList') }}" class="nav-link">
+                            <i class="fa fa-outdent"></i>
+                            <p> لیست پرداخت شده سفارشات <br> داخلی </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('paymentOutsideList') }}" class="nav-link">
                             <i class="fa fa-indent"></i>
                             <p> لیست سفارشات بیرونی</p>
                         </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a href="{{ route('paymentPayedOutsideList') }}" class="nav-link">
+                            <i class="fa fa-indent"></i>
+                            <p> لیست پرداخت شده سفارشات <br> بیرونی</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link">
                             <i class="nav-icon fa fa-dashboard"></i>

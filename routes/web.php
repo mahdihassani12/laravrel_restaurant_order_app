@@ -92,10 +92,12 @@ Route::group(['middleware' => ['auth', 'accountant']], function () {
     Route::post('paymentInsideCreate','PaymentController@paymentInsideCreate')->name('paymentInsideCreate');
     Route::get('paymentInsideList','PaymentController@paymentInsideList')->name('paymentInsideList');
     Route::post('paymentInsideUpdate','PaymentController@paymentInsideUpdate')->name('paymentInsideUpdate');
+    Route::get('paymentPayedInsideList','PaymentController@paymentPayedInsideList')->name('paymentPayedInsideList');
 
     Route::post('paymentOutsideCreate','PaymentController@paymentOutsideCreate')->name('paymentOutsideCreate');
     Route::get('paymentOutsideList','PaymentController@paymentOutsideList')->name('paymentOutsideList');
     Route::post('paymentOutsideUpdate','PaymentController@paymentOutsideUpdate')->name('paymentOutsideUpdate');
+    Route::get('paymentPayedOutsideList','PaymentController@paymentPayedOutsideList')->name('paymentPayedOutsideList');
 
 });
 

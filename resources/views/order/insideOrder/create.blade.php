@@ -25,7 +25,7 @@
 						</nav>
 						<div class="tab-content" id="nav-tabContent">
 							<div class="tab-pane fade show active" id="food" role="tabpanel" aria-labelledby="nav-home-tab">
-								<table class="table" cellspacing="0">
+								<table class="table" cellspacing="0" id="example">
 									<thead>
 										<tr>
 											<th>نام </th>
@@ -64,7 +64,7 @@
 								</table>
 							</div>
 							<div class="tab-pane fade" id="drink" role="tabpanel" aria-labelledby="nav-profile-tab">
-								<table class="table" cellspacing="0">
+								<table class="table" cellspacing="0" id="example2">
 									<thead>
 										<tr>
 
@@ -103,7 +103,7 @@
 								</table>
 							</div>
 							<div class="tab-pane fade" id="icecream" role="tabpanel" aria-labelledby="nav-contact-tab">
-								<table class="table" cellspacing="0">
+								<table class="table" cellspacing="0" id="example3">
 									<thead>
 										<tr>
 											<th>نام </th>
@@ -296,7 +296,19 @@
 @section('script')
 <script type="text/javascript">
    jQuery(document).ready(function(){
-	   
+       $('#example,#example2,#example3').dataTable(
+           {
+               "bPaginate": false,
+               dom: 'Bfrtip',
+
+               bFilter: true,
+               buttons: [  ]
+
+
+
+           }
+       );
+
 	   var total = 0;
 	   jQuery('.process').click(function(){
 		   

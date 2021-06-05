@@ -12,6 +12,8 @@
   <link rel="stylesheet" href="{{ asset('/assets/css/custom-style.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/css/select2.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/custom/custom.css') }}">
+  <link rel="stylesheet" href="{{asset('assets/datatables/media/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/datatables/extensions/Responsive/css/responsive.bootstrap.min.css')}}">
   @yield('style')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -46,7 +48,17 @@
 <script src="{{ asset('/assets/js/adminlte.min.js') }}"></script>
 
 <script src="{{ asset('/assets/js/select2.min.js') }}"></script>
-
+<script src="{{asset('assets/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/buttons.flash.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/jszip.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/vfs_fonts.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/pdfmake.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('assets/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets/datatables/extensions/Responsive/js/responsive.bootstrap.min.js')}}"></script>
   @yield('script')
 </body>
 </html>

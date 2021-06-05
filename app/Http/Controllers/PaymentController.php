@@ -12,7 +12,7 @@ class PaymentController extends Controller
 
     public function paymentInsideList()
     {
-        $orders = InsideOrderTotal::orderby('order_id','desc')->where('status','2')->paginate(10);
+        $orders = InsideOrderTotal::where('payment','=',0)->where('status','2')->paginate(10);
         return view('Payment.insidePayment.index',compact('orders'));
     }
 
@@ -76,7 +76,7 @@ class PaymentController extends Controller
 
     public function paymentOutsideList()
     {
-        $orders = OutsideOrderTotal::orderby('order_id','desc')->where('status','2')->paginate(10);
+        $orders = OutsideOrderTotal::where('payment','=',0)->where('status','2')->paginate(10);
         return view('Payment.outsidePayment.index',compact('orders'));
     }
 
@@ -141,5 +141,16 @@ class PaymentController extends Controller
 
     }
 
+    //paymentPayedOutsideList
+    public function paymentPayedOutsideList(){
+        $orders = OutsideOrderTotal::where('payment','>',0)->where('status','2')->paginate(10);
+        return view('Payment.outsidePayment.outSidePayedList',compact('orders'));
+    }
 
+
+    //paymentPayedInsideList
+    public function paymentPayedInsideList(){
+        $orders = InsideOrderTotal::where('payment','>',0)->where('status','2')->paginate(10);
+        return view('Payment.insidePayment.inSidePayedList',compact('orders'));
+    }
 }
