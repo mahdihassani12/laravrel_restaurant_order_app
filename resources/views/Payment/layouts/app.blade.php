@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap-rtl.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/css/custom-style.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/custom/custom.css') }}">
+  <link rel="stylesheet" href="{{asset('assets/datatables/media/css/dataTables.bootstrap.min.css')}}">
+  <link rel="stylesheet" href="{{asset('assets/datatables/extensions/Responsive/css/responsive.bootstrap.min.css')}}">
   @yield('style')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -43,6 +45,12 @@
 <script src="{{ asset('/assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('/assets/js/adminlte.min.js') }}"></script>
+
+<script src="{{asset('assets/datatables/media/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/datatables/media/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/datatables/extensions/Responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets/datatables/extensions/Responsive/js/responsive.bootstrap.min.js')}}"></script>
   @yield('script')
 </body>
 </html>

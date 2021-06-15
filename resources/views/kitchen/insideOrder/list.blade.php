@@ -13,7 +13,7 @@
 
     <div class="container my-4">
 
-        <div id="accordion">
+        <div id="accordion" class="hidden-print">
 
             @foreach($orders as $index => $order)
 
@@ -136,6 +136,7 @@
                                             <th>اسم سفارش</th>
                                             <th>نوعیت سفارش</th>
                                             <th>تعداد سفارش</th>
+
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -148,6 +149,7 @@
                                                 <td>{{ $inside->menu->name }}</td>
                                                 <td>{{ $inside->menu->category->name }}</td>
                                                 <td>{{ $inside->order_amount }}</td>
+
 
                                             </tr>
                                         @endforeach
@@ -178,10 +180,32 @@
         {{--</div>--}}
 
     </div> <!-- /container -->
+    <div id="printBo" style="">
+
+    </div>
 @endsection
 
 @section('style')
+    <style>
+        @media print {
+            #accordion {
+               visibility: hidden;
+                margin-bottom: -440px !important;
+            }
+            .main-header{
+                visibility: hidden;
+            }
+            #printBo{
+                position: absolute !important;
+                /*margin-top: -50px !important;*/
+            }
+            @page {
+                margin: 0;
 
+            }
+
+        }
+    </style>
 @endsection
 <style type="text/css">
     .alert {
@@ -223,16 +247,18 @@
 </style>
 @section('script')
     <script type="text/javascript">
+
         $(document).ready(function () {
             $('button#pay_print').click(function () {
 
                 $('.print_in').val(1)
             });
 
-            $('#collapse, #send_order').click(function (e) {
+            $('#accordion').on('click','#collapse',function(e){
                 e.preventDefault()
             })
         })
+
         let app = @json($orders);
         let beforeLenght = app.length;
         //refresh table after 30 seconds to see the new order
@@ -262,47 +288,37 @@
 
                     console.log(parseInt(bef));
                     $('.badge').empty();
-                    $('.badge').text(response);
+                    $('.badge').text(response.count);
 
-                    if (parseInt(bef) != parseInt(response)) {
-                        var audio = new Audio(APP_URL + "/assets/sound/beep-01a.mp3");
-                        audio.play();
-                    }
-
+                    // if (parseInt(bef) != parseInt(response.count)) {
+                    //     var audio = new Audio(APP_URL + "/assets/sound/beep-01a.mp3");
+                    //     audio.play();
+                    //
+                    // }
+                    $.ajax({
+                        type: "GET",
+                        url: '{{route('sendOrdersForPrint')}}',
+                        success: function (data) {
+                            $('#printBo').html(data)
+                        }
+                    });
                 }, error: function (err) {
 
                 }
             })
         }, 10000);
 
-
         //send order from kitchen
 
-        $('#accordion').on('click', 'button#send_order', function () {
-            var order_id = $(this).attr("order_id");
+        {{--setInterval(function () {--}}
+            {{--$.ajax({--}}
+                {{--type: "GET",--}}
+                {{--url: '{{route('sendOrdersForPrint')}}',--}}
+                {{--success: function (data) {--}}
+                    {{--// $('#printBo').html(data)--}}
+                {{--}--}}
+            {{--});--}}
+        {{--}, 10000);--}}
 
-            $.ajax({
-                url: '{{route('sendOrders')}}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    'id': order_id
-                },
-                success: function (response) {
-                    if (response) {
-                        alert('ارسال شد!');
-                        window.location.reload();
-                    }
-                    else {
-                        alert('ارسال نشد!')
-                    }
-
-                }, error: function (err) {
-
-
-                }
-            })
-
-        });
     </script>
 @endsection

@@ -1,10 +1,10 @@
-@extends('order.layouts.app')
+@extends('Payment.layouts.app')
 @section('main_content')
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0 text-dark text-center"> ثبت سفارشات داخلی </h1>
+                    <h1 class="m-0 text-dark text-center"> ثبت سفارشات بیرونی </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -42,8 +42,8 @@
                                         @foreach($food as $index => $f)
                                             <tr>
                                                 <td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-                                                <td id="price" style="width: 18% !important;">{{ $f-> price }}</td>
-                                                <td id="amount" style="width: 18% !important;">
+                                                <td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
+                                                <td style="width: 18% !important;" id="amount">
                                                     <input type="number"
                                                            name="amount"
                                                            id="amount"
@@ -60,7 +60,6 @@
                                         </tbody>
                                         <tfoot>
                                         <tr>
-
                                             <th>نام</th>
                                             <th style="width: 18% !important;">قیمت</th>
                                             <th style="width: 18% !important;">تعداد</th>
@@ -73,7 +72,6 @@
                                     <table class="table" cellspacing="0" id="example2">
                                         <thead>
                                         <tr>
-
                                             <th>نام</th>
                                             <th style="width: 18% !important;">قیمت</th>
                                             <th style="width: 18% !important;">تعداد</th>
@@ -124,7 +122,6 @@
                                         <tbody>
                                         @foreach($icecream as $index => $f)
                                             <tr>
-
                                                 <td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
                                                 <td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
                                                 <td style="width: 18% !important;" id="amount">
@@ -134,7 +131,7 @@
                                                            class="amount"
                                                            value="1"
                                                            placeholder="تعداد"
-                                                    />
+                                                           autocomplete="off"/>
                                                 </td>
                                                 <td style="width: 18% !important;" class="process ">
                                                     <button class="fa fa-plus"></button>
@@ -162,7 +159,7 @@
             <div class="card">
                 <div class="card-header">سفارش در حال اجرا</div>
                 <div class="card-body">
-                    <form id="form_order" method="post" action="{{ route('orders.store') }}">
+                    <form id="form_order" method="post" action="{{ route('payment.store') }}" class="form_order">
 
                         <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                         <table class="table table-bordered">
@@ -178,37 +175,69 @@
                             قیمت کل : <span class="total_price"> 0 </span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="">انتخاب میز</label>
-                            <select class="form-control" name="table_order" id="table_order" class="table_order">
-                                <option value="" id="first_option">انتخاب کنید... </option>
-                                @foreach($tables as $table)
-                                    <option value="{{ $table->location_id }}"> {{ $table->name}} </option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="name" id="name" class="form-control customer_name"
+                                           autocomplete="off" placeholder="نام">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" name="phone_num" id="phone_num" class="form-control"
+                                           autocomplete="off" placeholder="شماره تماس">
+                                </div>
+                            </div>
 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" name="payment_amount" id="payment_amount" class="form-control"
+                                           autocomplete="off" placeholder="مقدار پرداخت">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" name="discount" id="discount_amount" class="form-control"
+                                           autocomplete="off" placeholder="تخفیف">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="number" name="transport_fees" id="transport_fees" class="form-control"
+                                           autocomplete="off" placeholder="فیس ترانسپورت">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <input type="text" name="address" id="address" class="form-control" autocomplete="off"
+                                       placeholder="آدرس">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
                         </div>
-
-                        <div class="form-group" id="er_mssages">
-                            @if ($errors->any())
-                                <div class="alert alert-danger">
-                                    <ul>
-                                        @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endif
-                        </div>
+                        {{--<div class="form-group" id="er_mssages">--}}
+                        {{--@if ($errors->any())--}}
+                        {{--<div class="alert alert-danger">--}}
+                        {{--<ul>--}}
+                        {{--@foreach ($errors->all() as $error)--}}
+                        {{--<li>{{ $error }}</li>--}}
+                        {{--@endforeach--}}
+                        {{--</ul>--}}
+                        {{--</div>--}}
+                        {{--@endif--}}
+                        {{--</div>--}}
                     </form>
                 </div> <!--/card-body-->
             </div>
         </div>
     </div> <!--/col-->
-    </div> <!--/row-->
 
 @endsection
 
@@ -337,9 +366,9 @@
                     bFilter: true,
                     buttons: []
 
+
                 }
             );
-
             var total = 0;
             jQuery('.process').click(function () {
 
@@ -363,7 +392,7 @@
                     + '<input type="hidden" name="order_price[]" id="order_price_field" class="order_price_field" value=' + order_price + '>'
                     + '</td>'
                     + '<td class="order_cancel" onclick="this.parentElement.remove()">'
-                    + '<span class="fa fa-trash"><span>'
+                    + '<span class="fa fa-trash"></span>'
                     + '</td>'
                     + '</tr>'
                 ); // append to the form
@@ -382,30 +411,31 @@
                 $(".total_price").html(total);
 
             });
-            jQuery("#table_order").select2({
-                dir: "rtl"
-            });
+
 
 
             $('form#form_order').submit(function (e) {
-
-                $(this).append('<input type="hidden" name="total" value="' + total + '" /> ');
+                $(this).append('<input type="hidden" name="total" value="'+ total +'" /> ');
                 e.preventDefault()
 
                 $.ajax({
                     type: "POST",
-                    url: "{{route('orders.store')}}",
+                    url: "{{route('payment.store')}}",
                     data: $(this).serialize(),
                     success: function (msg) {
                         alert(msg.msg)
-                        $(this).closest('form').find("input[type=hidden], select").val("");
+                        $('.customer_name').val("");
+                        $('#phone_num').val("");
+                        $('#payment_amount').val("");
+                        $('#discount_amount').val("");
+                        $('#transport_fees').val("");
+                        $('#address').val("");
                         $("#form_order table").empty()
 
                         $(".total_price").html(0);
                         total = 0;
                     }
                 });
-                // return true;
             });
 
         });

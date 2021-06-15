@@ -22,6 +22,7 @@
                 <th>اسم سفارش</th>
                 <th>نوعیت</th>
                 <th>تعداد</th>
+                <th>قیمت</th>
                 </thead>
                 <tbody>
                 <?php
@@ -33,6 +34,7 @@
                         <td>{{ $inside->menu->name }}</td>
                         <td>{{ $inside->menu->category->name }}</td>
                         <td>{{ $inside->order_amount }}</td>
+                        <td>{{ $inside->price }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -47,15 +49,16 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{$order->total_payment}}</td>
+                    <td>{{$order->total_payment + $order->transport_price}}</td>
                     <td>{{$order->discount}}</td>
-                    <td>{{$order->total_payment - $order->discount}}</td>
+                    <td>{{($order->total_payment+$order->transport_price) - $order->discount}}</td>
                 </tr>
                 </tbody>
             </table>
-
+            <h6 style="margin-right: 75px">تاریخ صدور: {{$date}}</h6>
             <h6 class="footer" style="margin-right: 35px">شماره های تماس: <span >0792469946 - 0789190444</span></h6>
             <h4 style="margin-right: 60px">با خدمات پیک موتوری رایگان</h4>
+            <span style="font-size: 18px; text-align: center">سازنده: شرکت تکنالوژی طوطیا www.tutiatech.com</span>
             <div class="backward">
                 <a href="{{route('getOutsideOrders')}}" class="btn btn-primary" style="margin-right: 82px">برگشت به صفحه قبل</a>
             </div>
@@ -89,5 +92,9 @@
 @section('script')
     <script type="text/javascript">
         window.print()
+        setInterval(function () {
+            var APP_URL = {!! json_encode(url('/')) !!}
+                window.location = APP_URL + "/getOutsideOrders"
+        }, 2000);
     </script>
-@endsection
+@endsection/

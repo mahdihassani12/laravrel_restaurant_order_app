@@ -178,32 +178,46 @@
         {{--</div>--}}
 
     </div> <!-- /container -->
+    <div id="printBo" style="">
+
+    </div>
 @endsection
 
 @section('style')
+    <style type="text/css">
+
+        @media print {
+            #accordion {
+                visibility: hidden;
+                margin-bottom: -440px !important;
+            }
+            .main-header{
+                visibility: hidden;
+            }
+            /*#printBo{*/
+                /*position: absolute !important;*/
+                /*!*margin-top: -50px !important;*!*/
+            /*}*/
+            /*@page {*/
+                /*margin: 0;*/
+
+            /*}*/
+
+        }
+    </style>
 
 @endsection
-<style type="text/css">
-    .alert {
-        position: fixed;
-        bottom: 0;
-        z-index: 10;
-        left: 20px;
-    }
 
-    .alert button {
-        margin-left: 5px;
-    }
-</style>
 @section('script')
     <script type="text/javascript">
+
         $(document).ready(function () {
             $('button#pay_print').click(function () {
 
                 $('.print_in').val(1)
-            })
+            });
 
-            $('#collapse, #send_order').click(function (e) {
+            $('#accordion').on('click','button#collapse',function(e){
                 e.preventDefault()
             })
         })
@@ -226,34 +240,8 @@
         }, 10000);
 
 
-        //send order from kitchen
-
-        $('#accordion').on('click', 'button#send_order', function () {
-            var order_id = $(this).attr("order_id");
-
-            $.ajax({
-                url: '{{route('sendOutsideOrders')}}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    'id': order_id
-                },
-                success: function (response) {
-                    if (response) {
-                        alert('ارسال شد!');
-                        window.location.reload();
-                    }
-                    else {
-                        alert('ارسال نشد!')
-                    }
-
-                }, error: function (err) {
 
 
-                }
-            })
-
-        });
         var APP_URL = {!! json_encode(url('/')) !!}
         setInterval(function () {
             $.ajax({
@@ -267,10 +255,19 @@
                     $('.badge').empty();
                     $('.badge').text(response);
 
-                    if (parseInt(bef) != parseInt(response)) {
-                        var audio = new Audio(APP_URL + "/assets/sound/beep-01a.mp3");
-                        audio.play();
-                    }
+                    // if (parseInt(bef) != parseInt(response)) {
+                    //     // var audio = new Audio(APP_URL + "/assets/sound/beep-01a.mp3");
+                    //     // audio.play();
+                    //     // window.location= APP_URL +
+                    // }
+
+                    $.ajax({
+                        type: "GET",
+                        url: '{{route('sendOutOrdersForPrint')}}',
+                        success: function (data) {
+                            $('#printBo').html(data)
+                        }
+                    });
 
                 }, error: function (err) {
 
@@ -278,32 +275,6 @@
             })
         }, 10000);
 
-        function sendOrder(e) {
-            var order_id = e.getAttribute('order_id');
 
-            $.ajax({
-                url: '{{route('sendOutsideOrders')}}',
-                type: 'GET',
-                dataType: 'json',
-                data: {
-                    'id': order_id
-                },
-                success: function (response) {
-                    if (response) {
-                        alert('ارسال شد!');
-                        window.location.reload();
-                    }
-                    else {
-                        alert('ارسال نشد!')
-                    }
-
-                }, error: function (err) {
-
-
-                }
-            })
-
-
-        }
     </script>
 @endsection

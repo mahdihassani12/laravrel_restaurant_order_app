@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\InsideOrder;
 use App\OutsideModel;
+use App\Table;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -207,8 +208,8 @@ class HomeController extends Controller
 			->where('categories.name','LIKE', '%بستنی%')
 			->select('menu.*')
             ->get();
-
-        return view('order.welcome',compact(['food','drink','icecream']));
+        $tables = Table::all();
+        return view('order.insideOrder.create',compact(['food','drink','icecream','tables']));
     }
 
 }

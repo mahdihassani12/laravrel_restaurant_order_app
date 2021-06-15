@@ -1,12 +1,11 @@
-
 @extends('Payment.layouts.app')
 @section('main_content')
 
     @foreach($orders as $index => $order)
-        <div class="container" >
+        <div class="container">
             <div class="header" style="margin-top: 30px !important; width: 400px; text-align: center">
                 <h4 class="modal-title" id="exampleModalLongTitle"> بستنی و فست فود گیلاتو
-                    </h4>
+                </h4>
 
             </div>
             <div class="header" style="width: 400px; text-align: center;margin-top: 8px">
@@ -47,14 +46,15 @@
                 <tr>
                     <td>{{$order->total}}</td>
                     <td>{{$order->discount}}</td>
-                    <td>{{$order->payment}}</td>
+                    <td>{{$order->total-$order->discount}}</td>
                 </tr>
                 </tbody>
             </table>
-            <h6 class="footer" style="margin-right: 35px">شماره های تماس: <span >0792469946 - 0789190444</span></h6>
+            <h6 class="footer" style="margin-right: 35px">شماره های تماس: <span>0792469946 - 0789190444</span></h6>
             <h4 style="margin-right: 60px">با خدمات پیک موتوری رایگان</h4>
-            <div class="backward" >
-                <a href="{{route('getOrders')}}" class="btn btn-primary" style="margin-right: 82px">برگشت به صفحه قبل</a>
+            <div class="backward">
+                <a href="{{route('getOrders')}}" class="btn btn-primary" style="margin-right: 82px">برگشت به صفحه
+                    قبل</a>
             </div>
         </div>
 
@@ -66,17 +66,20 @@
 @section('style')
     <style>
         @media print {
-            .container{
+            .container {
                 width: 30% !important;
             }
-            @page  {
+
+            @page {
                 margin: 0;
 
             }
-            footer,.backward{
+
+            footer, .backward {
                 visibility: hidden !important;
             }
-            .container{
+
+            .container {
                 margin-right: -20px !important;
             }
         }
@@ -85,6 +88,13 @@
 
 @section('script')
     <script type="text/javascript">
+
         window.print()
+        setInterval(function () {
+            var APP_URL = {!! json_encode(url('/')) !!}
+                window.location = APP_URL + "/getOrders"
+        }, 2000);
+
+
     </script>
 @endsection

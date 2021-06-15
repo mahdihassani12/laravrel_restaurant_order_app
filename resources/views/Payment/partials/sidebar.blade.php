@@ -63,6 +63,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('payment.outSideCreate') }}" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p> ثبت سفارش بیرونی </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('paymentOutsideList') }}" class="nav-link">
                             <i class="fa fa-indent"></i>
                             <p> لیست سفارشات بیرونی</p>
@@ -90,15 +96,3 @@
     <!-- /.sidebar -->
 </aside>
 
-<script>
-    $(document).ready(function(){
-        $('.has-treeview > a').click(function () {
-            if($(this).parent().hasClass("menu-open")){
-                $('.nav-item').removeClass("menu-open");
-            }else{
-                $('.nav-item').removeClass("menu-open");
-                $(this).parent().addClass("menu-open");
-            }
-        });
-    });
-</script>

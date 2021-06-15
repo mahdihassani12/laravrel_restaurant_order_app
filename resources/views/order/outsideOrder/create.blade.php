@@ -148,7 +148,7 @@
 		<div class="card">
 			<div class="card-header">سفارش در حال اجرا</div>
 			<div class="card-body">
-				<form id="order" method="post" action="{{ route('outsideOrder.store') }}">
+				<form id="form_order" method="post" action="{{ route('outsideOrder.store') }}">
 				
 					<input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
 					<table class="table table-bordered">
@@ -168,11 +168,13 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="text" name="name" id="name" class="form-control" autocomplete="off" placeholder="نام">
+								<label for="">نام</label>
+								<input type="text" name="name" id="name" class="form-control customer_name" autocomplete="off" placeholder="نام">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
+								<label for="">تلفون</label>
 								<input type="number"  name="phone_num" id="phone_num" class="form-control" autocomplete="off" placeholder="شماره تماس">
 							</div>
 						</div>
@@ -181,12 +183,14 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="number" name="payment_amount" id="payment_amount" class="form-control" autocomplete="off" placeholder="مقدار پرداخت">
+								<label for="">مقدار پرداخت</label>
+								<input type="number" name="payment_amount" id="payment_amount" class="form-control" autocomplete="off" placeholder="مقدار پرداخت" value="0">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="number"  name="discount" id="discount_amount" class="form-control" autocomplete="off" placeholder="تخفیف">
+								<label for="">تخفیف</label>
+								<input type="number"  name="discount" id="discount_amount" class="form-control" autocomplete="off" placeholder="تخفیف" value="0">
 							</div>
 						</div>
 
@@ -194,12 +198,14 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<input type="number"  name="transport_fees" id="transport_fees" class="form-control" autocomplete="off" placeholder="فیس ترانسپورت">
+								<label for="">فیس ترانسپورت</label>
+								<input type="number"  name="transport_fees" id="transport_fees" class="form-control" autocomplete="off" placeholder="فیس ترانسپورت" value="0">
 							</div>
 						</div>
 					</div>
 					<div class="col-md-12">
 						<div class="form-group">
+							<label for="">آدرس</label>
 							<input type="text"  name="address" id="address" class="form-control" autocomplete="off" placeholder="آدرس">
 						</div>
 					</div>
@@ -342,7 +348,7 @@
 			var order_price = jQuery(this).siblings('#price').text();
 			var order_amount = jQuery(this).siblings('#amount').children('input#amount').val();
 
-			jQuery('#order table').append(
+			jQuery('#form_order table').append(
 				'<tr class="order_row">'
 					+'<td id="order_name">'
 						+'<input type="hidden" name="menu_id[]" id="menu_id_field" class="menu_id_field" value='+order_id+'>'
@@ -381,9 +387,28 @@
 		});
 		
 
-	  	$('form#order').submit(function(eventObj) {
+	  	$('form#form_order').submit(function(e) {
 		    $(this).append('<input type="hidden" name="total" value="'+ total +'" /> ');
-		    return true;
+            e.preventDefault()
+
+            $.ajax({
+                type: "POST",
+                url: "{{route('outsideOrder.store')}}",
+                data: $(this).serialize(),
+                success: function (msg) {
+                    alert(msg.msg)
+                    $('.customer_name').val("");
+                    $('#phone_num').val("");
+                    $('#payment_amount').val(0);
+                    $('#discount_amount').val(0);
+                    $('#transport_fees').val(0);
+                    $('#address').val("");
+                    $("#form_order table").empty()
+
+                    $(".total_price").html(0);
+                    total = 0;
+                }
+            });
 		});
 
    });

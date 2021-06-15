@@ -81,8 +81,11 @@ Route::group(['middleware' => ['auth', 'kitchen']], function () {
     Route::get('getOutsideSendOrders','KitchenController@getOutsideSendOrders')->name('getOutsideSendOrders');
 
     Route::post('sendOutsideOrders','KitchenController@sendOutsideOrders')->name('sendOutsideOrders');
+    Route::post('printInside','KitchenController@printInside')->name('printInside');
 
     Route::get('getNotification','KitchenController@getNotification')->name('getNotification');
+    Route::get('sendOrdersForPrint','KitchenController@sendOrdersForPrint')->name('sendOrdersForPrint');
+    Route::get('sendOutOrdersForPrint','KitchenController@sendOutOrdersForPrint')->name('sendOutOrdersForPrint');
 
 });
 
@@ -98,6 +101,8 @@ Route::group(['middleware' => ['auth', 'accountant']], function () {
     Route::get('paymentOutsideList','PaymentController@paymentOutsideList')->name('paymentOutsideList');
     Route::post('paymentOutsideUpdate','PaymentController@paymentOutsideUpdate')->name('paymentOutsideUpdate');
     Route::get('paymentPayedOutsideList','PaymentController@paymentPayedOutsideList')->name('paymentPayedOutsideList');
+    Route::get('outSideCreate','PaymentController@outSideCreate')->name('payment.outSideCreate');
+    Route::post('store','PaymentController@store')->name('payment.store');
 
 });
 

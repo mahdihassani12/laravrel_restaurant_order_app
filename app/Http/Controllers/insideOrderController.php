@@ -110,7 +110,11 @@ class insideOrderController extends Controller
             DB::rollback();
             return redirect()->back()->with('errors','error');
         }
-        return redirect()->back()->with('success','عملیات موفقانه انجام شد.');
+        $response = array(
+            'status' => 'success',
+            'msg' => 'موفقانه انجام شد!',
+        );
+        return response($response);
     }
 
     /**
