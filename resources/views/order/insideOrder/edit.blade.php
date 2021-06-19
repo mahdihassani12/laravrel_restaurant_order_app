@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0 text-dark text-center"> ویرایش سفارشات بیرونی </h1>
+                    <h1 class="m-0 text-dark text-center"> ویرایش سفارشات داخلی </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -18,34 +18,34 @@
                         <div class="col-md-12">
                             <nav>
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#food"
-                                       role="tab" aria-controls="nav-home" aria-selected="true">فست فوت</a>
-                                    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#drink"
-                                       role="tab" aria-controls="nav-profile" aria-selected="false">نوشیدنی</a>
-                                    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#icecream"
-                                       role="tab" aria-controls="nav-contact" aria-selected="false">بستنی</a>
+                                    @foreach($categories as $key=> $category)
+                                        <a @if($category->category_id==1)class="nav-item nav-link active"
+                                           @else class="nav-item nav-link" @endif id="nav-home-tab" data-toggle="tab"
+                                           href="#food{{$key}}" category_id = "{{$category->category_id}}"
+                                           role="tab" aria-controls="nav-home"
+                                           aria-selected="true">{{$category->name}}</a>
+                                    @endforeach
                                 </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <div class="tab-pane fade show active" id="food" role="tabpanel"
                                      aria-labelledby="nav-home-tab">
-                                    <table class="table" cellspacing="0">
+                                    <table class="table" cellspacing="0" id="example">
                                         <thead>
                                         <tr>
-                                            <th> #</th>
                                             <th>نام</th>
                                             <th>قیمت</th>
                                             <th>تعداد</th>
                                             <th>پروسس</th>
                                         </tr>
                                         </thead>
-                                        <tbody>
-                                        @foreach($food as $index => $f)
+                                        <tbody id="tbody">
+                                        @foreach($menu as $index => $f)
                                             <tr>
-                                                <td>{{ $index + 1 }}</td>
+
                                                 <td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-                                                <td id="price">{{ $f-> price }}</td>
-                                                <td id="amount">
+                                                <td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
+                                                <td style="width: 18% !important;" id="amount">
                                                     <input type="number"
                                                            name="amount"
                                                            id="amount"
@@ -54,54 +54,14 @@
                                                            placeholder="تعداد"
                                                     />
                                                 </td>
-                                                <td class="process"><span class="text-info">افزودن</span></td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th> #</th>
-                                            <th>نام</th>
-                                            <th>قیمت</th>
-                                            <th>تعداد</th>
-                                            <th>پروسس</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="tab-pane fade" id="drink" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                    <table class="table" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th> #</th>
-                                            <th>نام</th>
-                                            <th>قیمت</th>
-                                            <th>تعداد</th>
-                                            <th>پروسس</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($drink as $index => $f)
-                                            <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-                                                <td id="price">{{ $f-> price }}</td>
-                                                <td id="amount">
-                                                    <input type="number"
-                                                           name="amount"
-                                                           id="amount"
-                                                           class="amount"
-                                                           value="1"
-                                                           placeholder="تعداد"
-                                                    />
+                                                <td style="width: 18% !important;" class="process ">
+                                                    <button class="fa fa-plus"></button>
                                                 </td>
-                                                <td class="process"><span class="text-info">افزودن</span></td>
                                             </tr>
                                         @endforeach
                                         </tbody>
                                         <tfoot>
                                         <tr>
-                                            <th> #</th>
                                             <th>نام</th>
                                             <th>قیمت</th>
                                             <th>تعداد</th>
@@ -110,48 +70,7 @@
                                         </tfoot>
                                     </table>
                                 </div>
-                                <div class="tab-pane fade" id="icecream" role="tabpanel"
-                                     aria-labelledby="nav-contact-tab">
-                                    <table class="table" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th> #</th>
-                                            <th>نام</th>
-                                            <th>قیمت</th>
-                                            <th>تعداد</th>
-                                            <th>پروسس</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($icecream as $index => $f)
-                                            <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                                <td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-                                                <td id="price">{{ $f-> price }}</td>
-                                                <td id="amount">
-                                                    <input type="number"
-                                                           name="amount"
-                                                           id="amount"
-                                                           class="amount"
-                                                           value="1"
-                                                           placeholder="تعداد"
-                                                           autocomplete="off"/>
-                                                </td>
-                                                <td class="process"><span class="text-info">افزودن</span></td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <th> #</th>
-                                            <th>نام</th>
-                                            <th>قیمت</th>
-                                            <th>تعداد</th>
-                                            <th>پروسس</th>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -223,6 +142,7 @@
                                     </div>
                                 @endif
                             </div>
+                        </div>
                     </form>
                 </div> <!--/card-body-->
             </div>
@@ -348,10 +268,26 @@
 
 @section('script')
     <script type="text/javascript">
-        jQuery(document).ready(function () {
+        $(document).ready(function () {
+            $('a.nav-item').click(function () {
+
+                var id=$(this).attr('category_id')
+                $.ajax({
+                    type: "GET",
+                    url: "{{route('order.getMenu')}}",
+                    data: {
+                        'id':id
+                    },
+                    success: function (msg) {
+                        $("#tbody").empty();
+                        $("#tbody").html(msg);
+
+                    }
+                });
+            })
 
             var total = 0;
-            jQuery('.process').click(function () {
+            $('#example').on('click','.process',function () {
 
                 var order_name = jQuery(this).siblings('#name').text();
                 var order_id = jQuery(this).siblings('#name').attr('menu_id');

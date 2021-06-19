@@ -21,8 +21,8 @@ class insideOrderController extends Controller
      */
     public function index()
     {
-		$orders = InsideOrderTotal::orderby('order_id','desc')->paginate(10);
-        return view('order.insideOrder.index',compact('orders'));
+        $orders = InsideOrderTotal::orderby('order_id', 'desc')->paginate(10);
+        return view('order.insideOrder.index', compact('orders'));
     }
 
     /**
@@ -32,50 +32,48 @@ class insideOrderController extends Controller
      */
     public function create()
     {
-        $food = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%غذا%')
-            ->select('menu.*')
-            ->get(); 
-         
-        $drink = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%نوشیدنی%')
-            ->select('menu.*')
-            ->get();
-        
-        $icecream = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%بستنی%')
-            ->select('menu.*')
-            ->get();
 
+        $menu = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->select('menu.*')
+            ->where('menu.category_id', '=', 1)
+            ->get();
+        $categories = DB::table('categories')
+            ->select('*')
+            ->get();
         $tables = Table::all();
-        return view('order.insideOrder.create',compact(['food','drink','icecream','tables']));
+        return view('order.insideOrder.newCreate', compact('menu', 'tables', 'categories'));
     }
 
+    public function getMenu(Request $request)
+    {
+        $id = $request->get('id');
+        $menu = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->select('menu.*')
+            ->where('menu.category_id', '=', $id)
+            ->get();
+        return view('order.insideOrder.table', compact('menu'));
+    }
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        
-        
-
-        try{
+        try {
 
             DB::beginTransaction();
             $request->validate([
                 'menu_id' => 'required',
                 'order_amount' => 'required',
-                'order_price'  => 'required',
-                'total'     => 'required',
-                'table_order'  => 'required'
-            ],[
-                'menu_id.required'  => 'افزودن مینوی غذایی الزامی است.',
+                'order_price' => 'required',
+                'total' => 'required',
+                'table_order' => 'required'
+            ], [
+                'menu_id.required' => 'افزودن مینوی غذایی الزامی است.',
                 'order_amount.required' => 'تعداد سفارشات الزامی است.',
                 'total.required' => 'مقدار کلی پول باید بیشتر از صفر باشد.',
                 'table_order.required' => 'انتخاب میز الزامی است',
@@ -84,31 +82,29 @@ class insideOrderController extends Controller
 
 
             $total = new InsideOrderTotal();
-            $data = $request -> all();
+            $data = $request->all();
             $user = User::all();
-            $total -> location_id = $data['table_order'];
-            $total -> total = $data['total'];
-            $total -> identity =\random_int(100000, 999999);
+            $total->location_id = $data['table_order'];
+            $total->total = $data['total'];
+            $total->identity = \random_int(100000, 999999);
             Notification::send($user, new newOrderNotification('سفارش جدید دارید!'));
-            $total -> save();
+            $total->save();
 
             foreach ($request->input('menu_id') as $item => $value) {
 
                 $order = new InsideOrder();
-                $order -> total_id = $total->order_id;
-                $order -> menu_id = $data['menu_id'][$item];
-                $order -> order_amount = $data['order_amount'][$item];
-                $order -> price = $data['order_price'][$item];
+                $order->total_id = $total->order_id;
+                $order->menu_id = $data['menu_id'][$item];
+                $order->order_amount = $data['order_amount'][$item];
+                $order->price = $data['order_price'][$item];
 
-                $order -> save();
+                $order->save();
 
             }
             DB::commit();
-        }
-        
-        catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('errors','error');
+            return redirect()->back()->with('errors', 'error');
         }
         $response = array(
             'status' => 'success',
@@ -120,7 +116,7 @@ class insideOrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -131,7 +127,7 @@ class insideOrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -142,8 +138,8 @@ class insideOrderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -154,7 +150,7 @@ class insideOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -164,23 +160,23 @@ class insideOrderController extends Controller
 
     public function continueOrder()
     {
-       $orders = InsideOrderTotal::orderby('order_id','desc')->paginate(10);
-        return view('order.insideOrder.continue',compact('orders'));
+        $orders = InsideOrderTotal::orderby('order_id', 'desc')->paginate(10);
+        return view('order.insideOrder.continue', compact('orders'));
     }
 
     public function orderSearch(Request $request)
     {
         $data = $request->all();
-        $order = InsideOrderTotal::where('identity','like', '%'.$request->search.'%')->first();
-		$insideOrders = InsideOrder::where('total_id','=',$order->order_id)->get();
-		
-		return view('order.insideOrder.search',compact(['order','insideOrders']));
-		
+        $order = InsideOrderTotal::where('identity', 'like', '%' . $request->search . '%')->first();
+        $insideOrders = InsideOrder::where('total_id', '=', $order->order_id)->get();
+
+        return view('order.insideOrder.search', compact(['order', 'insideOrders']));
+
         //return response()->json(
-          //   [
-            //   'order'       => $order,
-              // 'insideOrder' => $insideOrder
-             //]
+        //   [
+        //   'order'       => $order,
+        // 'insideOrder' => $insideOrder
+        //]
         //);
 
     }
@@ -188,52 +184,43 @@ class insideOrderController extends Controller
 
     public function loadInsideData($id)
     {
-        $food = DB::table('menu')
+        $menu = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%غذا%')
             ->select('menu.*')
+            ->where('menu.category_id', '=', 1)
             ->get();
-
-        $drink = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%نوشیدنی%')
-            ->select('menu.*')
+        $categories = DB::table('categories')
+            ->select('*')
             ->get();
-
-        $icecream = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%بستنی%')
-            ->select('menu.*')
-            ->get();
-
         $tables = Table::all();
 
         $orders = DB::table('inside_order_total as in')
-            ->join('inside_order as ot','ot.total_id','=','in.order_id')
+            ->join('inside_order as ot', 'ot.total_id', '=', 'in.order_id')
             ->join('menu', 'menu.menu_id', '=', 'ot.menu_id')
             ->join('categories', 'categories.category_id', '=', 'menu.category_id')
-            ->select( 'menu.name as menu_name',  'ot.order_amount', 'in.order_id', 'ot.total_id','categories.name','in.status','ot.price','ot.menu_id')
-            ->where('in.order_id','=',$id)
+            ->select('menu.name as menu_name', 'ot.order_amount', 'in.order_id', 'ot.total_id', 'categories.name', 'in.status', 'ot.price', 'ot.menu_id')
+            ->where('in.order_id', '=', $id)
             ->get();
         $t_orders = InsideOrderTotal::find($id);
 
-        return view('order.insideOrder.edit',compact(['food','drink','icecream','tables','t_orders','orders']));
+        return view('order.insideOrder.edit', compact(['categories', 'menu', 'tables', 't_orders', 'orders']));
 
     }
 
-    public function updateInsideOrder(Request $request,$id){
+    public function updateInsideOrder(Request $request, $id)
+    {
 
-        try{
+        try {
 
             DB::beginTransaction();
             $request->validate([
                 'menu_id_field' => 'required',
                 'order_amount_field' => 'required',
-                'order_price_field'  => 'required',
-                'total_payment'     => 'required',
-                'table_name'  => 'required'
-            ],[
-                'menu_id_field.required'  => 'افزودن مینوی غذایی الزامی است.',
+                'order_price_field' => 'required',
+                'total_payment' => 'required',
+                'table_name' => 'required'
+            ], [
+                'menu_id_field.required' => 'افزودن مینوی غذایی الزامی است.',
                 'order_amount_field.required' => 'تعداد سفارشات الزامی است.',
                 'order_price_field.required' => 'مقدار کلی پول باید بیشتر از صفر باشد.',
                 'table_name.required' => 'انتخاب میز الزامی است',
@@ -241,31 +228,29 @@ class insideOrderController extends Controller
             ]);
 
 
-            $total =InsideOrderTotal::find($id);
-            $data = $request -> all();
+            $total = InsideOrderTotal::find($id);
+            $data = $request->all();
 
-            $total -> location_id = $data['table_name'];
-            $total -> total = $data['total_payment'];
-            $total -> identity =$data['identity'];
-            $total -> save();
-            DB::table('inside_order')->where('total_id',$id)->delete();
+            $total->location_id = $data['table_name'];
+            $total->total = $data['total_payment'];
+            $total->identity = $data['identity'];
+            $total->save();
+            DB::table('inside_order')->where('total_id', $id)->delete();
             foreach ($request->input('menu_id_field') as $item => $value) {
 
                 $order = new InsideOrder();
-                $order -> total_id = $total->order_id;
-                $order -> menu_id = $data['menu_id_field'][$item];
-                $order -> order_amount = $data['order_amount_field'][$item];
-                $order -> price = $data['order_price_field'][$item];
-                $order -> save();
+                $order->total_id = $total->order_id;
+                $order->menu_id = $data['menu_id_field'][$item];
+                $order->order_amount = $data['order_amount_field'][$item];
+                $order->price = $data['order_price_field'][$item];
+                $order->save();
 
             }
             DB::commit();
-        }
-
-        catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('errors','error');
+            return redirect()->back()->with('errors', 'error');
         }
-        return redirect()->back()->with('success','عملیات موفقانه انجام شد.');
+        return redirect()->back()->with('success', 'عملیات موفقانه انجام شد.');
     }
 }

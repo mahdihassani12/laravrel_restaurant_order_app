@@ -167,7 +167,9 @@
             body, div.fixed-navbar {
                 visibility: hidden !important;
             }
-
+            form{
+                display: none;
+            }
             h3 {
                 visibility: visible !important;
                 margin-bottom: 30px !important;
@@ -189,7 +191,7 @@
 
             #print_table {
                 visibility: visible !important;
-                margin-top: -50px !important;
+
                 margin-right: 30px !important;
                 display: block !important;
                 z-index: 1000 !important;
@@ -198,7 +200,7 @@
 
             #example {
                 visibility: visible !important;
-                margin-top: -40px !important;
+                margin-top: 10px !important;
                 position: relative !important;
                 padding: 0 !important;
             }
@@ -207,20 +209,7 @@
                 padding-left: 20px !important;
             }
 
-            .bt_print_table {
-                margin-top: -780px !important;
 
-            }
-
-            #bt_example {
-
-                margin-top: -500px !important;
-
-            }
-
-            .tb_title {
-                margin-bottom: -90px !important;
-            }
 
         }
     </style>

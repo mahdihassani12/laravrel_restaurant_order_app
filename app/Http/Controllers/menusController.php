@@ -16,27 +16,27 @@ class menusController extends Controller
      */
     public function index()
     {
-		$food = DB::table('menu')
+        $menu = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%غذا%')
             ->select('menu.*')
-            ->paginate(10,['*'],'food');
-         
-        $drink = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%نوشیدنی%')
-            ->select('menu.*')
-            ->paginate(10,['*'],'drink');
-        
-        $icecream = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%بستنی%')
-            ->select('menu.*')
-            ->paginate(10,['*'],'iceCream');
+            ->where('menu.category_id', '=', 1)
+            ->paginate(10);
+        $categories = DB::table('categories')
+            ->select('*')
+            ->get();
 
-        return view('dashboard.menus.index',compact(['food','drink','icecream']));
+        return view('dashboard.menus.index',compact(['categories','menu']));
     }
-
+    public function getMenu(Request $request)
+    {
+        $id = $request->get('id');
+        $menu = DB::table('menu')
+            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
+            ->select('menu.*')
+            ->where('menu.category_id', '=', $id)
+            ->get();
+        return view('dashboard.menus.table', compact('menu'));
+    }
     /**
      * Show the form for creating a new resource.
      *

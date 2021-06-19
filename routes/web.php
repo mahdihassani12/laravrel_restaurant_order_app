@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::resource('tables','tablesController');
     Route::resource('categories','categoriesController');
     Route::resource('menus','menusController');
+    Route::get('/getMenus','menusController@getMenu')->name('getMenus');
     Route::get('userCreate','UsersController@create')->name('users.create');
     Route::get('userIndex','UsersController@index')->name('users.index');
     Route::post('userStore','UsersController@store')->name('users.store');
@@ -62,6 +63,7 @@ Route::group(['middleware' => ['auth', 'order']], function () {
     Route::get('outsideContinueOrder','OutsideController@outsideContinueOrder')->name('outsideContinueOrder');
     Route::get('loadData/{id}','OutsideController@loadData')->name('loadData');
     Route::get('loadInsideData/{id}','insideOrderController@loadInsideData')->name('loadInsideData');
+    Route::get('getMenu','insideOrderController@getMenu')->name('order.getMenu');
 
     Route::match(['post','put'],'updateOutsideOrder{id}','OutsideController@updateOutsideOrder')->name('updateOutsideOrder');
     Route::match(['post','put'],'updateInsideOrder{id}','insideOrderController@updateInsideOrder')->name('updateInsideOrder');
@@ -103,6 +105,15 @@ Route::group(['middleware' => ['auth', 'accountant']], function () {
     Route::get('paymentPayedOutsideList','PaymentController@paymentPayedOutsideList')->name('paymentPayedOutsideList');
     Route::get('outSideCreate','PaymentController@outSideCreate')->name('payment.outSideCreate');
     Route::post('store','PaymentController@store')->name('payment.store');
+
+    Route::get('inSideCreate','PaymentController@inSideCreate')->name('payment.inSideCreate');
+    Route::post('insideStore','PaymentController@insideStore')->name('payment.insideStore');
+
+    Route::get('paymentGetMenu','PaymentController@paymentGetMenu')->name('paymentGetMenu');
+    Route::get('paymentInGetMenu','PaymentController@paymentInGetMenu')->name('paymentInGetMenu');
+    Route::get('paymentInSearch','PaymentController@paymentInSearch')->name('paymentInSearch');
+
+    Route::get('paymentOutSearch','PaymentController@paymentOutSearch')->name('paymentOutSearch');
 
 });
 

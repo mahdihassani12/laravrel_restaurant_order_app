@@ -17,10 +17,15 @@
 				<div class="row">
 					<div class="col-md-12">
 						<nav>
-							<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-								<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#food" role="tab" aria-controls="nav-home" aria-selected="true">فست فوت</a>
-								<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#drink" role="tab" aria-controls="nav-profile" aria-selected="false">نوشیدنی</a>
-								<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#icecream" role="tab" aria-controls="nav-contact" aria-selected="false">بستنی</a>
+							<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist" >
+								@foreach($categories as $key=> $category)
+									<a @if($category->category_id==1)class="nav-item nav-link active"
+									   @else class="nav-item nav-link" @endif id="nav-home-tab" data-toggle="tab"
+									   href="#food{{$key}}" category_id = "{{$category->category_id}}"
+									   role="tab" aria-controls="nav-home"
+									   aria-selected="true">{{$category->name}}</a>
+								@endforeach
+
 							</div>
 						</nav>
 						<div class="tab-content" id="nav-tabContent">
@@ -34,23 +39,26 @@
 											<th style="width: 18% !important;">پروسس</th>
 										</tr>
 									</thead>
-									<tbody>
-										@foreach($food as $index => $f)
-											<tr>
-												<td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-												<td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
-												<td style="width: 18% !important;" id="amount">
-													<input type="number" 
-														   name="amount"
-														   id="amount"
-														   class="amount"
-														   value="1"
-														   placeholder="تعداد"
-														   />
-												</td>
-												<td style="width: 18% !important;" class="process "><button class="fa fa-plus"></button></td>
-											</tr>
-										@endforeach
+									<tbody id="tbody">
+									@foreach($menu as $index => $f)
+										<tr>
+
+											<td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
+											<td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
+											<td style="width: 18% !important;" id="amount">
+												<input type="number"
+													   name="amount"
+													   id="amount"
+													   class="amount"
+													   value="1"
+													   placeholder="تعداد"
+												/>
+											</td>
+											<td style="width: 18% !important;" class="process ">
+												<button class="fa fa-plus"></button>
+											</td>
+										</tr>
+									@endforeach
 									</tbody>
 									<tfoot>
 										<tr>
@@ -62,82 +70,7 @@
 									</tfoot>
 								</table>
 							</div>
-							<div class="tab-pane fade" id="drink" role="tabpanel" aria-labelledby="nav-profile-tab">
-								<table class="table" cellspacing="0" id="example2">
-									<thead>
-										<tr>
-											<th>نام </th>
-											<th style="width: 18% !important;">قیمت</th>
-											<th style="width: 18% !important;">تعداد</th>
-											<th style="width: 18% !important;">پروسس</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach($drink as $index => $f)
-											<tr>
-												<td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-												<td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
-												<td style="width: 18% !important;" id="amount">
-													<input type="number" 
-														   name="amount"
-														   id="amount"
-														   class="amount"
-														   value="1"
-														   placeholder="تعداد"
-														   />
-												</td>
-												<td style="width: 18% !important;" class="process "><button class="fa fa-plus"></button></td>
-											</tr>
-										@endforeach
-									</tbody>
-									<tfoot>
-										<tr>
-											<th>نام </th>
-											<th style="width: 18% !important;">قیمت</th>
-											<th style="width: 18% !important;">تعداد</th>
-											<th style="width: 18% !important;">پروسس</th>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
-							<div class="tab-pane fade" id="icecream" role="tabpanel" aria-labelledby="nav-contact-tab">
-								<table class="table" cellspacing="0" id="example3">
-									<thead>
-										<tr>
-											<th>نام </th>
-											<th style="width: 18% !important;">قیمت</th>
-											<th style="width: 18% !important;">تعداد</th>
-											<th style="width: 18% !important;">پروسس</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach($icecream as $index => $f)
-											<tr>
-												<td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
-												<td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
-												<td style="width: 18% !important;" id="amount">
-													<input type="number" 
-														   name="amount"
-														   id="amount"
-														   class="amount"
-														   value="1"
-														   placeholder="تعداد"
-														   autocomplete="off"/>
-												</td>
-												<td style="width: 18% !important;" class="process "><button class="fa fa-plus"></button></td>
-											</tr>
-										@endforeach
-									</tbody>
-									<tfoot>
-										<tr>
-											<th>نام </th>
-											<th style="width: 18% !important;">قیمت</th>
-											<th style="width: 18% !important;">تعداد</th>
-											<th style="width: 18% !important;">پروسس</th>
-										</tr>
-									</tfoot>
-								</table>
-							</div>
+
 						</div>
 					</div>
 				</div>
@@ -234,6 +167,9 @@
 
 @section('style')
   <style>
+	  #nav-tab > .nav-link.active{
+		  color:#f8644d !important;
+	  }
 	#er_mssages{
 		clear:both;
 	}
@@ -327,21 +263,27 @@
 
 @section('script')
 <script type="text/javascript">
-   jQuery(document).ready(function(){
-       $('#example,#example2,#example3').dataTable(
-           {
-               "bPaginate": false,
-               dom: 'Bfrtip',
+   $(document).ready(function(){
 
-               bFilter: true,
-               buttons: [  ]
+       $('a.nav-item').click(function () {
 
+           var id=$(this).attr('category_id')
+           $.ajax({
+               type: "GET",
+               url: "{{route('order.getMenu')}}",
+               data: {
+                   'id':id
+               },
+               success: function (msg) {
 
+                   $("#tbody").html(msg);
 
-           }
-       );
+               }
+           });
+       })
+
 	   var total = 0;
-	   jQuery('.process').click(function(){
+       $('#example').on('click','.process',function () {
 		   
 			var order_name = jQuery(this).siblings('#name').text();
 			var order_id = jQuery(this).siblings('#name').attr('menu_id');
@@ -388,6 +330,7 @@
 		
 
 	  	$('form#form_order').submit(function(e) {
+            $('#submit_order').prop('disabled', true);
 		    $(this).append('<input type="hidden" name="total" value="'+ total +'" /> ');
             e.preventDefault()
 
@@ -407,6 +350,8 @@
 
                     $(".total_price").html(0);
                     total = 0;
+                    $(".amount").val(1);
+                    $('#submit_order').prop('disabled', false);
                 }
             });
 		});

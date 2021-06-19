@@ -34,26 +34,17 @@ class OutsideController extends Controller
     public function create()
     {
 
-        $food = DB::table('menu')
+        $menu = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%غذا%')
             ->select('menu.*')
+            ->where('menu.category_id', '=', 1)
             ->get();
-
-        $drink = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%نوشیدنی%')
-            ->select('menu.*')
+        $categories = DB::table('categories')
+            ->select('*')
             ->get();
-
-        $icecream = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%بستنی%')
-            ->select('menu.*')
-            ->get();
-
         $tables = Table::all();
-        return view('order.outsideOrder.create',compact(['food','drink','icecream','tables']));
+        return view('order.outsideOrder.create', compact('menu', 'tables', 'categories'));
+
     }
 
     /**
@@ -132,25 +123,17 @@ class OutsideController extends Controller
 
 
     public function loadData($id){
-        $food = DB::table('menu')
+        $menu = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%غذا%')
             ->select('menu.*')
+            ->where('menu.category_id', '=', 1)
             ->get();
-
-        $drink = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%نوشیدنی%')
-            ->select('menu.*')
+        $categories = DB::table('categories')
+            ->select('*')
             ->get();
-
-        $icecream = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->where('categories.name','LIKE', '%بستنی%')
-            ->select('menu.*')
-            ->get();
-
         $tables = Table::all();
+
+
 
         $orders = DB::table('outside_order_total as out')
             ->join('outside_order as ot','ot.total_id','=','out.order_id')
@@ -161,7 +144,7 @@ class OutsideController extends Controller
             ->get();
         $t_orders = OutsideOrderTotal::find($id);
 
-        return view('order.outsideOrder.edit',compact(['food','drink','icecream','tables','t_orders','orders']));
+        return view('order.outsideOrder.edit',compact(['categories','menu','tables','t_orders','orders']));
 
     }
 

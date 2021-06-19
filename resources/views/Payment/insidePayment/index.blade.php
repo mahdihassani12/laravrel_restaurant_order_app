@@ -197,22 +197,22 @@
                                     <tr>
                                         <td><span id="total_pay{{$order->order_id}}">{{$order->total}}</span></td>
                                         <td><input type="number" name="discount" class="discount form-control"
-                                                   data-id="{{$order->order_id}}"></td>
-                                        <td><span id="pay_amount{{$order->order_id}}"></span></td>
+                                                   data-id="{{$order->order_id}}" value="0"></td>
+                                        <td><span id="pay_amount{{$order->order_id}}">{{$order->total}}</span></td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                                 <div class="modal-body">
                                     <input type="hidden" step="any" id="pay{{$order->order_id}}" name="pay"
-                                           class="form-control">
+                                           class="form-control" value="{{$order->total}}">
 
                                     <input type="hidden" id="order_id" name="order_id" class="form-control"
                                            value="{{$order->order_id}}">
                                 </div>
                                 <input type="hidden" id="print_in" name="print_in" class="print_in">
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">پرداخت</button>
+                                    <button type="submit" class="btn btn-primary" id="pay_noPrint">پرداخت</button>
                                     <button type="submit" class="btn btn-success" id="pay_print"
                                             style="margin-right: 180px !important;">پرداخت و چاپ
                                     </button>
@@ -307,7 +307,28 @@
             $('button#pay_print').click(function () {
 
                 $('.print_in').val(1)
+                // $('#pay_print').prop('disabled', true);
             })
+
+            $('#pay_noPrint').click(function () {
+                // $('#pay_noPrint').prop('disabled', true);
+            })
+
+
+            setInterval(function () {
+                $.ajax({
+                    url: '{{route('paymentInSearch')}}',
+                    type: 'GET',
+
+                    success: function (response) {
+                        console.log(response);
+                        $('#accordion').html(response);
+
+                    }, error: function (err) {
+
+                    }
+                })
+            }, 20000);
         })
 
 

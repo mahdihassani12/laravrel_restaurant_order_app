@@ -200,14 +200,14 @@
                                     <tbody>
                                     <tr>
                                         <td><span id="total_pay{{$order->order_id}}">{{$order->total_payment}}</span></td>
-                                        <td><input type="number" name="discount"  class="discount form-control"  data-id="{{$order->order_id}}"></td>
-                                        <td><span id="pay_amount{{$order->order_id}}"></span></td>
+                                        <td><input type="number" name="discount"  class="discount form-control"  data-id="{{$order->order_id}}" value="0"></td>
+                                        <td><span id="pay_amount{{$order->order_id}}">{{$order->total_payment}}</span></td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                                 <div class="modal-body">
-                                    <input type="hidden" step="any" id="pay{{$order->order_id}}" name="pay" class="form-control">
+                                    <input type="hidden" step="any" id="pay{{$order->order_id}}" name="pay" class="form-control" value="{{$order->total_payment}}">
 
                                     <input type="hidden" id="order_id" name="order_id" class="form-control"
                                            value="{{$order->order_id}}">
@@ -327,6 +327,22 @@
             $('#pay_amount'+id).text(p)
             $('#pay'+id).val(p)
         });
+        $(document).ready(function () {
+            setInterval(function () {
+                $.ajax({
+                    url: '{{route('paymentOutSearch')}}',
+                    type: 'GET',
+
+                    success: function (response) {
+                        console.log(response);
+                        $('#accordion').html(response);
+
+                    }, error: function (err) {
+
+                    }
+                })
+            }, 20000);
+        })
 
         function printElement(elem) {
             var domClone = elem.cloneNode(true);

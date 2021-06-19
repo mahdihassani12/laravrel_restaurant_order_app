@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\InsideOrder;
+use App\InsideOrderTotal;
 use App\OutsideModel;
 use App\Table;
 use App\User;
@@ -14,65 +15,20 @@ use App\Menu;
 
 class HomeController extends Controller
 {
-    
+
 
     /*
     *   Admin Dashboard
-    */ 
+    */
     public function index()
     {
-        $inTotal = count(InsideOrder::all());
-        $inFoodsTotal = DB::table('inside_order')
-            ->join('menu','menu.menu_id','=','inside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','غذا')
-            ->select('order_id')
+
+
+        $category = DB::table('categories')
+            ->select('*')
             ->get();
-
-        $inDrinksTotal = DB::table('inside_order')
-            ->join('menu','menu.menu_id','=','inside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','نوشیدنی')
-            ->select('order_id')
-            ->get();
-        $inIcecreameTotal = DB::table('inside_order')
-            ->join('menu','menu.menu_id','=','inside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','بستنی')
-            ->select('order_id')
-            ->get();
-
-        $inFTo = count($inFoodsTotal);
-        $inDTo = count($inDrinksTotal);
-        $inICTo = count($inIcecreameTotal);
-
-        $outTotal = count(OutsideModel::all());
-        $outFoodsTotal = DB::table('outside_order')
-            ->join('menu','menu.menu_id','=','outside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','غذا')
-            ->select('order_id')
-            ->get();
-
-        $outDrinksTotal = DB::table('outside_order')
-            ->join('menu','menu.menu_id','=','outside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','نوشیدنی')
-            ->select('order_id')
-            ->get();
-        $outIcecreameTotal = DB::table('outside_order')
-            ->join('menu','menu.menu_id','=','outside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','بستنی')
-            ->select('order_id')
-            ->get();
-
-
-        $outFto = count($outFoodsTotal);
-        $outDTo = count($outDrinksTotal);
-        $outICTo = count($outIcecreameTotal);
-
-
+        $outTotal = DB::table('outside_order')->sum('order_amount');
+        $inTotal = DB::table('inside_order')->sum('order_amount');
 
 
         $year = Carbon::now()->year;
@@ -95,121 +51,56 @@ class HomeController extends Controller
         $arr2[] = \DB::table("outside_order_total")->where("created_at", "like", $year . "-11%")->sum("payment");
         $arr2[] = \DB::table("outside_order_total")->where("created_at", "like", $year . "-12%")->sum("payment");
 
-
-
-        $inFoodsTotal = DB::table('inside_order_total as iot')
-            ->join('inside_order','inside_order.total_id','=','iot.order_id')
-            ->join('menu','menu.menu_id','=','inside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','غذا')
-            ->select('order_id')
-            ->whereYear("iot.created_at", "like", $year)
-            ->sum('payment');
-
-        $inDrinksTotal = DB::table('inside_order_total as iot')
-            ->join('inside_order','inside_order.total_id','=','iot.order_id')
-            ->join('menu','menu.menu_id','=','inside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','نوشیدنی')
-            ->whereYear("iot.created_at", "like", $year)
-            ->sum('payment');
-        $inIcecreameTotal = DB::table('inside_order_total as iot')
-            ->join('inside_order','inside_order.total_id','=','iot.order_id')
-            ->join('menu','menu.menu_id','=','inside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','بستنی')
-            ->whereYear("iot.created_at", "like", $year)
-            ->sum('payment');
-
-
-
-        $outFoodsTotal = DB::table('outside_order_total as ost')
-            ->join('outside_order','outside_order.total_id','=','ost.order_id')
-            ->join('menu','menu.menu_id','=','outside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','غذا')
-            ->whereYear("ost.created_at", "like", $year)
-            ->sum('payment');
-
-        $outDrinksTotal = DB::table('outside_order_total as ost')
-            ->join('outside_order','outside_order.total_id','=','ost.order_id')
-            ->join('menu','menu.menu_id','=','outside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','نوشیدنی')
-            ->whereYear("ost.created_at", "like", $year)
-            ->sum('payment');
-
-        $outIcecreameTotal = DB::table('outside_order_total as ost')
-            ->join('outside_order','outside_order.total_id','=','ost.order_id')
-            ->join('menu','menu.menu_id','=','outside_order.menu_id')
-            ->join('categories','categories.category_id','=','menu.category_id')
-            ->where('categories.name','=','بستنی')
-            ->whereYear("ost.created_at", "like", $year)
-            ->sum('payment');
-
         $arr3 = array_map(function () {
             return array_sum(func_get_args());
         }, $arr, $arr2);
+//
 
-
-        $Fto = ($outFoodsTotal+$inFoodsTotal);
-        $DTo = ($outDrinksTotal+$inDrinksTotal);
-        $ICTo = ($outIcecreameTotal+$inIcecreameTotal);
-
-        return view('dashboard.welcome',compact('inTotal','inFTo','inDTo','inICTo','outTotal','outFto','outDTo','outICTo',
-            'Fto','DTo','ICTo','arr3'));
+        return view('dashboard.welcome', compact('category','outTotal','inTotal','arr3'));
     }
 
     /*
     *   Kitchen Dashboard
-    */ 
+    */
     public function kitchenDashboard()
     {
         $orders = DB::table('inside_order_total as iot')
-            ->join('inside_order','inside_order.total_id','=','iot.order_id')
+            ->join('inside_order', 'inside_order.total_id', '=', 'iot.order_id')
             ->join('location', 'location.location_id', '=', 'iot.location_id')
-            ->select('location.name','iot.order_id','identity','iot.status')
+            ->select('location.name', 'iot.order_id', 'identity', 'iot.status')
             ->orderByDesc('iot.order_id')
-            ->groupBy('location.name','iot.order_id','identity')
-            ->where('iot.status','=','1')
+            ->groupBy('location.name', 'iot.order_id', 'identity')
+            ->where('iot.status', '=', '1')
             ->get();
-        $user = DB::table('notifications')->where('notifiable_id',Auth::user()->user_id)->get();
+        $user = DB::table('notifications')->where('notifiable_id', Auth::user()->user_id)->get();
 
-        return view('Kitchen.insideOrder.list',compact('orders','user'));
+        return view('Kitchen.insideOrder.list', compact('orders', 'user'));
     }
 
     /*
     *   Accountant Dashboard
-    */ 
+    */
     public function accountantDashboard()
     {
-        return view('Payment.welcome');
+        $orders = InsideOrderTotal::where('payment', '=', 0)->where('status', '2')->paginate(10);
+        return view('Payment.insidePayment.index', compact('orders'));
     }
-
     /*
     *   Order Dashboard
-    */ 
+    */
     public function orderDashboard()
-    {		         
-		$food = DB::table('menu')
+    {
+        $menu = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-			->where('categories.name','LIKE', '%غذا%')
-			->select('menu.*')
-            ->get(); 
-		 
-		$drink = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-			->where('categories.name','LIKE', '%نوشیدنی%')
-			->select('menu.*')
+            ->select('menu.*')
+            ->where('menu.category_id', '=', 1)
             ->get();
-		
-		$icecream = DB::table('menu')
-            ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-			->where('categories.name','LIKE', '%بستنی%')
-			->select('menu.*')
+        $categories = DB::table('categories')
+            ->select('*')
             ->get();
         $tables = Table::all();
-        return view('order.insideOrder.create',compact(['food','drink','icecream','tables']));
+        return view('order.insideOrder.newCreate', compact('menu', 'tables', 'categories'));
+
     }
 
 }

@@ -51,6 +51,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('payment.inSideCreate') }}" class="nav-link">
+                            <i class="fa fa-circle-o nav-icon"></i>
+                            <p> ثبت سفارش داخلی </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('paymentInsideList') }}" class="nav-link">
                             <i class="fa fa-outdent"></i>
                             <p> لیست سفارشات داخلی </p>

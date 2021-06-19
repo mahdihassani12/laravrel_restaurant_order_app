@@ -58,7 +58,7 @@
             <h6 style="margin-right: 75px">تاریخ صدور: {{$date}}</h6>
             <h6 class="footer" style="margin-right: 35px">شماره های تماس: <span >0792469946 - 0789190444</span></h6>
             <h4 style="margin-right: 60px">با خدمات پیک موتوری رایگان</h4>
-            <span style="font-size: 18px; text-align: center">سازنده: شرکت تکنالوژی طوطیا www.tutiatech.com</span>
+            <span style="font-size: 18px; text-align: center; margin-right: 10px !important;">سازنده: شرکت تکنالوژی طوطیا www.tutiatech.com</span>
             <div class="backward">
                 <a href="{{route('getOutsideOrders')}}" class="btn btn-primary" style="margin-right: 82px">برگشت به صفحه قبل</a>
             </div>
@@ -92,9 +92,9 @@
 @section('script')
     <script type="text/javascript">
         window.print()
-        setInterval(function () {
-            var APP_URL = {!! json_encode(url('/')) !!}
-                window.location = APP_URL + "/getOutsideOrders"
-        }, 2000);
+        {{--setInterval(function () {--}}
+            {{--var APP_URL = {!! json_encode(url('/')) !!}--}}
+                {{--window.location = APP_URL + "/getOutsideOrders"--}}
+        {{--}, 2000);--}}
     </script>
 @endsection/

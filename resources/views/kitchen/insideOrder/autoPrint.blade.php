@@ -56,7 +56,7 @@
             <h6 class="footer" style="margin-right: 35px">شماره های تماس: <span>0792469946 - 0789190444</span></h6>
             <h4 style="margin-right: 60px">با خدمات پیک موتوری رایگان</h4>
             <hr style="padding: 0; margin: 0">
-            <span style="font-size: 18px; text-align: center">سازنده: شرکت تکنالوژی طوطیا www.tutiatech.com</span>
+            <span style="font-size: 18px; text-align: center; margin-right: 10px !important;">سازنده: شرکت تکنالوژی طوطیا www.tutiatech.com</span>
             <div class="backward">
                 <a href="{{route('getOrders')}}" class="btn btn-primary" style="margin-right: 82px">برگشت به صفحه
                     قبل</a>

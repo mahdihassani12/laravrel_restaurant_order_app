@@ -189,19 +189,21 @@
         @media print {
             #accordion {
                 visibility: hidden;
-                margin-bottom: -440px !important;
+                position: absolute !important;
             }
             .main-header{
                 visibility: hidden;
             }
-            /*#printBo{*/
-                /*position: absolute !important;*/
-                /*!*margin-top: -50px !important;*!*/
-            /*}*/
-            /*@page {*/
-                /*margin: 0;*/
+            #printBo{
+                margin-top: -54px !important;
+                padding: 0 !important;
+                margin-right: -15px !important;
 
-            /*}*/
+            }
+            @page {
+                margin: 0;
+
+            }
 
         }
     </style>

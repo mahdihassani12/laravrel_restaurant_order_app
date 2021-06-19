@@ -190,14 +190,16 @@
         @media print {
             #accordion {
                visibility: hidden;
-                margin-bottom: -440px !important;
+                position: absolute !important;
             }
             .main-header{
                 visibility: hidden;
             }
             #printBo{
-                position: absolute !important;
-                /*margin-top: -50px !important;*/
+                margin-top: -54px !important;
+                padding: 0 !important;
+                margin-right: -15px !important;
+
             }
             @page {
                 margin: 0;
@@ -207,44 +209,7 @@
         }
     </style>
 @endsection
-<style type="text/css">
-    .alert {
-        position: fixed;
-        bottom: 0;
-        z-index: 10;
-        left: 20px;
-    }
 
-    .alert button {
-        margin-left: 5px;
-    }
-
-    .notification {
-
-        text-decoration: none;
-        padding: 10px 10px;
-        position: relative;
-        display: inline-block;
-        border-radius: 2px;
-        margin-right: 50px;
-        font-size: 18px;
-    }
-
-    .notification:hover {
-        background: red;
-    }
-
-    .notification .badge {
-        position: absolute;
-        top: 1px;
-        right: -10px;
-        padding: 3px 6px;
-        border-radius: 50%;
-        background: red;
-        color: white;
-        font-size: 13px;
-    }
-</style>
 @section('script')
     <script type="text/javascript">
 

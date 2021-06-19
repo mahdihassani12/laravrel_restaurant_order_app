@@ -17,9 +17,13 @@
 			<div class="col-md-12">
 				<nav>
 					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#food" role="tab" aria-controls="nav-home" aria-selected="true">غذا ها</a>
-						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#drink" role="tab" aria-controls="nav-profile" aria-selected="false">نوشیدنی ها</a>
-						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#icecream" role="tab" aria-controls="nav-contact" aria-selected="false">بستنی ها</a>
+						@foreach($categories as $key=> $category)
+							<a @if($category->category_id==1)class="nav-item nav-link active"
+							   @else class="nav-item nav-link" @endif id="nav-home-tab" data-toggle="tab"
+							   href="#food{{$key}}" category_id = "{{$category->category_id}}"
+							   role="tab" aria-controls="nav-home"
+							   aria-selected="true">{{$category->name}}</a>
+						@endforeach
 					</div>
 				</nav>
 				<div class="tab-content" id="nav-tabContent" >
@@ -33,27 +37,27 @@
 									<th>عملیات</th>
 								</tr>
 							</thead>
-							<tbody>
-								@foreach($food as $index => $f)
-									<tr>
-										<td>{{ $index + 1 }}</td>
-										<td>{{ $f-> name }}</td>
-										<td>{{ $f-> price }}</td>
-										<td>
-											<a href="{{ route('menus.edit',$f->menu_id) }}"><i class="fa fa-edit"></i></a>
-											/
-											<form method="post" 
-												  id="form_delete"
-												  action="{{ route('menus.destroy',$f->menu_id) }}">
-												@csrf
-												@method('delete')
-												<button type="submit">
-													<i class="fa fa-trash"></i>
-												</button>
-											</form>
-										</td>
-									</tr>
-								@endforeach
+							<tbody id="tbody">
+							@foreach($menu as $index => $f)
+								<tr>
+									<td>{{ $index + 1 }}</td>
+									<td>{{ $f-> name }}</td>
+									<td>{{ $f-> price }}</td>
+									<td>
+										<a href="{{ route('menus.edit',$f->menu_id) }}"><i class="fa fa-edit"></i></a>
+										/
+										<form method="post"
+											  id="form_delete"
+											  action="{{ route('menus.destroy',$f->menu_id) }}">
+											@csrf
+											@method('delete')
+											<button type="submit">
+												<i class="fa fa-trash"></i>
+											</button>
+										</form>
+									</td>
+								</tr>
+							@endforeach
 							</tbody>
 							<tfoot>
 								<tr>
@@ -65,101 +69,10 @@
 							</tfoot>
 						</table>
 						<div id="pagination">
-							{{$food->links()}}
+							{{$menu->links()}}
 						</div>
 					</div>
-					<div class="tab-pane fade" id="drink" role="tabpanel" aria-labelledby="nav-profile-tab">
-						<table class="table" cellspacing="0">
-							<thead>
-								<tr>
-									<th> # </th>
-									<th>نام </th>
-									<th>قیمت</th>
-									<th>عملیات</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($drink as $index => $f)
-									<tr>
-										<td>{{ $index + 1 }}</td>
-										<td>{{ $f-> name }}</td>
-										<td>{{ $f-> price }}</td>
-										<td>
-											<a href="{{ route('menus.edit',$f->menu_id) }}"><i class="fa fa-edit"></i></a>
-											/
-											<form method="post" 
-												  id="form_delete"
-												  action="{{ route('menus.destroy',$f->menu_id) }}">
-												@csrf
-												@method('delete')
-												<button type="submit">
-													<i class="fa fa-trash"></i>
-												</button>
-											</form>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-							<tfoot>
-								<tr>
-									<th> # </th>
-									<th>نام </th>
-									<th>قیمت</th>
-									<th>عملیات</th>
-								</tr>
-							</tfoot>
-						</table>
-						<div id="pagination">
 
-							{{ $drink->fragment('drink')->links() }}
-						</div>
-					</div>
-					<div class="tab-pane fade" id="icecream" role="tabpanel" aria-labelledby="nav-contact-tab">
-						<table class="table" cellspacing="0">
-							<thead>
-								<tr>
-									<th> # </th>
-									<th>نام </th>
-									<th>قیمت</th>
-									<th> عملیات </th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach($icecream as $index => $f)
-									<tr>
-										<td>{{ $index + 1 }}</td>
-										<td>{{ $f-> name }}</td>
-										<td>{{ $f-> price }}</td>
-										<td>
-											<a href="{{ route('menus.edit',$f->menu_id) }}"><i class="fa fa-edit"></i></a>
-											/
-											<form method="post" 
-												  id="form_delete"
-												  action="{{ route('menus.destroy',$f->menu_id) }}">
-												@csrf
-												@method('delete')
-												<button type="submit">
-													<i class="fa fa-trash"></i>
-												</button>
-											</form>
-										</td>
-									</tr>
-								@endforeach
-							</tbody>
-							<tfoot>
-								<tr>
-									<th> # </th>
-									<th>نام </th>
-									<th>قیمت</th>
-									<th> عملیات </th>
-								</tr>
-							</tfoot>
-						</table>
-						<div id="pagination">
-
-							{{ $icecream->fragment('icecream')->links() }}
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -237,6 +150,22 @@
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
+        $('a.nav-item').click(function () {
+
+            var id=$(this).attr('category_id')
+            $.ajax({
+                type: "GET",
+                url: "getMenus",
+                data: {
+                    'id':id
+                },
+                success: function (msg) {
+                    $("#tbody").empty();
+                    $("#tbody").html(msg);
+
+                }
+            });
+        })
 
         var url = document.location.toString();
         if (url.match('#')) {

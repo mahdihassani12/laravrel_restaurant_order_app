@@ -82,5 +82,9 @@
 @section('script')
     <script type="text/javascript">
         window.print()
+        setInterval(function () {
+            var APP_URL = {!! json_encode(url('/')) !!}
+                window.location = APP_URL + "/paymentInsideList"
+        }, 2000);
     </script>
 @endsection

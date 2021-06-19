@@ -1,49 +1,49 @@
-@extends('order.layouts.app')
+@extends('Payment.layouts.app')
 @section('main_content')
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1 class="m-0 text-dark text-center"> ویرایش سفارشات بیرونی </h1>
+                    <h1 class="m-0 text-dark text-center"> ثبت سفارشات داخلی </h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
 
     <div class="row">
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-7 col-sm-12">
             <section id="tabs" class="project-tab">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <nav>
+                            <nav style="overflow-x: auto">
                                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
                                     @foreach($categories as $key=> $category)
                                         <a @if($category->category_id==1)class="nav-item nav-link active"
                                            @else class="nav-item nav-link" @endif id="nav-home-tab" data-toggle="tab"
-                                           href="#food{{$key}}" category_id = "{{$category->category_id}}"
+                                           href="#food{{$key}}" category_id="{{$category->category_id}}"
                                            role="tab" aria-controls="nav-home"
                                            aria-selected="true">{{$category->name}}</a>
                                     @endforeach
+
                                 </div>
                             </nav>
+
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="food" role="tabpanel"
-                                     aria-labelledby="nav-home-tab">
+                                <div class="tab-pane fade show active" role="tabpanel"
+                                     aria-labelledby="nav-home-tab" id="tb">
                                     <table class="table" cellspacing="0" id="example">
                                         <thead>
                                         <tr>
-
                                             <th>نام</th>
-                                            <th>قیمت</th>
-                                            <th>تعداد</th>
-                                            <th>پروسس</th>
+                                            <th style="width: 18% !important;">قیمت</th>
+                                            <th style="width: 18% !important;">تعداد</th>
+                                            <th style="width: 18% !important;">پروسس</th>
                                         </tr>
                                         </thead>
                                         <tbody id="tbody">
                                         @foreach($menu as $index => $f)
                                             <tr>
-
                                                 <td id="name" menu_id="{{ $f->menu_id }}">{{ $f-> name }}</td>
                                                 <td style="width: 18% !important;" id="price">{{ $f-> price }}</td>
                                                 <td style="width: 18% !important;" id="amount">
@@ -65,9 +65,9 @@
                                         <tr>
 
                                             <th>نام</th>
-                                            <th>قیمت</th>
-                                            <th>تعداد</th>
-                                            <th>پروسس</th>
+                                            <th style="width: 18% !important;">قیمت</th>
+                                            <th style="width: 18% !important;">تعداد</th>
+                                            <th style="width: 18% !important;">پروسس</th>
                                         </tr>
                                         </tfoot>
                                     </table>
@@ -79,89 +79,40 @@
                 </div>
             </section>
         </div> <!--/col-->
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-5 col-sm-12">
             <div class="card">
-                <div class="card-header">سفارش</div>
+                <div class="card-header">سفارش در حال اجرا</div>
                 <div class="card-body">
-                    <form id="order" method="post" action="{{ route('updateOutsideOrder',$t_orders->order_id) }}">
-                        {{isset($shop) ?method_field('put'):''}}
+                    <form id="form_order" method="post" action="{{ route('payment.insideStore') }}" class="form_order">
+
                         <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                         <table class="table table-bordered">
                             <tr>
-                                <th> نام</th>
+                                <th> اسم سفارش</th>
                                 <th> تعداد</th>
                                 <th> قیمت فی</th>
                                 <th> لغو</th>
                             </tr>
-                            @foreach($orders as $key => $order)
-                                <tr class="order_row">
-                                    <td id="order_name"><span>{{$order->menu_name}}</span></td>
-                                    <input type="hidden" name="menu_id_field[]" id="menu_id_field" value="{{$order->menu_id}}">
-                                    <td id="order_amount"><span>{{$order->order_amount}}</span></td>
-                                    <input type="hidden" name="order_amount_field[]" id="order_amount_field" value="{{$order->order_amount}}">
-                                    <td id="order_price"><span>{{$order->price}}</span></td>
-                                    <input type="hidden" name="order_price_field[]" id="order_price_field" value="{{$order->price}}">
-                                    <td class="order_cancel" onclick="this.parentElement.remove()">
-                                        <span class="fa fa-trash"></span>
-					                </td>
-                                </tr>
-                            @endforeach
                         </table>
 
                         <div class="form-group">
-                            قیمت کل : <span class="total_price">{{isset($t_orders)?$t_orders->total_payment:''}}  </span>
-                            <input type="hidden" name="total_payment" id="total_payment" value="{{isset($t_orders)?$t_orders->total_payment:''}}">
+                            قیمت کل : <span class="total_price"> 0 </span>
                         </div>
 
-                        <input type="hidden" id="id" name="id" value="{{isset($t_orders)?$t_orders->order_id:''}}">
-                        <input type="hidden" id="identity" name="identity" value="{{isset($t_orders)?$t_orders->identity:''}}">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="text" name="name" id="name" class="form-control" autocomplete="off"
-                                           placeholder="نام" value="{{isset($t_orders)?$t_orders->name:''}}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="phone_num" id="phone_num" class="form-control"
-                                           autocomplete="off" placeholder="شماره تماس" value="{{isset($t_orders)?$t_orders->phone:''}}">
-                                </div>
-                            </div>
-
+                        <div class="form-group">
+                            <label for="">انتخاب میز</label>
+                            <select class="form-control" name="table_order" id="table_order" class="table_order">
+                                <option value="" id="first_option">انتخاب کنید...</option>
+                                @foreach($tables as $table)
+                                    <option value="{{ $table->location_id }}"> {{ $table->name}} </option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="payment_amount" id="payment_amount" class="form-control"
-                                           autocomplete="off" placeholder="مقدار پرداخت" value="{{isset($t_orders)?$t_orders->payment:''}}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="discount" id="discount_amount" class="form-control"
-                                           autocomplete="off" placeholder="تخفیف" value="{{isset($t_orders)?$t_orders->discount:''}}">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <input type="number" name="transport_fees" id="transport_fees" class="form-control"
-                                           autocomplete="off" placeholder="فیس ترانسپورت" value="{{isset($t_orders)?$t_orders->transport_price:''}}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="text" name="address" id="address" class="form-control" autocomplete="off"
-                                       placeholder="آدرس" value="{{isset($t_orders)?$t_orders->address:''}}">
-                            </div>
-                        </div>
+                        <input type="hidden" name="total" id="total_p"/>
                         <div class="form-group">
                             <button class="btn btn-success btn-xs pull-left" id="submit_order">ارسال</button>
                         </div>
+
                         <div class="form-group" id="er_mssages">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -184,6 +135,9 @@
 
 @section('style')
     <style>
+        #nav-tab > .nav-link.active{
+            color:#f8644d !important;
+        }
         #er_mssages {
             clear: both;
         }
@@ -299,14 +253,15 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function () {
+
             $('a.nav-item').click(function () {
 
-                var id=$(this).attr('category_id')
+                var id = $(this).attr('category_id')
                 $.ajax({
                     type: "GET",
-                    url: "{{route('order.getMenu')}}",
+                    url: "paymentInGetMenu",
                     data: {
-                        'id':id
+                        'id': id
                     },
                     success: function (msg) {
 
@@ -317,27 +272,26 @@
             })
 
             var total = 0;
-            $('#example').on('click','.process',function () {
+            $('#example').on('click', '.process', function () {
 
                 var order_name = jQuery(this).siblings('#name').text();
                 var order_id = jQuery(this).siblings('#name').attr('menu_id');
                 var order_price = jQuery(this).siblings('#price').text();
                 var order_amount = jQuery(this).siblings('#amount').children('input#amount').val();
-                var total_price = $('.total_price').text();
 
-                jQuery('#order table').append(
+                jQuery('#form_order table').append(
                     '<tr class="order_row">'
-                    +'<td id="order_name">'
-                    + '<input type="hidden" name="menu_id_field[]" id="menu_id_field" class="menu_id_field" value=' + order_id + '>'
+                    + '<td id="order_name">'
+                    + '<input type="hidden" name="menu_id[]" id="menu_id_field" class="menu_id_field" value=' + order_id + '>'
                     + '<span>' + order_name + '</span>'
                     + '</td>'
                     + '<td id="order_amount">'
                     + '<span>' + order_amount + '</span>'
-                    + '<input type="hidden" name="order_amount_field[]" id="order_amount_field" class="order_amount_field" value=' + order_amount + '>'
+                    + '<input type="hidden" name="order_amount[]" id="order_amount_field" class="order_amount_field" value=' + order_amount + '>'
                     + '</td>'
                     + '<td id="order_price">'
                     + '<span>' + order_price + '</span>'
-                    + '<input type="hidden" name="order_price_field[]" id="order_price_field" class="order_price_field" value=' + order_price + '>'
+                    + '<input type="hidden" name="order_price[]" id="order_price_field" class="order_price_field" value=' + order_price + '>'
                     + '</td>'
                     + '<td class="order_cancel" onclick="this.parentElement.remove()">'
                     + '<span class="fa fa-trash"><span>'
@@ -345,9 +299,8 @@
                     + '</tr>'
                 ); // append to the form
 
-                total = ((order_amount * order_price)+parseInt(total_price));
+                total = (parseInt(total) + (order_amount * order_price));
                 $(".total_price").html(total);
-                $('#total_payment').val(total)
 
             }); // end or process order function
 
@@ -355,24 +308,38 @@
 
                 var order_price = jQuery(this).siblings('#order_price').children('span').text();
                 var order_amount = jQuery(this).siblings('#order_amount').children('span').text();
-                var total_price = $('.total_price').text();
 
-                total = (parseInt(total_price) - (order_amount * order_price));
+                total = (parseInt(total) - (order_amount * order_price));
+                $(".total_price").html(total);
 
-                $("span.total_price").html(total);
-                $('#total_payment').val(total)
-            });
-            jQuery("#table_order").select2({
-                dir: "rtl"
             });
 
 
-            $('form#order').submit(function (eventObj) {
+            $('form.form_order').submit(function (e) {
+                $('#submit_order').prop('disabled', true);
                 $(this).append('<input type="hidden" name="total" value="' + total + '" /> ');
-                return true;
+                e.preventDefault()
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('payment.insideStore')}}",
+                    data: $(this).serialize(),
+                    success: function (msg) {
+                        alert(msg.msg)
+                        $(this).closest('form').find("input[type=hidden], select").val("");
+                        $("#form_order table").empty()
+
+                        $(".total_price").html(0);
+                        total = 0;
+                        $(".amount").val(1);
+                        $('#submit_order').prop('disabled', false);
+                    }
+                });
+                // return true;
             });
 
         });
+
 
     </script>
 @endsection

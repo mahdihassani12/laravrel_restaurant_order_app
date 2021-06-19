@@ -68,21 +68,21 @@
 
 @section('style')
     <style>
-        @media print {
-            .container{
-                width: 30% !important;
-            }
-            @page  {
-                margin: 0;
+        /*@media print {*/
+            /*.container{*/
+                /*width: 30% !important;*/
+            /*}*/
+            /*@page  {*/
+                /*margin: 0;*/
 
-            }
-            footer,.backward{
-                visibility: hidden !important;
-            }
-            .container{
-                margin-right: -20px !important;
-            }
-        }
+            /*}*/
+            /*footer,.backward{*/
+                /*visibility: hidden !important;*/
+            /*}*/
+            /*.container{*/
+                /*margin-right: -20px !important;*/
+            /*}*/
+        /*}*/
     </style>
 @endsection
 
