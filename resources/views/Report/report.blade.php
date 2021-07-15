@@ -98,13 +98,7 @@
 
                 <table id="example" class="table table-striped table-bordered display" style="width:100%">
                     <thead class="sum">
-                    <tr>
-                        <th>مجموعه</th>
-                        <th class="total" >0</th>
 
-                        <th>تخفیف</th>
-                        <th class="discount" colspan="3">0</th>
-                    </tr>
                     <tr>
                         <th>شماره</th>
                         <th>نوع سفارش</th>
@@ -114,7 +108,15 @@
                         <th> تاریخ</th>
                     </tr>
                     </thead>
-                    <tfoot style="text-align: right">
+
+
+                    <tbody id="content-display">
+
+
+                    </tbody>
+
+                </table>
+                <table class="table table-striped table-bordered" style="text-align: right; width: 100% !important;" id="footer">
                     <tr>
                         <th>مجموعه</th>
                         <th class="total" >0</th>
@@ -122,13 +124,6 @@
                         <th>تخفیف</th>
                         <th class="discount" colspan="3">0</th>
                     </tr>
-                    </tfoot>
-
-                    <tbody id="content-display">
-
-
-                    </tbody>
-
                 </table>
                 <div class="pagination" style="float: left" id="pagination">
 
@@ -177,7 +172,10 @@
             h3.page-title {
                 visibility: hidden !important;
             }
+            #footer {
+                visibility: visible !important;
 
+            }
             @page {
 
                 margin: 0 !important;

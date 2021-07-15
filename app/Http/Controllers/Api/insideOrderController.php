@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Notifications\newOrderNotification;
 use App\User;
 use Illuminate\Http\Request;
@@ -22,7 +23,9 @@ class insideOrderController extends Controller
     public function index()
     {
         $orders = InsideOrderTotal::orderby('order_id', 'desc')->paginate(10);
-        return view('order.insideOrder.index', compact('orders'));
+       return response([
+           'data'=>$orders
+       ]);
     }
 
     /**
@@ -30,19 +33,24 @@ class insideOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getData()
     {
 
         $menu = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->select('menu.*')
+            ->select('menu.menu_id','menu.name','menu.price')
             ->where('menu.category_id', '=', 1)
             ->get();
         $categories = DB::table('categories')
-            ->select('*')
+            ->select('category_id','name')
             ->get();
-        $tables = Table::all();
-        return view('order.insideOrder.newCreate', compact('menu', 'tables', 'categories'));
+        $tables = DB::table('location')
+            ->select('location_id','name')->get();
+        return response([
+            'menu'=>$menu,
+            'categories'=>$categories,
+            'table'=>$tables
+        ]);
     }
 
     public function getMenu(Request $request)
@@ -53,7 +61,7 @@ class insideOrderController extends Controller
             ->select('menu.*')
             ->where('menu.category_id', '=', $id)
             ->get();
-        return view('order.insideOrder.table', compact('menu'));
+        return response($menu);
     }
     /**
      * Store a newly created resource in storage.
@@ -63,7 +71,7 @@ class insideOrderController extends Controller
      */
     public function store(Request $request)
     {
-
+//        dd($request->all());
         try {
 
             DB::beginTransaction();
@@ -99,6 +107,7 @@ class insideOrderController extends Controller
                 $order->order_amount = $data['order_amount'][$item];
                 $order->price = $data['order_price'][$item];
 
+
                 $order->save();
 
             }
@@ -114,73 +123,6 @@ class insideOrderController extends Controller
         return response($response);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function continueOrder()
-    {
-        $orders = InsideOrderTotal::orderby('order_id', 'desc')->paginate(10);
-        return view('order.insideOrder.continue', compact('orders'));
-    }
-
-    public function orderSearch(Request $request)
-    {
-        $data = $request->all();
-        $order = InsideOrderTotal::where('identity', 'like', '%' . $request->search . '%')->first();
-        $insideOrders = InsideOrder::where('total_id', '=', $order->order_id)->get();
-
-        return view('order.insideOrder.search', compact(['order', 'insideOrders']));
-
-        //return response()->json(
-        //   [
-        //   'order'       => $order,
-        // 'insideOrder' => $insideOrder
-        //]
-        //);
-
-    }
 
 
     public function loadInsideData($id)
@@ -204,7 +146,13 @@ class insideOrderController extends Controller
             ->get();
         $t_orders = InsideOrderTotal::find($id);
 
-        return view('order.insideOrder.edit', compact(['categories', 'menu', 'tables', 't_orders', 'orders']));
+        return response([
+            'categories'=>$categories,
+            'menu'=>$menu,
+            'tables'=>$tables,
+            't_orders'=>$t_orders,
+            'orders'=>$orders
+        ]);
 
     }
 

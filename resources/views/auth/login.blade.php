@@ -34,13 +34,19 @@
                         <div class="form-group">
                             <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                             <input type="email" name="email" autocomplete="off" id="email" placeholder="ایمیل آدرس"/>
-                            @error('email')<span>{{ $message }}</span>@enderror
+                            @error('email')<span style="color: red !important;">{{ $message }}</span>@enderror
                         </div>
                         <div class="form-group">
                             <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
                             <input type="password" name="your_pass" autocomplete="off" id="your_pass" placeholder="پسورد"/>
-                            @error('your_pass')<span>{{ $message }}</span>@enderror
+                            @error('your_pass')<span style="color: red !important;">{{ $message }}</span>@enderror
+
                         </div>
+                        @if (session('message'))
+                            <div class="alert alert-danger" style="color: red !important;; font-size: 20px">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                         <div class="form-group form-button">
                             <input type="submit" name="signin" id="signin" class="form-submit" value="ورود"/>
                         </div>

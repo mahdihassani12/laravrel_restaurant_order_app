@@ -43,6 +43,13 @@
                                        data-target="#exampleModalLong{{ $order->order_id }}"><i class="fa fa-paypal"
                                                                                                 id="send_icon"></i>
                                     </a>
+
+                                    <a id="delete_order"
+
+                                       style="float: left; margin-top: 7px; margin-left: 20px !important;"
+                                       href="{{route('deleteInsidePayment',$order->order_id)}}"><i class="fa fa-trash"
+                                                                                                id="delete_icon"></i>
+                                    </a>
                                 @endif
                             </h5>
                         </div>
@@ -110,6 +117,13 @@
                                        style="float: left" data-toggle="modal"
                                        data-target="#exampleModalLong{{ $order->order_id }}"><i class="fa fa-paypal"
                                                                                                 id="send_icon"></i>
+                                    </a>
+
+                                    <a id="delete_order"
+
+                                       style="float: left; margin-top: 7px; margin-left: 20px !important;"
+                                       href="{{route('deleteInsidePayment',$order->order_id)}}"><i class="fa fa-trash"
+                                                                                                   id="delete_icon"></i>
                                     </a>
                                 @endif
                             </h5>

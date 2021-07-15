@@ -13,7 +13,20 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('login', 'Api\AuthController@login');
+//    Route::post('register', 'Api\AuthController@register');
+//    Route::post('logout', 'Api\AuthController@logout');
+//    Route::post('profile', 'Api\AuthController@profile');
+//    Route::post('refresh', 'Api\AuthController@refresh');
 });
+
+Route::get('/getData','Api\insideOrderController@getData')->name('getData');
+Route::post('/store','Api\insideOrderController@store')->name('store');
+Route::get('loadInsideData/{id}','Api\insideOrderController@loadInsideData')->name('loadInsideData');
+Route::get('getMenu','Api\insideOrderController@getMenu')->name('getMenu');
+Route::match(['post','put'],'updateInsideOrder/{id}','insideOrderController@updateInsideOrder')->name('updateInsideOrder');
+

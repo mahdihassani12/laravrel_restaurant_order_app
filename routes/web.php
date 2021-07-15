@@ -51,6 +51,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('getOutsideReport','ReportController@getOutsideReport')->name('getOutsideReport');
     Route::get('reportAll','ReportController@reportAll')->name('reportAll');
     Route::get('getReportAll','ReportController@getReportAll')->name('getReportAll');
+
+    Route::get('/our_backup_database', 'HomeController@our_backup_database')->name('our_backup_database');
+
 });
 
 //Group middleware for Order
@@ -65,8 +68,8 @@ Route::group(['middleware' => ['auth', 'order']], function () {
     Route::get('loadInsideData/{id}','insideOrderController@loadInsideData')->name('loadInsideData');
     Route::get('getMenu','insideOrderController@getMenu')->name('order.getMenu');
 
-    Route::match(['post','put'],'updateOutsideOrder{id}','OutsideController@updateOutsideOrder')->name('updateOutsideOrder');
-    Route::match(['post','put'],'updateInsideOrder{id}','insideOrderController@updateInsideOrder')->name('updateInsideOrder');
+    Route::match(['post','put'],'updateOutsideOrder/{id}','OutsideController@updateOutsideOrder')->name('updateOutsideOrder');
+    Route::match(['post','put'],'updateInsideOrder/{id}','insideOrderController@updateInsideOrder')->name('updateInsideOrder');
 });
 
 //Group middleware for Kitchen
@@ -115,6 +118,9 @@ Route::group(['middleware' => ['auth', 'accountant']], function () {
 
     Route::get('paymentOutSearch','PaymentController@paymentOutSearch')->name('paymentOutSearch');
 
+    Route::get('deleteInsidePayment/{id}','PaymentController@deleteInsidePayment')->name('deleteInsidePayment');
+    Route::get('deleteOutsidePayment/{id}','PaymentController@deleteOutsidePayment')->name('deleteOutsidePayment');
+
 });
 
 
@@ -124,7 +130,6 @@ Route::group(['middleware' => ['auth', 'accountant']], function () {
 Route::group(['middleware' => ['auth', 'accountant']], function () {
     Route::get('accountant','HomeController@accountantDashboard')->name('accountantDashboard');
 });
-
 
 
 

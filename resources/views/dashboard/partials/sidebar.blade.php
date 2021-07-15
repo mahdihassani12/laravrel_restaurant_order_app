@@ -170,6 +170,14 @@
                         </ul>
                     </li>  <!-- /.dropdown-menu -->
                     <li class="nav-item">
+                        <a href="{{ route('our_backup_database') }}" class="nav-link">
+                            <i class="nav-icon fa fa-backward"></i>
+                            <p>
+                                بکاب جدید
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link">
                             <i class="nav-icon fa fa-power-off"></i>
                             <p>
@@ -177,6 +185,8 @@
                             </p>
                         </a>
                     </li>
+
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

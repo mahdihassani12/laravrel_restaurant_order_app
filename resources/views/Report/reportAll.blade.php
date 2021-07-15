@@ -8,6 +8,7 @@
                 <div class="col-md-2">
                     <label for="reason">نوع سفارش:*</label>
                     <select name="reason" id="reason" class="form-control select2_1">
+                        <option value="all">همه سفارشات</option>
                         <option value="1">سفارشات داخلی</option>
                         <option value="2">سفارشات بیرونی</option>
                     </select>
@@ -15,7 +16,7 @@
                 <div class="col-md-2" id="menu_type">
                     <label for="menu">انتخاب کتگوری</label>
                     <select id="menu" name="menu" class="form-control">
-                        <option value="all">همه سفارشات</option>
+                        <option value="all">همه موارد</option>
                         @foreach($categories as $cat)
                             <option value="{{$cat->category_id}}">{{$cat->name}}</option>
                         @endforeach
@@ -24,11 +25,12 @@
                 <div class="col-md-2">
                     <label for="type">بر اساس:</label>
                     <select id="type" name="type" class="form-control">
+                        <option value="daily">امروز</option>
                         <option value="month">ماه</option>
                         <option value="bt_date">بین تاریخ</option>
                     </select>
                 </div> <!-- /col -->
-                <div class="col-md-2" id="month_report">
+                <div class="col-md-2" id="month_report" style="display: none">
                     <div class="form-group ">
                         <label for="month_r">انتخاب ماه:</label>
                         <select id="month_r" name="month_r" class="form-control">
@@ -99,13 +101,7 @@
 
                 <table id="example" class="table table-striped table-bordered display" style="width:100%">
                     <thead class="sum">
-                    <tr>
-                        <th>مجموعه</th>
-                        <th class="total" >0</th>
 
-                        <th>تخفیف</th>
-                        <th class="discount" colspan="3">0</th>
-                    </tr>
                     <tr>
                         <th>شماره</th>
                         <th>نوع سفارش</th>
@@ -115,21 +111,40 @@
                         <th> تاریخ</th>
                     </tr>
                     </thead>
-                    <tfoot style="text-align: right">
-                    <tr>
-                        <th>مجموعه</th>
-                        <th class="total" >0</th>
 
-                        <th>تخفیف</th>
-                        <th class="discount" colspan="3">0</th>
-                    </tr>
-                    </tfoot>
 
                     <tbody id="content-display">
 
 
                     </tbody>
+
+
                 </table>
+                <table class="table table-striped table-bordered" style="text-align: right; width: 100% !important;" id="footer">
+                    <tr>
+                        <th>مجموع سفارشات بیرونی</th>
+                        <th class="total_out">0</th>
+                        <th>مجموع سفارشات داخلی</th>
+                        <th class="total_in">0</th>
+                        <th>مجموع کل</th>
+                        <th class="total">0</th>
+
+                    </tr>
+                    <tr>
+                        <th>تخفیف بیرونی</th>
+                        <th class="discount_out">0</th>
+                        <th>تخفیف داخلی</th>
+                        <th class="discount_in">0</th>
+                        <th>مجموع تخفیفات</th>
+                        <th class="discount">0</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">عواید نهایی</th>
+                        <th colspan="3" class="final_income">0</th>
+
+                    </tr>
+                </table>
+
                 <div class="pagination" style="float: left" id="pagination">
 
                 </div>
@@ -167,12 +182,19 @@
             body, div.fixed-navbar {
                 visibility: hidden !important;
             }
-            form{
+
+            form {
                 display: none;
             }
+
             h3 {
                 visibility: visible !important;
                 margin-bottom: 30px !important;
+            }
+
+            #footer {
+                visibility: visible !important;
+
             }
 
             h3.page-title {
@@ -208,8 +230,6 @@
             td > span {
                 padding-left: 20px !important;
             }
-
-
 
         }
     </style>
@@ -251,6 +271,12 @@
                     $('td#from').css('display', "none");
                     $('td#month').css('display', "block");
                 }
+                if (type == 'daily') {
+                    $('#type_print').text('امروز')
+                    $('td#to').css('display', "none");
+                    $('td#from').css('display', "none");
+                    $('td#month').css('display', "none");
+                }
 
                 $(".report_icon").addClass('fa fa-spinner fa-spin');
                 $('.loading').show();
@@ -264,10 +290,10 @@
                     success: function (response) {
                         var table = "";
 
-                        console.log(response.data)
-                        if (response.data.length > 0) {
+                        console.log(response)
+                        if (response.data.length > 0 || response.data_out.length > 0) {
                             var count = 1;
-                            if (response.type==1){
+                            if (response.type == 'all') {
                                 for (var i = 0; i < response.data.length; i++) {
                                     table += '<tr>' +
                                         '<td>' + (count) + '</td>' +
@@ -275,20 +301,44 @@
                                         '<td>' + response.data[i].or_am + '</td>' +
                                         '<td>' + response.data[i].price + '</td>' +
                                         '<td>' + response.data[i].total_price + '</td>' +
-                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')+ '</td>'+
+                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
+                                        '</tr>';
+                                    count++;
+                                }
+                                for (var i = 0; i < response.data_out.length; i++) {
+                                    table += '<tr>' +
+                                        '<td>' + (count) + '</td>' +
+                                        '<td>' + response.data_out[i].menu_name + '</td>' +
+                                        '<td>' + response.data_out[i].or_am + '</td>' +
+                                        '<td>' + response.data_out[i].price + '</td>' +
+                                        '<td>' + response.data_out[i].or_am * response.data_out[i].price + '</td>' +
+                                        '<td>' + moment(response.data_out[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
                                         '</tr>';
                                     count++;
                                 }
                             }
-                            else{
+                            if (response.type == 1) {
                                 for (var i = 0; i < response.data.length; i++) {
                                     table += '<tr>' +
                                         '<td>' + (count) + '</td>' +
                                         '<td>' + response.data[i].menu_name + '</td>' +
                                         '<td>' + response.data[i].or_am + '</td>' +
                                         '<td>' + response.data[i].price + '</td>' +
-                                        '<td>' + response.data[i].or_am*response.data[i].price + '</td>' +
-                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD')+ '</td>'+
+                                        '<td>' + response.data[i].total_price + '</td>' +
+                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
+                                        '</tr>';
+                                    count++;
+                                }
+                            }
+                            if (response.type == 2) {
+                                for (var i = 0; i < response.data.length; i++) {
+                                    table += '<tr>' +
+                                        '<td>' + (count) + '</td>' +
+                                        '<td>' + response.data[i].menu_name + '</td>' +
+                                        '<td>' + response.data[i].or_am + '</td>' +
+                                        '<td>' + response.data[i].price + '</td>' +
+                                        '<td>' + response.data[i].or_am * response.data[i].price + '</td>' +
+                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
                                         '</tr>';
                                     count++;
                                 }
@@ -303,8 +353,13 @@
                         $('#content-display').html(table);
                         $('#pagination').html(response['pagination']);
 
-                        $(".total").text(response.sum)
-                        $(".discount").text(response.discount)
+                        $(".total_in").text(response.sum);
+                        $(".total_out").text(response.sum_out);
+                        $(".total").text(parseInt(response.sum_out) + parseInt(response.sum));
+                        $(".discount").text(parseInt(response.discount) + parseInt(response.discount_out));
+                        $(".discount_out").text(response.discount_out);
+                        $(".discount_in").text(response.discount);
+                        $(".final_income").text((parseInt(response.sum_out) + parseInt(response.sum)-(parseInt(response.discount) + parseInt(response.discount_out))));
 
                         $(".dt-button").addClass("btn");
 
@@ -319,7 +374,7 @@
 
         $(document).ready(function () {
             //   JALALI DATEPICKER
-            / * ===============*/
+            // * ===============*/
             var opt = {
 
                 // placeholder text
@@ -406,6 +461,14 @@
                     $('table#print_table').addClass('bt_print_table')
                     $('table#example').addClass('bt_example')
 
+                } else if ($('#type').val() == 'daily') {
+                    $('#month_report').hide();
+                    $('#as_date').hide();
+                    $('#to_date').hide();
+                    $('h3#title').addClass('tb_title')
+                    $('table#print_table').addClass('bt_print_table')
+                    $('table#example').addClass('bt_example')
+
                 } else {
                     $('#selection').hide();
                 }
@@ -413,10 +476,6 @@
 
 
         });
-
-
-
-
 
 
     </script>

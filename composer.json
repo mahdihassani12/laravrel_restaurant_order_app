@@ -15,7 +15,8 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.0",
-        "morilog/jalali": "3.*"
+        "morilog/jalali": "3.*",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
