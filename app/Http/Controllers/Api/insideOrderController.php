@@ -15,41 +15,33 @@ use Illuminate\Support\Str;
 
 class insideOrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $orders = InsideOrderTotal::orderby('order_id', 'desc')->paginate(10);
-       return response([
-           'data'=>$orders
-       ]);
+        return response([
+            'data' => $orders
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function getData()
     {
 
         $menu = DB::table('menu')
             ->join('categories', 'menu.category_id', '=', 'categories.category_id')
-            ->select('menu.menu_id','menu.name','menu.price')
+            ->select('menu.menu_id', 'menu.name', 'menu.price')
             ->where('menu.category_id', '=', 1)
             ->get();
         $categories = DB::table('categories')
-            ->select('category_id','name')
+            ->select('category_id', 'name')
             ->get();
         $tables = DB::table('location')
-            ->select('location_id','name')->get();
+            ->select('location_id', 'name')->get();
         return response([
-            'menu'=>$menu,
-            'categories'=>$categories,
-            'table'=>$tables
+            'menu' => $menu,
+            'categories' => $categories,
+            'table' => $tables
         ]);
     }
 
@@ -63,18 +55,14 @@ class insideOrderController extends Controller
             ->get();
         return response($menu);
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
 //        dd($request->all());
-        try {
 
-            DB::beginTransaction();
+
+        DB::beginTransaction();
+        try {
             $request->validate([
                 'menu_id' => 'required',
                 'order_amount' => 'required',
@@ -112,17 +100,20 @@ class insideOrderController extends Controller
 
             }
             DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('errors', 'error');
+            $response = array(
+                'status' => 'success',
+                'msg' => 'موفقانه انجام شد!',
+            );
+            return response($response);
+        } catch (\Exception $e) {
+            $response = array(
+                'status' => 'success',
+                'msg' => 'ثبت نشد! دوباره تلاش کنید',
+            );
+            return response($response);
         }
-        $response = array(
-            'status' => 'success',
-            'msg' => 'موفقانه انجام شد!',
-        );
-        return response($response);
-    }
 
+    }
 
 
     public function loadInsideData($id)
@@ -147,11 +138,11 @@ class insideOrderController extends Controller
         $t_orders = InsideOrderTotal::find($id);
 
         return response([
-            'categories'=>$categories,
-            'menu'=>$menu,
-            'tables'=>$tables,
-            't_orders'=>$t_orders,
-            'orders'=>$orders
+            'categories' => $categories,
+            'menu' => $menu,
+            'tables' => $tables,
+            't_orders' => $t_orders,
+            'orders' => $orders
         ]);
 
     }
@@ -159,9 +150,9 @@ class insideOrderController extends Controller
     public function updateInsideOrder(Request $request, $id)
     {
 
-        try {
 
-            DB::beginTransaction();
+        DB::beginTransaction();
+        try {
             $request->validate([
                 'menu_id_field' => 'required',
                 'order_amount_field' => 'required',
@@ -196,10 +187,14 @@ class insideOrderController extends Controller
 
             }
             DB::commit();
+            return redirect()->back()->with('success', 'عملیات موفقانه انجام شد.');
+
         } catch (Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('errors', 'error');
+            $response = array(
+                'status' => 'success',
+                'msg' => 'ویرایش نشد! دوباره تلاش کنید',
+            );
+            return response($response);
         }
-        return redirect()->back()->with('success', 'عملیات موفقانه انجام شد.');
     }
 }

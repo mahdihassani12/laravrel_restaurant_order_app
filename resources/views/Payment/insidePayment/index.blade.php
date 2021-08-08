@@ -38,17 +38,18 @@
                                     </a>
                                 @else
                                     <a id="send_order"
-                                       class="btn btn-xs"
-                                       style="float: left" data-toggle="modal"
-                                       data-target="#exampleModalLong{{ $order->order_id }}"><i class="fa fa-paypal"
-                                                                                                id="send_icon"></i>
+                                       class="btn btn-xs btn-outline-primary"
+                                       style="float: left;margin-right: 2%" data-toggle="modal"
+                                       data-target="#exampleModalLong{{ $order->order_id }}">پرداخت با تخفیف
                                     </a>
-
+                                    <a id="send_order_without_discount"
+                                       class="btn btn-xs btn-outline-success"
+                                       style="float: left" pay="{{$order->total}}" order_id="{{$order->order_id}}">پرداخت
+                                    </a>
                                     <a id="delete_order"
-
-                                       style="float: left; margin-top: 7px; margin-left: 20px !important;"
-                                       href="{{route('deleteInsidePayment',$order->order_id)}}"><i class="fa fa-trash"
-                                                                                                id="delete_icon"></i>
+                                       style="float: left; margin-top: 7px; margin-left: 20px !important; cursor: pointer;"
+                                       order_id="{{$order->order_id}}"><i class="fa fa-trash"
+                                                                          id="delete_icon"></i>
                                     </a>
                                 @endif
                             </h5>
@@ -113,17 +114,18 @@
                                     </a>
                                 @else
                                     <a id="send_order"
-                                       class="btn btn-xs"
-                                       style="float: left" data-toggle="modal"
-                                       data-target="#exampleModalLong{{ $order->order_id }}"><i class="fa fa-paypal"
-                                                                                                id="send_icon"></i>
+                                       class="btn btn-xs btn-outline-primary"
+                                       style="float: left;margin-right: 2%" data-toggle="modal"
+                                       data-target="#exampleModalLong{{ $order->order_id }}">پرداخت با تخفیف
                                     </a>
-
+                                    <a id="send_order_without_discount"
+                                       class="btn btn-xs btn-outline-success"
+                                       style="float: left" pay="{{$order->total}}" order_id="{{$order->order_id}}">پرداخت
+                                    </a>
                                     <a id="delete_order"
-
-                                       style="float: left; margin-top: 7px; margin-left: 20px !important;"
-                                       href="{{route('deleteInsidePayment',$order->order_id)}}"><i class="fa fa-trash"
-                                                                                                   id="delete_icon"></i>
+                                       style="float: left; margin-top: 7px; margin-left: 20px !important; cursor: pointer;"
+                                       order_id="{{$order->order_id}}"><i class="fa fa-trash"
+                                                                          id="delete_icon"></i>
                                     </a>
                                 @endif
                             </h5>
@@ -169,7 +171,8 @@
 
                 @endif
             <!-- Modal -->
-                <div class="modal fade" id="exampleModalLong{{ $order->order_id }}" tabindex="-1" role="dialog"
+                <div class="modal fade payment_modal" id="exampleModalLong{{ $order->order_id }}" tabindex="-1"
+                     role="dialog"
                      aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="margin-top: 70px">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -177,7 +180,7 @@
                                 <h5 class="modal-title" id="exampleModalLongTitle">پرداخت فیس</h5>
 
                             </div>
-                            <form id="order" method="post" action="{{ route('paymentInsideCreate') }}">
+                            <form class="form_payment">
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <th>#</th>
@@ -226,12 +229,13 @@
                                 </div>
                                 <input type="hidden" id="print_in" name="print_in" class="print_in">
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary" id="pay_noPrint">پرداخت</button>
-                                    <button type="submit" class="btn btn-success" id="pay_print"
-                                            style="margin-right: 180px !important;">پرداخت و چاپ
+                                    <button type="submit" class="btn btn-primary pay_noPrint" id="pay_noPrint">پرداخت
                                     </button>
+                                    {{--<button type="submit" class="btn btn-success" id="pay_print"--}}
+                                    {{--style="margin-right: 180px !important;">پرداخت و چاپ--}}
+                                    {{--</button>--}}
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                            style="margin-right: 20px !important;">بستن
+                                            style="margin-right: 62% !important;">بستن
                                     </button>
 
                                 </div>
@@ -318,14 +322,16 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function () {
+
+
             $('button#pay_print').click(function () {
 
                 $('.print_in').val(1)
                 // $('#pay_print').prop('disabled', true);
             })
 
-            $('#pay_noPrint').click(function () {
-                // $('#pay_noPrint').prop('disabled', true);
+            $('.pay_noPrint').click(function () {
+                // $('.pay_noPrint').prop('disabled', true);
             })
 
 
@@ -335,14 +341,102 @@
                     type: 'GET',
 
                     success: function (response) {
-                        console.log(response);
                         $('#accordion').html(response);
-
-                    }, error: function (err) {
-
                     }
                 })
             }, 20000);
+
+            //send data to controller with discount
+            $(document).on('submit', "form.form_payment", function (e) {
+                $('.pay_noPrint').prop('disabled', true);
+                e.preventDefault()
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('paymentInsideCreate')}}",
+                    data: $(this).serialize(),
+                    success: function (msg) {
+                        alert(msg.msg)
+
+                        $('.pay_noPrint').prop('disabled', false);
+                        $.ajax({
+                            url: '{{route('paymentInSearch')}}',
+                            type: 'GET',
+
+                            success: function (response) {
+
+                                $('#accordion').html(response);
+
+                            }
+                        })
+                    }
+                });
+                // return true;
+            });
+            //close modal after sending data to controller
+            $(function () {
+                $('.pay_noPrint').click(function () {
+                    $('.payment_modal').modal('hide');
+                });
+            });
+
+            //send data to controller without discount
+            $(document).on('click', '#send_order_without_discount', function () {
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('paymentInsideCreate')}}",
+                    data: {
+                        '_token': "{{csrf_token()}}",
+                        'pay': $(this).attr('pay'),
+                        'order_id': $(this).attr('order_id'),
+                        'discount': 0,
+                        'print_in': null
+                    },
+                    success: function (msg) {
+                        alert(msg.msg)
+
+                        $('.pay_noPrint').prop('disabled', false);
+                        $.ajax({
+                            url: '{{route('paymentInSearch')}}',
+                            type: 'GET',
+
+                            success: function (response) {
+
+                                $('#accordion').html(response);
+
+                            }
+                        })
+                    }
+                });
+            })
+
+
+            //delete order by ajax
+            $(document).on('click', 'a#delete_order', function () {
+                let order_id = $(this).attr('order_id');
+                $.ajax({
+                    type: "get",
+                    url: "{{route('deleteInsidePayment')}}",
+                    data: {
+                        'id': order_id
+                    },
+                    success: function (msg) {
+                        alert(msg.msg)
+
+                        $('.pay_noPrint').prop('disabled', false);
+                        $.ajax({
+                            url: '{{route('paymentInSearch')}}',
+                            type: 'GET',
+
+                            success: function (response) {
+
+                                $('#accordion').html(response);
+
+                            }
+                        })
+                    }
+                });
+            })
         })
 
 

@@ -207,7 +207,7 @@ class KitchenController extends Controller
     {
 
         $orders = InsideOrderTotal::where('status', '1')->get();
-        $date = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("Y-m-d H:i:s");
+        $date = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("Y-m-d h:i:s");
 //        dd($orders);
         if (count($orders)>0){
             $update = DB::table('inside_order_total')->where('status', 1)->update(['status' => 2]);
@@ -221,7 +221,7 @@ class KitchenController extends Controller
     public function sendOutOrdersForPrint(Request $request)
     {
         $orders = OutsideOrderTotal::where('status', '1')->get();
-        $date = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("Y-m-d H:i:s");
+        $date = \Morilog\Jalali\Jalalian::fromCarbon(\Carbon\Carbon::now())->format("Y-m-d h:i:s");
 
         if (count($orders)>0){
             $update = DB::table('outside_order_total')->where('status', 1)->update(['status' => 2]);

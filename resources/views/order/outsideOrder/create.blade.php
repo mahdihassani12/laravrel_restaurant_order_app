@@ -102,13 +102,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">نام</label>
-								<input type="text" name="name" id="name" class="form-control customer_name" autocomplete="off" placeholder="نام">
+								<input type="text" name="name" id="name" class="form-control customer_name" autocomplete="off" placeholder="نام" required>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">تلفون</label>
-								<input type="number"  name="phone_num" id="phone_num" class="form-control" autocomplete="off" placeholder="شماره تماس">
+								<input type="number"  name="phone_num" id="phone_num" class="form-control" autocomplete="off" placeholder="شماره تماس" required>
 							</div>
 						</div>
 
@@ -117,13 +117,13 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">مقدار پرداخت</label>
-								<input type="number" name="payment_amount" id="payment_amount" class="form-control" autocomplete="off" placeholder="مقدار پرداخت" value="0">
+								<input type="number" name="payment_amount" id="payment_amount" class="form-control" required  autocomplete="off" placeholder="مقدار پرداخت" value="0">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">تخفیف</label>
-								<input type="number"  name="discount" id="discount_amount" class="form-control" autocomplete="off" placeholder="تخفیف" value="0">
+								<input type="number"  name="discount" id="discount_amount" class="form-control" required autocomplete="off" placeholder="تخفیف" value="0">
 							</div>
 						</div>
 
@@ -132,14 +132,14 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">فیس ترانسپورت</label>
-								<input type="number"  name="transport_fees" id="transport_fees" class="form-control" autocomplete="off" placeholder="فیس ترانسپورت" value="0">
+								<input type="number"  name="transport_fees" id="transport_fees" class="form-control" required autocomplete="off" placeholder="فیس ترانسپورت" value="0">
 							</div>
 						</div>
 					</div>
 					<div class="col-md-12">
 						<div class="form-group">
 							<label for="">آدرس</label>
-							<input type="text"  name="address" id="address" class="form-control" autocomplete="off" placeholder="آدرس">
+							<input type="text"  name="address" id="address" class="form-control" required autocomplete="off" placeholder="آدرس">
 						</div>
 					</div>
 					<div class="form-group">
@@ -161,7 +161,6 @@
 			</div>
 		</div>
 	</div> <!--/col-->
-</div> <!--/row-->
 
 @endsection
 

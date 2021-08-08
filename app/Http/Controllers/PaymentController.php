@@ -25,26 +25,29 @@ class PaymentController extends Controller
 
     public function paymentInsideCreate(Request $request)
     {
-
+        DB::beginTransaction();
         try {
-
-            DB::beginTransaction();
             DB::table('inside_order_total')->where('order_id', $request->order_id)->update([
                 'payment' => $request->pay,
                 'discount' => $request->discount,
                 'status' => 3
             ]);
             DB::commit();
+            if ($request->print_in != null) {
+                $orders = InsideOrderTotal::where('order_id', $request->order_id)->get();
+                return view('Payment.insidePayment.print', compact('orders'))->with('success', 'عملیات موفقانه انجام شد.');
+            } else {
+                $response = array(
+                    'status' => 'success',
+                    'msg' => 'موفقانه انجام شد!',
+                );
+                return response($response);
+            }
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('errors', 'error');
         }
-        if ($request->print_in != null) {
-            $orders = InsideOrderTotal::where('order_id', $request->order_id)->get();
-            return view('Payment.insidePayment.print', compact('orders'))->with('success', 'عملیات موفقانه انجام شد.');
-        } else {
-            return redirect()->back()->with('success', 'عملیات موفقانه انجام شد.');
-        }
+
 
     }
 
@@ -85,25 +88,30 @@ class PaymentController extends Controller
     public function paymentOutsideCreate(Request $request)
     {
 
-        try {
 
-            DB::beginTransaction();
+        DB::beginTransaction();
+        try {
             DB::table('outside_order_total')->where('order_id', $request->order_id)->update([
                 'payment' => $request->pay,
                 'discount' => $request->discount
             ]);
             DB::commit();
+            if ($request->print_out != null) {
+                $orders = OutsideOrderTotal::where('order_id', $request->order_id)->get();
+                return view('Payment.outsidePayment.print', compact('orders'))->with('success', 'عملیات موفقانه انجام شد.');
+
+            } else {
+                $response = array(
+                    'status' => 'success',
+                    'msg' => 'موفقانه انجام شد!',
+                );
+                return response($response);
+            }
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('errors', 'error');
         }
-        if ($request->print_out != null) {
-            $orders = OutsideOrderTotal::where('order_id', $request->order_id)->get();
-            return view('Payment.outsidePayment.print', compact('orders'))->with('success', 'عملیات موفقانه انجام شد.');
 
-        } else {
-            return redirect()->back()->with('success', 'عملیات موفقانه انجام شد.');
-        }
 
 
     }
@@ -169,10 +177,8 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-
+        DB::beginTransaction();
         try {
-
-            DB::beginTransaction();
             $request->validate([
                 'menu_id' => 'required',
                 'order_amount' => 'required',
@@ -219,15 +225,19 @@ class PaymentController extends Controller
 
             }
             DB::commit();
+            $response = array(
+                'status' => 'success',
+                'msg' => 'موفقانه انجام شد!',
+            );
+            return response($response);
         } catch (\Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('errors', 'error');
+            $response = array(
+                'status' => 'success',
+                'msg' => 'ثبت نشد! دوباره تلاش کنید',
+            );
+            return response($response);
         }
-        $response = array(
-            'status' => 'success',
-            'msg' => 'موفقانه انجام شد!',
-        );
-        return response($response);
+
     }
 
     public function insideCreate()
@@ -251,7 +261,6 @@ class PaymentController extends Controller
 //        dd($request->all());
 
         try {
-
             DB::beginTransaction();
             $request->validate([
                 'menu_id' => 'required',
@@ -289,15 +298,22 @@ class PaymentController extends Controller
 
             }
             DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            return redirect()->back()->with('errors', 'error');
+            $response = array(
+                'status' => 'success',
+                'msg' => 'موفقانه انجام شد!',
+            );
+            return response($response);
+        } catch (\PDOException $e) {
+            $response = array(
+                'status' => 'success',
+                'msg' => 'ثبت نشد! دوباره تلاش کنید',
+            );
+            return response($response);
+
         }
-        $response = array(
-            'status' => 'success',
-            'msg' => 'موفقانه انجام شد!',
-        );
-        return response($response);
+
+
+
     }
 
     public function paymentGetMenu(Request $request)
@@ -336,14 +352,19 @@ class PaymentController extends Controller
     }
 
 
-    public function deleteInsidePayment($id)
+    public function deleteInsidePayment(Request $request)
     {
+        $id = $request->get('id');
         DB::beginTransaction();
         try {
             InsideOrderTotal::find($id)->delete();
-            InsideOrder::where('total_id',$id)->delete();
+            InsideOrder::where('total_id', $id)->delete();
             DB::commit();
-            return redirect()->back()->with('success', 'عملیات موفقانه انجام شد.');
+            $response = array(
+                'status' => 'success',
+                'msg' => 'موفقانه حذف شد!',
+            );
+            return response($response);
         } catch (\PDOException $exception) {
             return array(
                 'fail' => true,
@@ -352,18 +373,26 @@ class PaymentController extends Controller
         }
     }
 
-    public function deleteOutsidePayment($id)
+    public function deleteOutsidePayment(Request $request)
     {
+        $id = $request->get('id');
+
         try {
             OutsideOrderTotal::find($id)->delete();
-            OutsideModel::where('total_id',$id)->delete();
+            OutsideModel::where('total_id', $id)->delete();
             DB::commit();
-            return redirect()->back()->with('success', 'عملیات موفقانه انجام شد.');
-        } catch (\PDOException $exception) {
-            return array(
-                'fail' => true,
-                'errors' => ["خطا" => 'مشکلی رخ داده است.']
+            $response = array(
+                'status' => 'success',
+                'msg' => 'موفقانه حذف شد!',
             );
+            return response($response);
+        } catch (\PDOException $exception) {
+            $response = array(
+                'status' => 'success',
+                'msg' => 'خطا! حذف نشد! دو باره تلاش کنید!',
+            );
+            return response($response);
+
         }
     }
 }

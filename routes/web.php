@@ -118,8 +118,8 @@ Route::group(['middleware' => ['auth', 'accountant']], function () {
 
     Route::get('paymentOutSearch','PaymentController@paymentOutSearch')->name('paymentOutSearch');
 
-    Route::get('deleteInsidePayment/{id}','PaymentController@deleteInsidePayment')->name('deleteInsidePayment');
-    Route::get('deleteOutsidePayment/{id}','PaymentController@deleteOutsidePayment')->name('deleteOutsidePayment');
+    Route::get('deleteInsidePayment','PaymentController@deleteInsidePayment')->name('deleteInsidePayment');
+    Route::get('deleteOutsidePayment','PaymentController@deleteOutsidePayment')->name('deleteOutsidePayment');
 
 });
 

@@ -325,6 +325,7 @@
                     url: "{{route('payment.insideStore')}}",
                     data: $(this).serialize(),
                     success: function (msg) {
+                        console.log(msg)
                         alert(msg.msg)
                         $(this).closest('form').find("input[type=hidden], select").val("");
                         $("#form_order table").empty()

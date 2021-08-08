@@ -26,6 +26,7 @@ Route::group([
 
 Route::get('/getData','Api\insideOrderController@getData')->name('getData');
 Route::post('/store','Api\insideOrderController@store')->name('store');
+Route::post('/outsideStore','Api\OutsideController@outsideStore')->name('outsideStore');
 Route::get('loadInsideData/{id}','Api\insideOrderController@loadInsideData')->name('loadInsideData');
 Route::get('getMenu','Api\insideOrderController@getMenu')->name('getMenu');
 Route::match(['post','put'],'updateInsideOrder/{id}','insideOrderController@updateInsideOrder')->name('updateInsideOrder');

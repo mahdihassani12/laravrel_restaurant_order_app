@@ -25,7 +25,8 @@
                 <div class="col-md-2">
                     <label for="type">بر اساس:</label>
                     <select id="type" name="type" class="form-control">
-                        <option value="daily">امروز</option>
+                        <option value="yesterday">دیروز</option>
+                        <option value="daily" selected>امروز</option>
                         <option value="month">ماه</option>
                         <option value="bt_date">بین تاریخ</option>
                     </select>
@@ -290,7 +291,6 @@
                     success: function (response) {
                         var table = "";
 
-                        console.log(response)
                         if (response.data.length > 0 || response.data_out.length > 0) {
                             var count = 1;
                             if (response.type == 'all') {

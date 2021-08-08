@@ -413,7 +413,71 @@ class ReportController extends Controller
 
         if($request->reason === 'all'){
             if ($request->menu=='all'){
-                if($request->type == 'daily'){
+                if($request->type == 'yesterday'){
+                    $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
+                    $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
+                    $jday = Jalalian::fromCarbon(Carbon::yesterday())->getDay();
+
+                    $date = '';
+                    if (intval($jmonth) < 10 && intval($jday) > 9) {
+                        $date = $jyear . '-0' . $jmonth . '-' . $jday;
+                    } elseif (intval($jday) < 10 && intval($jmonth) > 9) {
+                        $date = $jyear . '-' . $jmonth . '-0' . $jday;
+
+                    } elseif (intval($jmonth) < 10 && intval($jday) < 10) {
+                        $date = $jyear . '-0' . $jmonth . '-0' . $jday;
+                    } else {
+
+                        $date = $jyear . '-' . $jmonth . '-' . $jday;
+
+                    }
+                    $date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $date)->format('Y-m-d');
+
+                    $data = DB::table('inside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
+                            'io.price','io.total_id','io.created_at')
+                        ->whereDate('io.created_at','=',$date)
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->orderByDesc('or_am')
+                        ->get();
+
+                    $sum = DB::table('inside_order as io')
+                        ->whereDate('io.created_at','=',$date)
+                        ->sum(DB::raw('price*order_amount'));
+
+                    $discount= DB::table('inside_order_total as io')
+                        ->whereDate('io.created_at','=',$date)
+                        ->sum('discount');
+                    //outside orders
+                    $data_out = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
+                            'io.price','io.total_id','io.created_at')
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->orderByDesc('or_am')
+                        ->get();
+                    $sum_out = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount_out= DB::table('outside_order_total as io')
+                        ->whereDate('io.created_at','=',$date)
+                        ->sum('discount');
+                    return response([
+                        'data'=>$data,
+                        'data_out'=>$data_out,
+                        'sum'=>$sum,
+                        'sum_out'=>$sum_out,
+                        'discount'=>$discount,
+                        'discount_out'=>$discount_out,
+                        'type'=>$request->reason
+                    ]);
+
+                }
+                elseif($request->type == 'daily'){
                     $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
                     $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
                     $jday = Jalalian::fromCarbon(Carbon::now())->getDay();
@@ -615,6 +679,82 @@ class ReportController extends Controller
                 }
             }
             else{
+                if($request->type == 'yesterday'){
+                    $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
+                    $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
+                    $jday = Jalalian::fromCarbon(Carbon::yesterday())->getDay();
+
+                    $date = '';
+                    if (intval($jmonth) < 10 && intval($jday) > 9) {
+                        $date = $jyear . '-0' . $jmonth . '-' . $jday;
+                    } elseif (intval($jday) < 10 && intval($jmonth) > 9) {
+                        $date = $jyear . '-' . $jmonth . '-0' . $jday;
+
+                    } elseif (intval($jmonth) < 10 && intval($jday) < 10) {
+                        $date = $jyear . '-0' . $jmonth . '-0' . $jday;
+                    } else {
+
+                        $date = $jyear . '-' . $jmonth . '-' . $jday;
+
+                    }
+                    $date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $date)->format('Y-m-d');
+
+                    $data = DB::table('inside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
+                            'io.price','io.total_id','io.created_at')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->orderByDesc('or_am')
+                        ->get();
+                    $sum = DB::table('inside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('inside_order_total as io')
+                        ->join('inside_order','inside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'inside_order.menu_id')
+                        ->where('menu.category_id',$request->menu)
+                        ->whereDate('io.created_at','>=',$date)
+                        ->sum('discount');
+
+                    //outside orders
+                    $data_out = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
+                            'io.price','io.total_id','io.created_at')
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->orderByDesc('or_am')
+                        ->get();
+                    $sum_out = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount_out= DB::table('inside_order_total as io')
+                        ->join('inside_order','inside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'inside_order.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->sum('discount');
+                    return response([
+                        'data'=>$data,
+                        'data_out'=>$data_out,
+                        'sum'=>$sum,
+                        'sum_out'=>$sum_out,
+                        'discount'=>$discount,
+                        'discount_out'=>$discount_out,
+                        'type'=>$request->reason
+                    ]);
+
+
+                }
                 if($request->type == 'daily'){
                     $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
                     $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
@@ -853,7 +993,56 @@ class ReportController extends Controller
         }
         elseif ($request->reason == 1) {
             if ($request->menu=='all'){
-                if($request->type == 'daily'){
+                if($request->type == 'yesterday'){
+                    $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
+                    $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
+                    $jday = Jalalian::fromCarbon(Carbon::yesterday())->getDay();
+
+                    $date = '';
+                    if (intval($jmonth) < 10 && intval($jday) > 9) {
+                        $date = $jyear . '-0' . $jmonth . '-' . $jday;
+                    } elseif (intval($jday) < 10 && intval($jmonth) > 9) {
+                        $date = $jyear . '-' . $jmonth . '-0' . $jday;
+
+                    } elseif (intval($jmonth) < 10 && intval($jday) < 10) {
+                        $date = $jyear . '-0' . $jmonth . '-0' . $jday;
+                    } else {
+
+                        $date = $jyear . '-' . $jmonth . '-' . $jday;
+
+                    }
+                    $date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $date)->format('Y-m-d');
+                    $data = DB::table('inside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
+                            'io.price','io.total_id','io.created_at')
+                        ->whereDate('io.created_at','=',$date)
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->orderByDesc('or_am')
+                        ->get();
+                    $sum = DB::table('inside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('inside_order_total as io')
+                        ->join('inside_order','inside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'inside_order.menu_id')
+                        ->whereDate('io.created_at','>=',$date)
+                        ->sum('discount');
+
+                    return response([
+                        'data'=>$data,
+                        'data_out'=>0,
+                        'sum'=>$sum,
+                        'sum_out'=>0,
+                        'discount'=>$discount,
+                        'discount_out'=>0,
+                        'type'=>$request->reason
+
+                    ]);
+                }
+                elseif($request->type == 'daily'){
                     $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
                     $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
                     $jday = Jalalian::fromCarbon(Carbon::now())->getDay();
@@ -893,9 +1082,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
 
                 }
@@ -948,11 +1141,14 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
-                    ]);
 
+                    ]);
                 }
                 else {
                     $start_date=$request->start_date;
@@ -982,15 +1178,72 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
 
                 }
             }
             else{
-                if($request->type == 'daily'){
+                if($request->type == 'yesterday'){
+                    $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
+                    $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
+                    $jday = Jalalian::fromCarbon(Carbon::yesterday())->getDay();
+
+                    $date = '';
+                    if (intval($jmonth) < 10 && intval($jday) > 9) {
+                        $date = $jyear . '-0' . $jmonth . '-' . $jday;
+                    } elseif (intval($jday) < 10 && intval($jmonth) > 9) {
+                        $date = $jyear . '-' . $jmonth . '-0' . $jday;
+
+                    } elseif (intval($jmonth) < 10 && intval($jday) < 10) {
+                        $date = $jyear . '-0' . $jmonth . '-0' . $jday;
+                    } else {
+
+                        $date = $jyear . '-' . $jmonth . '-' . $jday;
+
+                    }
+                    $date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $date)->format('Y-m-d');
+                    $data = DB::table('inside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"), 'io.order_id',DB::raw("SUM(io.price*io.order_amount) as total_price"),
+                            'io.price','io.total_id','io.created_at')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->orderByDesc('or_am')
+                        ->get();
+                    $sum = DB::table('inside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('inside_order_total as io')
+                        ->join('inside_order','inside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'inside_order.menu_id')
+                        ->whereDate('io.created_at','>=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->sum('discount');
+
+                    return response([
+                        'data'=>$data,
+                        'data_out'=>0,
+                        'sum'=>$sum,
+                        'sum_out'=>0,
+                        'discount'=>$discount,
+                        'discount_out'=>0,
+                        'type'=>$request->reason
+
+                    ]);
+
+                }
+                elseif($request->type == 'daily'){
                     $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
                     $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
                     $jday = Jalalian::fromCarbon(Carbon::now())->getDay();
@@ -1033,13 +1286,17 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
 
                 }
-                if ($request->type == 'month') {
+                elseif ($request->type == 'month') {
                     $jmonth = $request->get('month_r');
                     $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
                     $jday = Jalalian::fromCarbon(Carbon::now())->getDay();
@@ -1093,9 +1350,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
 
                 }
@@ -1133,9 +1394,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
                 }
             }
@@ -1143,6 +1408,56 @@ class ReportController extends Controller
         }
         else {
             if ($request->menu=='all'){
+                if($request->type == 'yesterday'){
+                    $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
+                    $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
+                    $jday = Jalalian::fromCarbon(Carbon::yesterday())->getDay();
+
+                    $date = '';
+                    if (intval($jmonth) < 10 && intval($jday) > 9) {
+                        $date = $jyear . '-0' . $jmonth . '-' . $jday;
+                    } elseif (intval($jday) < 10 && intval($jmonth) > 9) {
+                        $date = $jyear . '-' . $jmonth . '-0' . $jday;
+
+                    } elseif (intval($jmonth) < 10 && intval($jday) < 10) {
+                        $date = $jyear . '-0' . $jmonth . '-0' . $jday;
+                    } else {
+
+                        $date = $jyear . '-' . $jmonth . '-' . $jday;
+
+                    }
+                    $date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $date)->format('Y-m-d');
+
+                    $data = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
+                            'io.price','io.total_id','io.created_at')
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->orderByDesc('or_am')
+                        ->get();
+                    $sum = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('outside_order_total as io')
+                        ->whereDate('io.created_at','=',$date)
+                        ->sum('discount');
+
+                    return response([
+                        'data'=>$data,
+                        'data_out'=>0,
+                        'sum'=>$sum,
+                        'sum_out'=>0,
+                        'discount'=>$discount,
+                        'discount_out'=>0,
+                        'type'=>$request->reason
+
+                    ]);
+
+                }
+
                 if($request->type == 'daily'){
                     $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
                     $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
@@ -1182,9 +1497,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
 
                 }
@@ -1237,9 +1556,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
                 }
                 else {
@@ -1272,14 +1595,72 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
                 }
             }
             else{
-                if($request->type == 'daily'){
+                if($request->type == 'yesterday'){
+                    $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
+                    $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
+                    $jday = Jalalian::fromCarbon(Carbon::yesterday())->getDay();
+
+                    $date = '';
+                    if (intval($jmonth) < 10 && intval($jday) > 9) {
+                        $date = $jyear . '-0' . $jmonth . '-' . $jday;
+                    } elseif (intval($jday) < 10 && intval($jmonth) > 9) {
+                        $date = $jyear . '-' . $jmonth . '-0' . $jday;
+
+                    } elseif (intval($jmonth) < 10 && intval($jday) < 10) {
+                        $date = $jyear . '-0' . $jmonth . '-0' . $jday;
+                    } else {
+
+                        $date = $jyear . '-' . $jmonth . '-' . $jday;
+
+                    }
+                    $date = CalendarUtils::createDatetimeFromFormat('Y-m-d', $date)->format('Y-m-d');
+
+                    $data = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
+                            'io.price','io.total_id','io.created_at')
+                        ->groupBy('io.created_at','menu.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->orderByDesc('or_am')
+                        ->get();
+                    $sum = DB::table('outside_order as io')
+                        ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->sum(DB::raw('io.price*order_amount'));
+
+                    $discount= DB::table('outside_order_total as io')
+                        ->join('outside_order','outside_order.total_id','=','io.order_id')
+                        ->join('menu', 'menu.menu_id', '=', 'outside_order.menu_id')
+                        ->whereDate('io.created_at','=',$date)
+                        ->where('menu.category_id',$request->menu)
+                        ->sum('discount');
+
+                    return response([
+                        'data'=>$data,
+                        'data_out'=>0,
+                        'sum'=>$sum,
+                        'sum_out'=>0,
+                        'discount'=>$discount,
+                        'discount_out'=>0,
+                        'type'=>$request->reason
+
+                    ]);
+
+                }
+                elseif($request->type == 'daily'){
                     $jyear = Jalalian::fromCarbon(Carbon::now())->getYear();
                     $jmonth = Jalalian::fromCarbon(Carbon::now())->getMonth();
                     $jday = Jalalian::fromCarbon(Carbon::now())->getDay();
@@ -1323,9 +1704,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
 
                 }
@@ -1383,9 +1768,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
                 }
                 else {
@@ -1423,9 +1812,13 @@ class ReportController extends Controller
 
                     return response([
                         'data'=>$data,
+                        'data_out'=>0,
                         'sum'=>$sum,
+                        'sum_out'=>0,
                         'discount'=>$discount,
+                        'discount_out'=>0,
                         'type'=>$request->reason
+
                     ]);
                 }
             }

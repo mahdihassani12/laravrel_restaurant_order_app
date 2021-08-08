@@ -102,18 +102,6 @@ class UsersController extends Controller
         }
             else
         {
-
-            if(Auth::check()){
-                if(Auth::user()->isPending() || Auth::user()->isDisabled()) {
-                    Auth::logout();
-                    return redirect('/')->with(['message'=>' لطفا اول سرور را روشن نموده سپس ایمیل و پسورد درست خود را وارد نمائید! ']);
-
-
-                }
-                return redirect('/')->with(['message'=>' لطفا اول سرور را روشن نموده سپس ایمیل و پسورد درست خود را وارد نمائید! ']);
-
-
-            }
             return redirect('/')->with(['message'=>' لطفا اول سرور را روشن نموده سپس ایمیل و پسورد درست خود را وارد نمائید! ']);
         } 
 		

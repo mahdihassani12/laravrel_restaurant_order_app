@@ -10,6 +10,7 @@
                             aria-controls="collapseOne">
                         شماره سفارش : {{ $order->identity }} - مجموع فیس: {{$order->total_payment}} - باقی
                         : {{$order->total_payment - ($order->payment+$order->discount)}}
+                         - نام مشتری:{{$order->name}}
                     </button>
                     @if($order->total_payment==$order->payment || $order->payment > 0)
                         <a id="send_order"
@@ -20,16 +21,18 @@
                         </a>
                     @else
                         <a id="send_order"
-                           class="btn btn-xs"
-                           style="float: left" data-toggle="modal"
-                           data-target="#exampleModalLong{{ $order->order_id }}"><i class="fa fa-paypal"
-                                                                                    id="send_icon"></i>
+                           class="btn btn-xs btn-outline-primary"
+                           style="float: left;margin-right: 2%" data-toggle="modal"
+                           data-target="#exampleModalLong{{ $order->order_id }}">پرداخت با تخفیف
+                        </a>
+                        <a id="send_order_without_discount"
+                           class="btn btn-xs btn-outline-success"
+                           style="float: left" pay="{{$order->total_payment}}" order_id="{{$order->order_id}}">پرداخت
                         </a>
                         <a id="delete_order"
-
-                           style="float: left; margin-top: 7px; margin-left: 20px !important;"
-                           href="{{route('deleteOutsidePayment',$order->order_id)}}"><i class="fa fa-trash"
-                                                                                        id="delete_icon"></i>
+                           style="float: left; margin-top: 7px; margin-left: 20px !important;cursor:pointer;"
+                           order_id="{{$order->order_id}}"><i class="fa fa-trash"
+                            id="delete_icon" ></i>
                         </a>
                     @endif
                     {{--<input type="number" name="discount" id="discount" class="col-md-2 form-control" placeholder="تخفیف" style="display: inline">--}}
@@ -85,6 +88,7 @@
                             aria-controls="collapseOne">
                         شماره سفارش : {{ $order->identity }} - مجموع فیس: {{$order->total_payment}} - باقی
                         : {{$order->total_payment - ($order->payment+$order->discount)}}
+                         - نام مشتری:{{$order->name}}
                     </button>
                     @if($order->total_payment==$order->payment || $order->payment > 0)
                         <a id="send_order"
@@ -95,16 +99,19 @@
                         </a>
                     @else
                         <a id="send_order"
-                           class="btn btn-xs"
-                           style="float: left" data-toggle="modal"
-                           data-target="#exampleModalLong{{ $order->order_id }}"><i class="fa fa-paypal"
-                                                                                    id="send_icon"></i>
+                           class="btn btn-xs btn-outline-primary"
+                           style="float: left;margin-right: 2%" data-toggle="modal"
+                           data-target="#exampleModalLong{{ $order->order_id }}">پرداخت با تخفیف
                         </a>
-                        <a id="delete_order"
+                        <a id="send_order_without_discount"
+                           class="btn btn-xs btn-outline-success"
+                           style="float: left" pay="{{$order->total_payment}}" order_id="{{$order->order_id}}">پرداخت
+                        </a>
 
-                           style="float: left; margin-top: 7px; margin-left: 20px !important;"
-                           href="{{route('deleteOutsidePayment',$order->order_id)}}"><i class="fa fa-trash"
-                                                                                        id="delete_icon"></i>
+                        <a id="delete_order"
+                           style="float: left; margin-top: 7px; margin-left: 20px !important;cursor:pointer;"
+                           order_id="{{$order->order_id}}"><i class="fa fa-trash"
+                            id="delete_icon" ></i>
                         </a>
                     @endif
                     {{--<input type="number" name="discount" id="discount" class="col-md-2 form-control" placeholder="تخفیف" style="display: inline">--}}
@@ -152,7 +159,7 @@
 
     @endif
     <!-- Modal payment and discount -->
-    <div class="modal fade print" id="exampleModalLong{{ $order->order_id }}" tabindex="-1" role="dialog"
+    <div class="modal fade payment_modal" id="exampleModalLong{{ $order->order_id }}" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="margin-top: 70px">
         <div class="modal-dialog" role="document">
             <div class="modal-content" id="printThis">
@@ -161,7 +168,7 @@
                         آقا/خانم {{$order->name}}</h5>
 
                 </div>
-                <form id="order" method="post" action="{{ route('paymentOutsideCreate') }}">
+                <form class="form_payment" >
                     <table class="table table-bordered table-striped">
                         <thead>
                         <th>#</th>
@@ -208,10 +215,10 @@
                     </div>
                     <input type="hidden" id="print_out" name="print_out">
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary"  >پرداخت</button>
-                        <button type="submit"  class="btn btn-success" onclick="print()" id="pay_print" style="margin-right: 180px !important;">پرداخت و چاپ</button>
+                        <button type="submit" class="btn btn-primary pay_noPrint"  id="pay_noPrint">پرداخت</button>
+                        {{--<button type="submit"  class="btn btn-success" onclick="print()" id="pay_print" style="margin-right: 180px !important;">پرداخت و چاپ</button>--}}
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                style="margin-right: 20px !important;">بستن
+                                style="margin-right: 62% !important;">بستن
                         </button>
 
                     </div>
@@ -257,3 +264,11 @@
         </div>
     </div>
 @endforeach
+
+<script>
+    $(function() {
+        $('.pay_noPrint').click(function() {
+            $('.modal').modal('hide');
+        });
+    });
+</script>

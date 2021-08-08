@@ -38,15 +38,15 @@
                 <thead>
                 <tr>
                     <th> مقدار کل</th>
-                    <th> تخفیف</th>
-                    <th> مقدار قابل پرداخت</th>
+                    {{--<th> تخفیف</th>--}}
+                    <th colspan="2"> مقدار قابل پرداخت</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>{{$order->total}}</td>
-                    <td>{{$order->discount}}</td>
-                    <td>{{$order->total-$order->discount}}</td>
+                    {{--<td>{{$order->discount}}</td>--}}
+                    <td colspan="2">{{$order->total-$order->discount}}</td>
                 </tr>
                 </tbody>
             </table>

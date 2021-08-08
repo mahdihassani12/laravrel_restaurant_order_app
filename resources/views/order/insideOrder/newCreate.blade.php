@@ -102,8 +102,8 @@
 
                         <div class="form-group">
                             <label for="">انتخاب میز</label>
-                            <select class="form-control" name="table_order" id="table_order" class="table_order">
-                                <option value="" id="first_option">انتخاب کنید...</option>
+                            <select class="form-control" required name="table_order" id="table_order" class="table_order">
+                                <option value="" id="first_option"></option>
                                 @foreach($tables as $table)
                                     <option value="{{ $table->location_id }}"> {{ $table->name}} </option>
                                 @endforeach

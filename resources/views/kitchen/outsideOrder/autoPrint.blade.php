@@ -18,11 +18,11 @@
             </div>
             <table class="table table-bordered table-striped" style="width: 400px">
                 <thead>
-                <th>#</th>
-                <th>اسم سفارش</th>
-                <th>نوعیت</th>
-                <th>تعداد</th>
-                <th>قیمت</th>
+                <th style="font-weight: bolder">#</th>
+                <th style="font-weight: bolder">اسم سفارش</th>
+                <th style="font-weight: bolder">نوعیت</th>
+                <th style="font-weight: bolder">تعداد</th>
+                <th style="font-weight: bolder">قیمت</th>
                 </thead>
                 <tbody>
                 <?php
@@ -30,11 +30,11 @@
                 ?>
                 @foreach($insideOrders as $index => $inside)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $inside->menu->name }}</td>
-                        <td>{{ $inside->menu->category->name }}</td>
-                        <td>{{ $inside->order_amount }}</td>
-                        <td>{{ $inside->price }}</td>
+                        <td style="font-weight: bolder">{{ $index + 1 }}</td>
+                        <td style="font-weight: bolder">{{ $inside->menu->name }}</td>
+                        <td style="font-weight: bolder">{{ $inside->menu->category->name }}</td>
+                        <td style="font-weight: bolder">{{ $inside->order_amount }}</td>
+                        <td style="font-weight: bolder">{{ $inside->price }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -42,16 +42,16 @@
             <table class="table table-bordered" style="margin-top: -16px !important;width: 400px">
                 <thead>
                 <tr>
-                    <th> مقدار کل</th>
-                    <th> تخفیف</th>
-                    <th> مقدار قابل پرداخت</th>
+                    <th style="font-weight: bolder"> مقدار کل</th>
+                    {{--<th> تخفیف</th>--}}
+                    <th colspan="2" style="font-weight: bolder"> مقدار قابل پرداخت</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>{{$order->total_payment + $order->transport_price}}</td>
-                    <td>{{$order->discount}}</td>
-                    <td>{{($order->total_payment+$order->transport_price) - $order->discount}}</td>
+                    <td style="font-weight: bolder; font-size: 20px">{{$order->total_payment + $order->transport_price}}</td>
+                    {{--<td>{{$order->discount}}</td>--}}
+                    <td colspan="2" style="font-weight: bolder; font-size: 20px">{{($order->total_payment+$order->transport_price) - $order->discount}}</td>
                 </tr>
                 </tbody>
             </table>

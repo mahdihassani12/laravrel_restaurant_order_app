@@ -7,7 +7,6 @@
   <title>پنل مدیریت | شروع سریع</title>
   <link rel="stylesheet" href="{{ asset('/assets/css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/css/adminlte.min.css') }}">
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap-rtl.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/css/custom-style.css') }}">
   <link rel="stylesheet" href="{{ asset('/assets/custom/custom.css') }}">
