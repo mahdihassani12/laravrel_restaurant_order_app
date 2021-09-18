@@ -109,7 +109,7 @@
                                 <div class="form-group">
                                     <label for="">تلفون</label>
                                     <input type="number" name="phone_num" id="phone_num" class="form-control"
-                                           autocomplete="off" placeholder="شماره تماس" >
+                                           autocomplete="off" placeholder="شماره تماس" required>
                                 </div>
                             </div>
 
@@ -144,7 +144,7 @@
                             <div class="form-group">
                                 <label for="">آدرس</label>
                                 <input type="text" name="address" id="address" class="form-control" autocomplete="off"
-                                       placeholder="آدرس">
+                                       placeholder="آدرس" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -166,11 +166,21 @@
             </div>
         </div>
     </div> <!--/col-->
-
+    <div class="loader" style="display: none"></div>
 @endsection
 
 @section('style')
     <style>
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            opacity: 0.7;
+            background: url({{asset('/images/Spinner-3.gif')}}) 50% 50% no-repeat rgb(249, 249, 249);
+        }
         #nav-tab > .nav-link.active{
             color:#f8644d !important;
         }
@@ -291,7 +301,7 @@
         $(document).ready(function () {
 
             $('a.nav-item').click(function () {
-
+                $(".loader").css({"display":"block"});
                 var id=$(this).attr('category_id')
                 $.ajax({
                     type: "GET",
@@ -302,7 +312,7 @@
                     success: function (msg) {
 
                         $("#tbody").html(msg);
-
+                        $(".loader").css({"display":"none"});
                     }
                 });
             })

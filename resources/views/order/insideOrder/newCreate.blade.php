@@ -131,11 +131,21 @@
         </div>
     </div> <!--/col-->
 
-
+    <div class="loader" style="display: none"></div>
 @endsection
 
 @section('style')
     <style>
+        .loader {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            opacity: 0.7;
+            background: url({{asset('/images/Spinner-3.gif')}}) 50% 50% no-repeat rgb(249, 249, 249);
+        }
         #nav-tab > .nav-link.active{
             color:#f8644d !important;
         }
@@ -253,10 +263,11 @@
 
 @section('script')
     <script type="text/javascript">
+
         $(document).ready(function () {
 
             $('a.nav-item').click(function () {
-
+                $(".loader").css({"display":"block"});
                 var id=$(this).attr('category_id')
                 $.ajax({
                     type: "GET",
@@ -267,7 +278,7 @@
                     success: function (msg) {
                         $("#tbody").empty();
                         $("#tbody").html(msg);
-
+                        $(".loader").css({"display":"none"});
                     }
                 });
             })
