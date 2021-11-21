@@ -63,8 +63,8 @@
       <file leaf-file-name="ReportController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="1268" column="99" selection-start-line="1268" selection-start-column="99" selection-end-line="1268" selection-end-column="99" />
+            <state relative-caret-position="494">
+              <caret line="1511" column="39" lean-forward="true" selection-start-line="1511" selection-start-column="39" selection-end-line="1511" selection-end-column="39" />
               <folding>
                 <element signature="e#235#404#0#PHP" />
                 <element signature="e#411#9048#0#PHP" />
@@ -80,6 +80,10 @@
                 <element signature="e#37537#51357#0#PHP" />
                 <element signature="e#41946#47104#0#PHP" />
                 <element signature="e#47125#51357#0#PHP" />
+                <element signature="e#51451#73824#0#PHP" />
+                <element signature="e#61993#73806#0#PHP" />
+                <element signature="e#64925#67830#0#PHP" />
+                <element signature="e#67851#71276#0#PHP" />
                 <element signature="e#73852#95470#0#PHP" />
                 <element signature="e#18202#95518#0#PHP" />
                 <element signature="e#51450#73887#0#PHP" />
@@ -328,7 +332,7 @@
       <path value="$PROJECT_DIR$/vendor/namshi/jose" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="85" />
     <option name="y" value="25" />
     <option name="width" value="1750" />
@@ -530,12 +534,12 @@
       <workItem from="1630130176620" duration="437000" />
       <workItem from="1630131405903" duration="287000" />
       <workItem from="1637421788872" duration="7642000" />
-      <workItem from="1637467502453" duration="6335000" />
+      <workItem from="1637467502453" duration="6858000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="417434000" />
+    <option name="totallyTimeSpent" value="417957000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -901,8 +905,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="1268" column="99" selection-start-line="1268" selection-start-column="99" selection-end-line="1268" selection-end-column="99" />
+        <state relative-caret-position="494">
+          <caret line="1511" column="39" lean-forward="true" selection-start-line="1511" selection-start-column="39" selection-end-line="1511" selection-end-column="39" />
           <folding>
             <element signature="e#235#404#0#PHP" />
             <element signature="e#411#9048#0#PHP" />
@@ -918,6 +922,10 @@
             <element signature="e#37537#51357#0#PHP" />
             <element signature="e#41946#47104#0#PHP" />
             <element signature="e#47125#51357#0#PHP" />
+            <element signature="e#51451#73824#0#PHP" />
+            <element signature="e#61993#73806#0#PHP" />
+            <element signature="e#64925#67830#0#PHP" />
+            <element signature="e#67851#71276#0#PHP" />
             <element signature="e#73852#95470#0#PHP" />
             <element signature="e#18202#95518#0#PHP" />
             <element signature="e#51450#73887#0#PHP" />
