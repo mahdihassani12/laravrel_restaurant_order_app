@@ -18,7 +18,7 @@ class PaymentController extends Controller
 
     public function paymentInsideList()
     {
-        $orders = InsideOrderTotal::where('payment', '=', 0)->where('status', '2')->paginate(10);
+        $orders = InsideOrderTotal::where('payment', '=', 0)->where('status', '2')->orderByDesc('order_id')->paginate(10);
         return view('Payment.insidePayment.index', compact('orders'));
     }
 
@@ -80,7 +80,7 @@ class PaymentController extends Controller
 
     public function paymentOutsideList()
     {
-        $orders = OutsideOrderTotal::where('payment', '=', 0)->where('status', '2')->paginate(10);
+        $orders = OutsideOrderTotal::where('payment', '=', 0)->where('status', '2')->orderByDesc('order_id')->paginate(10);
         return view('Payment.outsidePayment.index', compact('orders'));
     }
 
@@ -329,13 +329,13 @@ class PaymentController extends Controller
 
     public function paymentInSearch()
     {
-        $orders = InsideOrderTotal::where('payment', '=', 0)->where('status', '2')->paginate(10);
+        $orders = InsideOrderTotal::where('payment', '=', 0)->where('status', '2')->orderByDesc('order_id')->paginate(10);
         return view('payment.insidePayment.search', compact('orders'));
     }
 
     public function paymentOutSearch()
     {
-        $orders = OutsideOrderTotal::where('payment', '=', 0)->where('status', '2')->paginate(10);
+        $orders = OutsideOrderTotal::where('payment', '=', 0)->where('status', '2')->orderByDesc('order_id')->paginate(10);
         return view('payment.outsidePayment.search', compact('orders'));
     }
 
