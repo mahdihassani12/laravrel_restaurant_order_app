@@ -1552,19 +1552,24 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
+                            ->where('oot.identity','=',$search)
                             ->groupBy('io.created_at','menu.menu_id')
                             ->whereDate('io.created_at','=',$date)
                             ->orderByDesc('or_am')
                             ->get();
                         $sum = DB::table('outside_order as io')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','=',$date)
                             ->sum(DB::raw('io.price*order_amount'));
 
                         $discount= DB::table('outside_order_total as io')
                             ->whereDate('io.created_at','=',$date)
+                            ->where('io.identity','=',$search)
                             ->sum('discount');
 
                         return response([
@@ -1602,18 +1607,23 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
+                            ->where('oot.identity','=',$search)
                             ->groupBy('io.created_at','menu.menu_id')
                             ->whereDate('io.created_at','=',$date)
                             ->orderByDesc('or_am')
                             ->get();
                         $sum = DB::table('outside_order as io')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                             ->whereDate('io.created_at','=',$date)
+                            ->where('oot.identity','=',$search)
                             ->sum(DB::raw('io.price*order_amount'));
 
                         $discount= DB::table('outside_order_total as io')
+                            ->where('io.identity','=',$search)
                             ->whereDate('io.created_at','=',$date)
                             ->sum('discount');
 
@@ -1658,20 +1668,25 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
                             ->groupBy('io.created_at','menu.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_month_date)
                             ->whereDate('io.created_at','<=',$jdate)
                             ->orderByDesc('or_am')
                             ->get();
                         $sum = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_month_date)
                             ->whereDate('io.created_at','<=',$jdate)
                             ->sum(DB::raw('io.price*order_amount'));
 
                         $discount= DB::table('outside_order_total as io')
+                            ->where('io.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_month_date)
                             ->whereDate('io.created_at','<=',$jdate)
                             ->sum('discount');
@@ -1697,20 +1712,25 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
                             ->groupBy('io.created_at','menu.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_date)
                             ->whereDate('io.created_at','<=',$end_date)
                             ->orderByDesc('or_am')
                             ->get();
                         $sum = DB::table('outside_order as io')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_date)
                             ->whereDate('io.created_at','<=',$end_date)
                             ->sum(DB::raw('io.price*order_amount'));
 
                         $discount= DB::table('outside_order_total as io')
+                            ->where('io.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_date)
                             ->whereDate('io.created_at','<=',$end_date)
                             ->sum('discount');
@@ -1750,16 +1770,20 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
                             ->groupBy('io.created_at','menu.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','=',$date)
                             ->where('menu.category_id',$request->menu)
                             ->orderByDesc('or_am')
                             ->get();
                         $sum = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->whereDate('io.created_at','=',$date)
+                            ->where('oot.identity','=',$search)
                             ->where('menu.category_id',$request->menu)
                             ->sum(DB::raw('io.price*order_amount'));
 
@@ -1767,6 +1791,7 @@ class ReportController extends Controller
                             ->join('outside_order','outside_order.total_id','=','io.order_id')
                             ->join('menu', 'menu.menu_id', '=', 'outside_order.menu_id')
                             ->whereDate('io.created_at','=',$date)
+                            ->where('io.identity','=',$search)
                             ->where('menu.category_id',$request->menu)
                             ->sum('discount');
 
@@ -1804,22 +1829,27 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
                             ->groupBy('io.created_at','menu.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','=',$date)
                             ->where('menu.category_id',$request->menu)
                             ->orderByDesc('or_am')
                             ->get();
                         $sum = DB::table('outside_order as io')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
                             ->whereDate('io.created_at','=',$date)
+                            ->where('oot.identity','=',$search)
                             ->where('menu.category_id',$request->menu)
                             ->sum(DB::raw('io.price*order_amount'));
 
                         $discount= DB::table('outside_order_total as io')
                             ->join('outside_order','outside_order.total_id','=','io.order_id')
                             ->join('menu', 'menu.menu_id', '=', 'outside_order.menu_id')
+                            ->where('io.identity','=',$search)
                             ->whereDate('io.created_at','=',$date)
                             ->where('menu.category_id',$request->menu)
                             ->sum('discount');
@@ -1865,16 +1895,20 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
                             ->groupBy('io.created_at','menu.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_month_date)
                             ->whereDate('io.created_at','<=',$jdate)
                             ->where('menu.category_id',$request->menu)
                             ->orderByDesc('or_am')
                             ->get();
                         $sum = DB::table('outside_order as io')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_month_date)
                             ->whereDate('io.created_at','<=',$jdate)
                             ->where('menu.category_id',$request->menu)
@@ -1884,6 +1918,7 @@ class ReportController extends Controller
                             ->join('outside_order','outside_order.total_id','=','io.order_id')
                             ->join('menu', 'menu.menu_id', '=', 'outside_order.menu_id')
                             ->where('menu.category_id',$request->menu)
+                            ->where('io.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_month_date)
                             ->whereDate('io.created_at','<=',$jdate)
                             ->sum('discount');
@@ -1909,9 +1944,11 @@ class ReportController extends Controller
 
                         $data = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->select( 'menu.name as menu_name',  DB::raw("SUM(order_amount) as or_am"),
                                 'io.price','io.total_id','io.created_at')
                             ->groupBy('io.created_at','menu.menu_id')
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_date)
                             ->whereDate('io.created_at','<=',$end_date)
                             ->where('menu.category_id',$request->menu)
@@ -1919,7 +1956,9 @@ class ReportController extends Controller
                             ->get();
                         $sum = DB::table('outside_order as io')
                             ->join('menu', 'menu.menu_id', '=', 'io.menu_id')
+                            ->join('outside_order_total as oot', 'oot.order_id', '=', 'io.total_id')
                             ->where('menu.category_id',$request->menu)
+                            ->where('oot.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_date)
                             ->whereDate('io.created_at','<=',$end_date)
                             ->sum(DB::raw('io.price*order_amount'));
@@ -1928,6 +1967,7 @@ class ReportController extends Controller
                             ->join('outside_order','outside_order.total_id','=','io.order_id')
                             ->join('menu', 'menu.menu_id', '=', 'outside_order.menu_id')
                             ->where('menu.category_id',$request->menu)
+                            ->where('io.identity','=',$search)
                             ->whereDate('io.created_at','>=',$start_date)
                             ->whereDate('io.created_at','<=',$end_date)
                             ->sum('discount');
