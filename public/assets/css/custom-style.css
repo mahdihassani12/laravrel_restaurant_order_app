@@ -271,3 +271,23 @@ ul {
 .datepicker-plot-area {
     font-family: 'Vazir', sans-serif;
 }
+
+#report-search{
+    position: absolute;
+    float: left;
+    font-size: 25px;
+    margin-top: 0px;
+    left: 0px;
+    cursor: pointer;
+    transition: 0.5s;
+    background: #17a2b8;
+    padding: 6px 8px;
+    color: #fff;
+    z-index: 1000;
+}
+#report-search:hover{
+    font-size: 27px !important;
+}
+.report-search-input{
+   border-radius: 0.25rem;
+}

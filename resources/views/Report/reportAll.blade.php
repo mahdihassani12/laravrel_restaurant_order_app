@@ -72,17 +72,28 @@
                 </div>
 
 
-                <div class="col-md-2 expense_report">
+                <div class="col-md-2 expense_report" >
                     <button id="get-report" type="button" class="btn btn-info btn-rounded">
                         گرفتن گزارش&nbsp;<i class="report_icon"></i></button>
                 </div>
-                <div class="col-md-2" style="margin-top: 30px">
-                    <button class="btn btn-primary btn-rounded" id="print_butt"> پرنت <i class="fa fa-print"></i>
-                    </button>
+                <div class="col-md-3">
+                    <label for="search" class="control-label ">جستجو:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control report-search-input" placeholder="جستجو بر اساس نمبر سفارش" id="search"
+                               name="search" autocomplete="off" />
+                        <i class="fa fa-search" id="report-search" ></i>
+
+                    </div>
                 </div>
 
             </div>
         </form>
+
+        <div class="col-md-1" style="margin-top: 30px;" >
+            <button class="btn btn-primary btn-rounded" id="print_button_report"> پرنت <i class="fa fa-print"></i>
+            </button>
+        </div>
+
         <div class="row">
 
 
@@ -240,11 +251,11 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#print_butt').on('click', function (e) {
+            $('#print_button_report').click(function (e) {
                 e.preventDefault();
                 window.print()
             })
-            $(document).off("click");
+
             $('#get-report').on('click', function (e) {
                 e.preventDefault();
 
@@ -430,7 +441,131 @@
             $('.select2_1').select2();
 
         });
+        $(document).ready(function(){
+            $("#report-search").click(function (e) {
+                e.preventDefault();
 
+                var data = $("#report").serialize();
+                var url = $("#report").attr('action');
+
+
+                $('#month_print').text($('#month_r option:selected').text())
+                $('#from_print').text($('#jalali-startdate').val())
+                $('#to_print').text($('#jalali-datepicker').val())
+
+                $('#expense_print').text($('#reason option:selected').text())
+                //
+                var type = $('#type').val();
+                if (type == 'bt_date') {
+                    $('#type_print').text("بین تاریخ")
+                    $('td#month').css('display', "none");
+                    $('td#from').css('display', "block");
+                    $('td#to').css('display', "revert");
+                }
+
+                if (type == 'month') {
+                    $('#type_print').text('ماهانه')
+                    $('td#to').css('display', "none");
+                    $('td#from').css('display', "none");
+                    $('td#month').css('display', "block");
+                }
+                if (type == 'daily') {
+                    $('#type_print').text('امروز')
+                    $('td#to').css('display', "none");
+                    $('td#from').css('display', "none");
+                    $('td#month').css('display', "none");
+                }
+
+                $("#report-search").addClass(' fa-spinner fa-spin');
+                $('.loading').show();
+
+                // var Post = $(this).attr('method');
+                $.ajax({
+                    type: 'get',
+                    url: url,
+                    data: data,
+                    dataType: 'json',
+                    success: function (response) {
+                        var table = "";
+
+                        if (response.data.length > 0 || response.data_out.length > 0) {
+                            var count = 1;
+                            if (response.type == 'all') {
+                                for (var i = 0; i < response.data.length; i++) {
+                                    table += '<tr>' +
+                                        '<td>' + (count) + '</td>' +
+                                        '<td>' + response.data[i].menu_name + '</td>' +
+                                        '<td>' + response.data[i].or_am + '</td>' +
+                                        '<td>' + response.data[i].price + '</td>' +
+                                        '<td>' + response.data[i].total_price + '</td>' +
+                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
+                                        '</tr>';
+                                    count++;
+                                }
+                                for (var i = 0; i < response.data_out.length; i++) {
+                                    table += '<tr>' +
+                                        '<td>' + (count) + '</td>' +
+                                        '<td>' + response.data_out[i].menu_name + '</td>' +
+                                        '<td>' + response.data_out[i].or_am + '</td>' +
+                                        '<td>' + response.data_out[i].price + '</td>' +
+                                        '<td>' + response.data_out[i].or_am * response.data_out[i].price + '</td>' +
+                                        '<td>' + moment(response.data_out[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
+                                        '</tr>';
+                                    count++;
+                                }
+                            }
+                            if (response.type == 1) {
+                                for (var i = 0; i < response.data.length; i++) {
+                                    table += '<tr>' +
+                                        '<td>' + (count) + '</td>' +
+                                        '<td>' + response.data[i].menu_name + '</td>' +
+                                        '<td>' + response.data[i].or_am + '</td>' +
+                                        '<td>' + response.data[i].price + '</td>' +
+                                        '<td>' + response.data[i].total_price + '</td>' +
+                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
+                                        '</tr>';
+                                    count++;
+                                }
+                            }
+                            if (response.type == 2) {
+                                for (var i = 0; i < response.data.length; i++) {
+                                    table += '<tr>' +
+                                        '<td>' + (count) + '</td>' +
+                                        '<td>' + response.data[i].menu_name + '</td>' +
+                                        '<td>' + response.data[i].or_am + '</td>' +
+                                        '<td>' + response.data[i].price + '</td>' +
+                                        '<td>' + response.data[i].or_am * response.data[i].price + '</td>' +
+                                        '<td>' + moment(response.data[i].created_at, 'YYYY/MM/DD').locale('fa').format('YYYY/MM/DD') + '</td>' +
+                                        '</tr>';
+                                    count++;
+                                }
+                            }
+
+                        } else {
+                            table += '<tr><td colspan="6" class="text-center">اطلاعاتی برای نمایش وجود ندارد</td></tr>'
+                        }
+                        $("#report-search").removeClass('fa-spinner fa-spin');
+                        $('.loading').hide();
+
+                        $('#content-display').html(table);
+                        $('#pagination').html(response['pagination']);
+
+                        $(".total_in").text(response.sum);
+                        $(".total_out").text(response.sum_out);
+                        $(".total").text(parseInt(response.sum_out) + parseInt(response.sum));
+                        $(".discount").text(parseInt(response.discount) + parseInt(response.discount_out));
+                        $(".discount_out").text(response.discount_out);
+                        $(".discount_in").text(response.discount);
+                        $(".final_income").text((parseInt(response.sum_out) + parseInt(response.sum)-(parseInt(response.discount) + parseInt(response.discount_out))));
+
+                        $(".dt-button").addClass("btn");
+
+
+                    }
+
+                });
+            })
+        })
         /**  report js**/
         $(function () {
             $('#year_r').hide();
@@ -469,7 +604,16 @@
                     $('table#print_table').addClass('bt_print_table')
                     $('table#example').addClass('bt_example')
 
-                } else {
+                }else if ($('#type').val() == 'yesterday') {
+                    $('#month_report').hide();
+                    $('#as_date').hide();
+                    $('#to_date').hide();
+                    $('h3#title').addClass('tb_title')
+                    $('table#print_table').addClass('bt_print_table')
+                    $('table#example').addClass('bt_example')
+
+                }
+                else {
                     $('#selection').hide();
                 }
             });
@@ -477,6 +621,12 @@
 
         });
 
-
+        function enterpressalert(e){
+            e.preventDefault()
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                $("#report-search").click();
+            }
+        }
     </script>
 @endsection

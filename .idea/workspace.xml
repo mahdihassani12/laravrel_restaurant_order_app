@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0807fe5-52d9-42e8-a16c-15fdbbe71152" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/insideOrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/insideOrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Payment/insidePayment/newCreate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Payment/insidePayment/newCreate.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/Payment/outsidePayment/outsideOrderCreate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Payment/outsidePayment/outsideOrderCreate.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/order/insideOrder/newCreate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/insideOrder/newCreate.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/custom-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/custom-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/Report/reportAll.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/Report/reportAll.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,29 +19,72 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="api.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/api.php">
+      <file leaf-file-name="reportAll.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/resources/views/Report/reportAll.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="480">
-              <caret line="17" column="21" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="21" />
+            <state relative-caret-position="2127">
+              <caret line="546" column="57" selection-start-line="546" selection-start-column="57" selection-end-line="546" selection-end-column="57" />
+              <folding>
+                <element signature="e#4696#4740#0#HTML" expanded="true" />
+                <element signature="e#0#20493#0#Blade" />
+                <element signature="e#9020#15927#0#HTML" />
+                <element signature="e#9218#15914#0#HTML" />
+                <element signature="e#15969#17153#0#HTML" />
+                <element signature="e#17205#20247#0#HTML" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php">
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+              <caret line="53" selection-start-line="53" selection-end-line="53" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php">
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://E:/xampp/htdocs/course_final/resources/views/employee/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1117">
-              <caret line="141" column="144" selection-start-line="141" selection-start-column="144" selection-end-line="141" selection-end-column="144" />
+            <state relative-caret-position="7110">
+              <caret line="237" column="14" selection-start-line="205" selection-start-column="12" selection-end-line="237" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom-style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/assets/css/custom-style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8550">
+              <caret line="285" column="17" selection-start-line="285" selection-start-column="17" selection-end-line="285" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReportController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2170">
+              <caret line="477" column="39" selection-start-line="477" selection-start-column="39" selection-end-line="477" selection-end-column="39" />
+              <folding>
+                <element signature="e#235#404#0#PHP" />
+                <element signature="e#411#9048#0#PHP" />
+                <element signature="e#9253#17812#0#PHP" />
+                <element signature="e#21799#25321#0#PHP" />
+                <element signature="e#25342#29630#0#PHP" />
+                <element signature="e#29651#33057#0#PHP" />
+                <element signature="e#33118#37516#0#PHP" />
+                <element signature="e#37537#51357#0#PHP" />
+                <element signature="e#41946#47104#0#PHP" />
+                <element signature="e#47125#51357#0#PHP" />
+                <element signature="e#51402#73839#0#PHP" />
+                <element signature="e#73852#95470#0#PHP" />
+                <element signature="e#18202#95518#0#PHP" />
+                <element signature="e#51450#73887#0#PHP" />
+                <element signature="e#73900#95518#0#PHP" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,15 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>badge</find>
-      <find>قیمت کل</find>
-      <find>table_order</find>
-      <find>name</find>
-      <find>collapse</find>
-      <find>form_order</find>
-      <find>getOutsideOrders</find>
-      <find>kitchenSearch</find>
-      <find>getNotification</find>
       <find>sendOutOrdersForPrint</find>
       <find>getMenu</find>
       <find>total</find>
@@ -92,6 +121,15 @@
       <find>send_order_without_discount</find>
       <find>deleteOutsidePayment</find>
       <find>delete_order</find>
+      <find>print_butt</find>
+      <find>pre</find>
+      <find>prin</find>
+      <find>window</find>
+      <find>repo</find>
+      <find>reportA</find>
+      <find>search</find>
+      <find>print_button_report</find>
+      <find>eport-search</find>
     </findStrings>
     <replaceStrings>
       <replace>Kitchen</replace>
@@ -107,7 +145,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/resources/views/order/insideOrder/edit.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/menusController.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/menus/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dashboard/menus/table.blade.php" />
@@ -131,8 +168,6 @@
         <option value="$PROJECT_DIR$/resources/views/Report/outsideReport.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
         <option value="$PROJECT_DIR$/config/app.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" />
-        <option value="$PROJECT_DIR$/resources/views/Report/reportAll.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/Payment/layouts/app.blade.php" />
         <option value="$PROJECT_DIR$/config/database.php" />
         <option value="$PROJECT_DIR$/resources/views/kitchen/insideOrder/print.blade.php" />
@@ -143,7 +178,6 @@
         <option value="$PROJECT_DIR$/resources/views/Payment/outsidePayment/search.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/Payment/outsidePayment/index.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/PaymentController.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
         <option value="$PROJECT_DIR$/resources/views/Payment/insidePayment/index.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/Payment/insidePayment/search.blade.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/Api/OutsideController.php" />
@@ -158,6 +192,10 @@
         <option value="$PROJECT_DIR$/resources/views/Payment/insidePayment/newCreate.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/Payment/outsidePayment/outsideOrderCreate.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/css/custom-style.css" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/resources/views/Report/reportAll.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/ReportController.php" />
       </list>
     </option>
   </component>
@@ -304,7 +342,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -333,19 +370,29 @@
             <path>
               <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
               <item name="restaurant" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
-              <item name="Http" type="462c0819:PsiDirectoryNode" />
-              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
-              <item name="Api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
-              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
               <item name="database" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
               <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
+              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -359,15 +406,7 @@
               <item name="restaurant" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
-              <item name="restaurant" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="order" type="462c0819:PsiDirectoryNode" />
-              <item name="outsideOrder" type="462c0819:PsiDirectoryNode" />
+              <item name="Report" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="restaurant" type="b2602c69:ProjectViewProjectNode" />
@@ -378,6 +417,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -489,14 +529,17 @@
       <workItem from="1630123047726" duration="4030000" />
       <workItem from="1630130176620" duration="437000" />
       <workItem from="1630131405903" duration="287000" />
+      <workItem from="1637421788872" duration="7642000" />
+      <workItem from="1637467502453" duration="3826000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="403457000" />
+    <option name="totallyTimeSpent" value="414925000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -532,27 +575,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://E:/xampp/htdocs/course_final/app/Http/Controllers/ExpensesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="253" column="21" lean-forward="true" selection-start-line="237" selection-start-column="19" selection-end-line="253" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/Report/report.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="177" column="13" selection-start-line="174" selection-start-column="12" selection-end-line="177" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/Report/outsideReport.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="177" column="13" selection-start-line="177" selection-start-column="13" selection-end-line="177" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/standard/standard_1.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-5260">
@@ -587,13 +609,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="60" column="13" selection-start-line="55" selection-start-column="11" selection-end-line="60" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/Report/reportAll.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="292" lean-forward="true" selection-start-line="292" selection-end-line="292" />
         </state>
       </provider>
     </entry>
@@ -644,13 +659,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="415" column="47" selection-start-line="415" selection-start-column="38" selection-end-line="415" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KitchenController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="107">
@@ -665,13 +673,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3700">
           <caret line="194" column="39" selection-start-line="190" selection-start-column="12" selection-end-line="194" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/insideOrderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="207" column="32" selection-start-line="207" selection-start-column="32" selection-end-line="207" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -772,13 +773,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="66" column="24" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/xampp/htdocs/course_final/app/Http/Controllers/Api/AttendanceManagementController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -841,6 +835,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="577">
+          <caret line="141" column="144" selection-start-line="141" selection-start-column="144" selection-end-line="141" selection-end-column="144" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -848,10 +849,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/order/outsideOrder/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1117">
-          <caret line="141" column="144" selection-start-line="141" selection-start-column="144" selection-end-line="141" selection-end-column="144" />
+        <state relative-caret-position="1523">
+          <caret line="592" lean-forward="true" selection-start-line="592" selection-end-line="592" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/custom-style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8550">
+          <caret line="285" column="17" selection-start-line="285" selection-start-column="17" selection-end-line="285" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/xampp/htdocs/course_final/resources/views/employee/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7110">
+          <caret line="237" column="14" selection-start-line="205" selection-start-column="12" selection-end-line="237" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/insideOrderController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1410">
+          <caret line="207" column="32" selection-start-line="207" selection-start-column="32" selection-end-line="207" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/Report/reportAll.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2127">
+          <caret line="546" column="57" selection-start-line="546" selection-start-column="57" selection-end-line="546" selection-end-column="57" />
+          <folding>
+            <element signature="e#4696#4740#0#HTML" expanded="true" />
+            <element signature="e#0#20493#0#Blade" />
+            <element signature="e#9020#15927#0#HTML" />
+            <element signature="e#9218#15914#0#HTML" />
+            <element signature="e#15969#17153#0#HTML" />
+            <element signature="e#17205#20247#0#HTML" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2170">
+          <caret line="477" column="39" selection-start-line="477" selection-start-column="39" selection-end-line="477" selection-end-column="39" />
+          <folding>
+            <element signature="e#235#404#0#PHP" />
+            <element signature="e#411#9048#0#PHP" />
+            <element signature="e#9253#17812#0#PHP" />
+            <element signature="e#21799#25321#0#PHP" />
+            <element signature="e#25342#29630#0#PHP" />
+            <element signature="e#29651#33057#0#PHP" />
+            <element signature="e#33118#37516#0#PHP" />
+            <element signature="e#37537#51357#0#PHP" />
+            <element signature="e#41946#47104#0#PHP" />
+            <element signature="e#47125#51357#0#PHP" />
+            <element signature="e#51402#73839#0#PHP" />
+            <element signature="e#73852#95470#0#PHP" />
+            <element signature="e#18202#95518#0#PHP" />
+            <element signature="e#51450#73887#0#PHP" />
+            <element signature="e#73900#95518#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>
