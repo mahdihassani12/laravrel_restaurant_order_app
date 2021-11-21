@@ -63,8 +63,8 @@
       <file leaf-file-name="ReportController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="969" column="40" selection-start-line="969" selection-start-column="40" selection-end-line="969" selection-end-column="40" />
+            <state relative-caret-position="180">
+              <caret line="1058" column="39" selection-start-line="1058" selection-start-column="39" selection-end-line="1058" selection-end-column="39" />
               <folding>
                 <element signature="e#235#404#0#PHP" />
                 <element signature="e#411#9048#0#PHP" />
@@ -75,7 +75,7 @@
                 <element signature="e#29651#33057#0#PHP" />
                 <element signature="e#33118#37516#0#PHP" />
                 <element signature="e#37537#51357#0#PHP" />
-                <element signature="e#47125#51357#0#PHP" />
+                <element signature="e#41946#47104#0#PHP" />
                 <element signature="e#51402#73839#0#PHP" />
                 <element signature="e#73852#95470#0#PHP" />
                 <element signature="e#18202#95518#0#PHP" />
@@ -527,16 +527,15 @@
       <workItem from="1630130176620" duration="437000" />
       <workItem from="1630131405903" duration="287000" />
       <workItem from="1637421788872" duration="7642000" />
-      <workItem from="1637467502453" duration="5057000" />
+      <workItem from="1637467502453" duration="5930000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="416156000" />
+    <option name="totallyTimeSpent" value="417029000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -544,7 +543,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.3186969" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.3186969" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.2637584" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
@@ -898,8 +897,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="969" column="40" selection-start-line="969" selection-start-column="40" selection-end-line="969" selection-end-column="40" />
+        <state relative-caret-position="180">
+          <caret line="1058" column="39" selection-start-line="1058" selection-start-column="39" selection-end-line="1058" selection-end-column="39" />
           <folding>
             <element signature="e#235#404#0#PHP" />
             <element signature="e#411#9048#0#PHP" />
@@ -910,7 +909,7 @@
             <element signature="e#29651#33057#0#PHP" />
             <element signature="e#33118#37516#0#PHP" />
             <element signature="e#37537#51357#0#PHP" />
-            <element signature="e#47125#51357#0#PHP" />
+            <element signature="e#41946#47104#0#PHP" />
             <element signature="e#51402#73839#0#PHP" />
             <element signature="e#73852#95470#0#PHP" />
             <element signature="e#18202#95518#0#PHP" />
